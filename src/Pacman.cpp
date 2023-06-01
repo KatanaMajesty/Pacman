@@ -1,19 +1,17 @@
-#include <SFML/Window.hpp>
+#include "Window.h"
+#include "Renderer.h"
 
 int main()
 {
-	sf::Window window(sf::VideoMode(800, 600), "Pacman");
+	Window window(800, 600, "Hello, Window");
+	window.Open();
 
-    // run the program as long as the window is open
-    while (window.isOpen())
-    {
-        // check all the window's events that were triggered since the last iteration of the loop
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-    }
+	Renderer renderer;
+	renderer.Init(&window);
+
+	while (!window.ShouldClose())
+	{
+		window.PollEvents();
+		// Draw stuff that we need with renderer
+	}
 }
