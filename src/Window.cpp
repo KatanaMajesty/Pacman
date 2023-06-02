@@ -9,6 +9,10 @@ Window::Window(uint32_t width, uint32_t height, const std::string& title)
 {
 }
 
+Window::~Window()
+{
+}
+
 bool Window::Open() noexcept
 {
 	// If window was never created before - we allocate it
