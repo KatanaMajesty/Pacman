@@ -1,6 +1,8 @@
-#include "Window.h"
-#include "Renderer.h"
-#include "Clock.h"
+#include "Core/Window.h"
+#include "Core/Renderer.h"
+#include "Utility/Logger.h"
+#include "Utility/Clock.h"
+#include "Utility/FileSystem.h"
 
 int main()
 {
@@ -9,6 +11,9 @@ int main()
 
 	Renderer renderer;
 	renderer.Init(&window);
+
+	auto& filesystem = FileSystem::Get();
+	LOG("{}", filesystem.GetAssetsPath().string());
 
 	Clock clock;
 	clock.start();
