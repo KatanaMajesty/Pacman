@@ -135,13 +135,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Controller.cpp" />
+    <ClCompile Include="src\Core\Renderer.cpp" />
+    <ClCompile Include="src\Core\Texture.cpp" />
+    <ClCompile Include="src\Core\Window.cpp" />
+    <ClCompile Include="src\Game\Controller.cpp" />
+    <ClCompile Include="src\Game\Player.cpp" />
     <ClCompile Include="src\Pacman.cpp" />
-    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Utility\Clock.cpp" />
+    <ClCompile Include="src\Utility\FileSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Controller.h" />
-    <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\Core\Renderer.h" />
+    <ClInclude Include="src\Core\Texture.h" />
+    <ClInclude Include="src\Core\Window.h" />
+    <ClInclude Include="src\Game\Controller.h" />
+    <ClInclude Include="src\Game\Player.h" />
+    <ClInclude Include="src\Utility\Clock.h" />
+    <ClInclude Include="src\Utility\FileSystem.h" />
+    <ClInclude Include="src\Utility\Logger.h" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\Export.hpp" />

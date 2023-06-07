@@ -22,19 +22,31 @@
     <Filter Include="Vendor\SFML\Window">
       <UniqueIdentifier>{74480722-7840-4cdd-92dd-4703910a2c9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Core">
+      <UniqueIdentifier>{be57fdd7-5ec2-42f6-8334-a5b03d4baf5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Utility">
+      <UniqueIdentifier>{20e981dc-6c65-4370-b666-b652339e27cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pacman.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Clock.cpp">
-      <Filter>Src</Filter>
+    <ClCompile Include="src\Core\Renderer.cpp">
+      <Filter>Src\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer.cpp">
-      <Filter>Src</Filter>
+    <ClCompile Include="src\Core\Window.cpp">
+      <Filter>Src\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Window.cpp">
-      <Filter>Src</Filter>
+    <ClCompile Include="src\Utility\Clock.cpp">
+      <Filter>Src\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\FileSystem.cpp">
+      <Filter>Src\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Texture.cpp">
+      <Filter>Src\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -296,17 +308,23 @@
     <ClInclude Include="vendor\SFML\include\SFML\Window.hpp">
       <Filter>Vendor\SFML</Filter>
     </ClInclude>
-    <ClInclude Include="src\Window.h">
-      <Filter>Src</Filter>
+    <ClInclude Include="src\Core\Renderer.h">
+      <Filter>Src\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Clock.h">
-      <Filter>Src</Filter>
+    <ClInclude Include="src\Core\Window.h">
+      <Filter>Src\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Logger.h">
-      <Filter>Src</Filter>
+    <ClInclude Include="src\Core\Texture.h">
+      <Filter>Src\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer.h">
-      <Filter>Src</Filter>
+    <ClInclude Include="src\Utility\Clock.h">
+      <Filter>Src\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Logger.h">
+      <Filter>Src\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\FileSystem.h">
+      <Filter>Src\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

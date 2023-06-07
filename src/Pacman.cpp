@@ -1,40 +1,50 @@
-﻿#include <SFML/Graphics.hpp>
-#include <cmath> // For the rotation calculation
-#include "Player.h"
-#include "Controller.h"
+#include "Core/Window.h"
+#include "Core/Renderer.h"
+#include "Utility/Logger.h"
+#include "Utility/Clock.h"
+#include "Utility/FileSystem.h"
 
 int main()
 {
-    int renderWidth = 1280, renderHeight = 720;
+	Window window(800, 600, "Hello, Window");
+	window.Open();
 
-    sf::RenderWindow window(sf::VideoMode(renderWidth, renderHeight), "SFML Textured Player");
+	Renderer renderer;
+	renderer.Init(&window);
 
-    Player player;
-    player.setPosition(renderWidth / 2, renderHeight / 2);
+	auto& filesystem = FileSystem::Get();
+	LOG("{}", filesystem.GetAssetsPath().string());
 
-    Controller controller(player, window);
+	Clock clock;
+	clock.start();
+	while (!window.ShouldClose())
+	{
+		window.PollEvents();
 
-    sf::Clock clock;
-    sf::Time elapsed;
+		renderer.BeginFrame(FrameDesc());
+		{
+			// Draw stuff that we need with renderer
+			uint32_t width = window.GetWidth();
+			uint32_t height = window.GetHeight();
+			Vec2 center(width / 2.0f, height / 2.0f);
 
-    while (window.isOpen())
-    {
-        controller.processEvents();
-        controller.update();
+			float t = std::fmod(clock.elapsed() / 10.0f, 60.0f);
+			float v1 = std::fmod(60.0f - t, 1.0f);
+			float v2 = std::fmod(60.0f - t, 0.66f);
+			float v3 = std::fmod(60.0f - t, 0.33f);
 
-        elapsed = clock.getElapsedTime();
-        if (elapsed.asSeconds() >= 0.2)
-        {
-            player.swapTextures();
-            clock.restart();
-        }
+			Vec3 colors[3];
+			colors[0] = Vec3(v1, v2, v3);
+			colors[1] = Vec3(v2, v1, v3);
+			colors[2] = Vec3(v3, v2, v1);
 
-        window.clear();
-
-        player.draw(window);
-
-        window.display();
-    }
-
-    return 0;
+			Vertex triangle[3];
+			triangle[0] = Vertex(center - Vec2(200.0f, -100.0f), ColorOf(colors[0], 1.0f));
+			triangle[1] = Vertex(center - Vec2(-200.0f, -100.0f), ColorOf(colors[1], 1.0f));
+			triangle[2] = Vertex(center - Vec2(0.0f, 100.0f), ColorOf(colors[2], 1.0f));
+			renderer.Draw(triangle, 3, PrimitiveType::Triangles);
+		}
+		renderer.EndFrame();
+	}
+	clock.stop();
 }
