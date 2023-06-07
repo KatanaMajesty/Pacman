@@ -19,12 +19,12 @@ enum TextureType // Changed to enum class for stronger typing
     SLIME_PURPLE_IDLE,
     SLIME_PURPLE_JUMPING,
     COIN,
-    WAND
+    WAND,
+    NUM_TEXTURES,
 };
 
-class Atlas
+class TextureAtlas
 {
 public:
     Texture* GetAtlasPosition(TextureType textureType);
-
 };

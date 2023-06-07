@@ -6,7 +6,6 @@ PlayerController::PlayerController(Player& player, sf::RenderWindow& window)
 {
 }
 
-
 void PlayerController::Update()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -27,22 +26,22 @@ void PlayerController::Update()
     }
 }
 
-void OnMoveUp()
+void PlayerController::OnMoveUp()
 {
 
 }
 
-void OnMoveDown()
+void PlayerController::OnMoveDown()
 {
 
 }
 
-void OnMoveLeft()
+void PlayerController::OnMoveLeft()
 {
 
 }
 
-void OnMoveRight()
+void PlayerController::OnMoveRight()
 {
 
 }
