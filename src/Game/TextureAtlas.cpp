@@ -3,12 +3,10 @@
 #include <vector>
 #include <array>
 #include "../Utility/FileSystem.h"
-
 #include "../Core/TextureLibrary.h"
 
-
 // Define a map to store the top and left positions of textures in the atlas
-std::array atlasPositions = {
+std::array g_atlasPositions = {
     std::pair<uint32_t, uint32_t>{0, 0},
     std::pair<uint32_t, uint32_t>{0, 32},
     std::pair<uint32_t, uint32_t>{0, 64},
@@ -27,19 +25,18 @@ std::array atlasPositions = {
     std::pair<uint32_t, uint32_t>{96, 96}
 };
 
-Texture* Atlas::GetAtlasPosition(TextureType textureType)
+Texture* TextureAtlas::GetAtlasPosition(TextureType textureType)
 {
     FileSystem& filesystem = FileSystem::Get();
     TextureLibrary& textureLibrary = TextureLibrary::Get();
     std::string filePath = (filesystem.GetAssetsPath() / "atlas.png").string();
     static constexpr uint32_t textureSize = 32;
 
-    if (textureType >= atlasPositions.size())
+    if (textureType >= g_atlasPositions.size())
     {
         return nullptr;
     }
 
-    auto [top, left] = atlasPositions[textureType];
-
+    auto [top, left] = g_atlasPositions[textureType];
     return textureLibrary.CreateTexture(filePath, top, left, textureSize, textureSize);;
 }

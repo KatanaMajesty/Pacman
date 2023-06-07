@@ -14,6 +14,7 @@ public:
 	void Swap(Texture* texture);
 	uint32_t GetWidth() const { m_texture.getSize().x; }
 	uint32_t GetHeight() const { m_texture.getSize().y; }
+	inline void* GetHandle() { return &m_texture; }
 
 private:
 	sf::Texture m_texture;

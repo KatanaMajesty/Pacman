@@ -47,6 +47,12 @@ void Renderer::Draw(const Vertex* vertices, uint32_t numVertices, PrimitiveType 
 	rw->draw(vertices, numVertices, GetSFMLPrimitiveType(primitive));
 }
 
+void Renderer::Draw(const Sprite* sprite)
+{
+	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
+	rw->draw(sprite->m_sprite);
+}
+
 Color ColorOf(const Vec3& rgb, float alpha)
 {
 	sf::Uint8 r = static_cast<sf::Uint8>(rgb.x * 255.0f);
