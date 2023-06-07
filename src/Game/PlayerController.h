@@ -3,13 +3,16 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "Player.h"
 
-class Controller
+class PlayerController
 {
 public:
-    Controller(Player& player, sf::RenderWindow& window);
+    PlayerController(Player& player, sf::RenderWindow& window);
 
-    void processEvents();
-    void update();
+    void Update();
+    void OnMoveUp();
+    void OnMoveDown();
+    void OnMoveLeft();
+    void OnMoveRight();
 
 private:
     Player& m_player;
