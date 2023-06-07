@@ -9,3 +9,11 @@
 #else // Not debug
 #define LOG(msg, ...)
 #endif
+
+#include <cassert>
+
+#ifndef NDEBUG // Debug
+#define ASSERT(...) (assert(__VA_ARGS__))
+#else // Not debug
+#define ASSERT(...)
+#endif

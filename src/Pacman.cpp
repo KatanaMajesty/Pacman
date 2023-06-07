@@ -1,5 +1,7 @@
+#include <memory>
 #include "Core/Window.h"
 #include "Core/Renderer.h"
+#include "Core/TextureLibrary.h"
 #include "Utility/Logger.h"
 #include "Utility/Clock.h"
 #include "Utility/FileSystem.h"
@@ -12,8 +14,12 @@ int main()
 	Renderer renderer;
 	renderer.Init(&window);
 
-	auto& filesystem = FileSystem::Get();
-	LOG("{}", filesystem.GetAssetsPath().string());
+	FileSystem& filesystem = FileSystem::Get();
+	Texture* texture = TextureLibrary::Get().CreateTexture((filesystem.GetAssetsPath() / "pacman1.png").string());
+	if (!texture)
+	{
+		LOG("Failed to create a texture!");
+	}
 
 	Clock clock;
 	clock.start();
@@ -42,7 +48,7 @@ int main()
 			triangle[0] = Vertex(center - Vec2(200.0f, -100.0f), ColorOf(colors[0], 1.0f));
 			triangle[1] = Vertex(center - Vec2(-200.0f, -100.0f), ColorOf(colors[1], 1.0f));
 			triangle[2] = Vertex(center - Vec2(0.0f, 100.0f), ColorOf(colors[2], 1.0f));
-			renderer.Draw(triangle, 3, PrimitiveType::Triangles);
+			renderer.Draw(triangle, 3, PrimitiveType::TRIANGLES);
 		}
 		renderer.EndFrame();
 	}

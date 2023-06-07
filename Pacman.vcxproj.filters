@@ -28,26 +28,9 @@
     <Filter Include="Src\Utility">
       <UniqueIdentifier>{20e981dc-6c65-4370-b666-b652339e27cc}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\Pacman.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Renderer.cpp">
-      <Filter>Src\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Window.cpp">
-      <Filter>Src\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Utility\Clock.cpp">
-      <Filter>Src\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Utility\FileSystem.cpp">
-      <Filter>Src\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Texture.cpp">
-      <Filter>Src\Core</Filter>
-    </ClCompile>
+    <Filter Include="Src\Game">
+      <UniqueIdentifier>{76236572-d87e-489b-ab5f-4a33d73ab496}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\SFML\include\SFML\Audio\AlResource.hpp">
@@ -179,54 +162,6 @@
     <ClInclude Include="vendor\SFML\include\SFML\Graphics\View.hpp">
       <Filter>Vendor\SFML\Gfx</Filter>
     </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\Clipboard.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\Context.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\ContextSettings.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\Cursor.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\Event.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\Export.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\GlResource.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\Joystick.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\Keyboard.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\Mouse.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\Sensor.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\Touch.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\VideoMode.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\Window.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\WindowHandle.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Window\WindowStyle.hpp">
-      <Filter>Vendor\SFML\Window</Filter>
-    </ClInclude>
     <ClInclude Include="vendor\SFML\include\SFML\System\Clock.hpp">
       <Filter>Vendor\SFML\System</Filter>
     </ClInclude>
@@ -284,6 +219,54 @@
     <ClInclude Include="vendor\SFML\include\SFML\System\Vector3.hpp">
       <Filter>Vendor\SFML\System</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\Clipboard.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\Context.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\ContextSettings.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\Cursor.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\Event.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\Export.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\GlResource.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\Joystick.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\Keyboard.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\Mouse.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\Sensor.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\Touch.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\VideoMode.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\Window.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\WindowHandle.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SFML\include\SFML\Window\WindowStyle.hpp">
+      <Filter>Vendor\SFML\Window</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\SFML\include\SFML\Audio.hpp">
       <Filter>Vendor\SFML</Filter>
     </ClInclude>
@@ -296,35 +279,41 @@
     <ClInclude Include="vendor\SFML\include\SFML\Graphics.hpp">
       <Filter>Vendor\SFML</Filter>
     </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\Main.hpp">
-      <Filter>Vendor\SFML</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\SFML\include\SFML\OpenGL.hpp">
-      <Filter>Vendor\SFML</Filter>
-    </ClInclude>
     <ClInclude Include="vendor\SFML\include\SFML\System.hpp">
       <Filter>Vendor\SFML</Filter>
     </ClInclude>
     <ClInclude Include="vendor\SFML\include\SFML\Window.hpp">
       <Filter>Vendor\SFML</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Renderer.h">
-      <Filter>Src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Window.h">
-      <Filter>Src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Texture.h">
-      <Filter>Src\Core</Filter>
-    </ClInclude>
     <ClInclude Include="src\Utility\Clock.h">
+      <Filter>Src\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\FileSystem.h">
       <Filter>Src\Utility</Filter>
     </ClInclude>
     <ClInclude Include="src\Utility\Logger.h">
       <Filter>Src\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="src\Utility\FileSystem.h">
+    <ClInclude Include="src\Utility\Math.h">
       <Filter>Src\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Renderer.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Texture.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\TextureLibrary.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Window.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Controller.h">
+      <Filter>Src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Player.h">
+      <Filter>Src\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -355,5 +344,34 @@
     <None Include="vendor\SFML\include\SFML\System\Vector3.inl">
       <Filter>Vendor\SFML\System</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Utility\Clock.cpp">
+      <Filter>Src\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\FileSystem.cpp">
+      <Filter>Src\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Renderer.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Texture.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\TextureLibrary.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Window.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Controller.cpp">
+      <Filter>Src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Player.cpp">
+      <Filter>Src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Pacman.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

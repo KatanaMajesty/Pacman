@@ -30,10 +30,21 @@ void Renderer::EndFrame()
 	rw->display();
 }
 
+static sf::PrimitiveType GetSFMLPrimitiveType(PrimitiveType type)
+{
+	switch (type)
+	{
+	case PrimitiveType::POINTS: return sf::PrimitiveType::Points;
+	case PrimitiveType::LINES: return sf::PrimitiveType::Lines;
+	case PrimitiveType::TRIANGLES: return sf::PrimitiveType::Triangles;
+	default: ASSERT(false && "Cannot determine primitive type"); return sf::PrimitiveType::Triangles;
+	}
+}
+
 void Renderer::Draw(const Vertex* vertices, uint32_t numVertices, PrimitiveType primitive)
 {
 	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
-	rw->draw(vertices, numVertices, primitive);
+	rw->draw(vertices, numVertices, GetSFMLPrimitiveType(primitive));
 }
 
 Color ColorOf(const Vec3& rgb, float alpha)
