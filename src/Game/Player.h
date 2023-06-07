@@ -1,18 +1,16 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "../Utility/Math.h"
 
 class Player
 {
 public:
     Player();
 
-    void setPosition(float x, float y);
-    sf::Vector2f getPosition() const;
-    void move(float offsetX, float offsetY);
-    void draw(sf::RenderWindow& window);
-    void swapTextures();
-    float getRadius() const;
-    void setRotation(float angle); // New function added
+    void SetPosition(float x, float y);
+    const Vec2& GetPosition() const;
+    void AddPosition(float offsetX, float offsetY);
+    void SetRotation(float angle);
 
     float movementSpeed = 0.2f;
 
