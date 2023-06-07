@@ -1,6 +1,6 @@
 #include "Window.h"
 
-#include "Logger.h"
+#include "../Utility/Logger.h"
 
 Window::Window(uint32_t width, uint32_t height, const std::string& title)
 	: m_width(width)
@@ -13,7 +13,7 @@ Window::~Window()
 {
 }
 
-bool Window::Open() noexcept
+bool Window::Open()
 {
 	// If window was never created before - we allocate it
 	if (!m_window)
@@ -28,7 +28,7 @@ bool Window::Open() noexcept
 	return true;
 }
 
-bool Window::Close() noexcept
+bool Window::Close()
 {
 	if (!m_window)
 	{
@@ -40,7 +40,7 @@ bool Window::Close() noexcept
 	return true;
 }
 
-void Window::PollEvents() noexcept
+void Window::PollEvents()
 {
 	if (!m_window)
 		return;
@@ -55,7 +55,7 @@ void Window::PollEvents() noexcept
 	}
 }
 
-bool Window::ShouldClose() const noexcept
+bool Window::ShouldClose() const
 {
 	if (!m_window)
 		return true;

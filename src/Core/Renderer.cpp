@@ -1,7 +1,7 @@
 #include "Renderer.h"
 
 #include <SFML/Graphics.hpp>
-#include "Logger.h"
+#include "../Utility/Logger.h"
 
 bool Renderer::Init(Window* window)
 {
