@@ -315,6 +315,12 @@
     <ClInclude Include="src\Game\PlayerController.h">
       <Filter>Src\Game</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\TextureAtlas.h">
+      <Filter>Src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Sprite.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\SFML\include\SFML\Audio\SoundFileFactory.inl">
@@ -372,6 +378,12 @@
     </ClCompile>
     <ClCompile Include="src\Game\PlayerController.cpp">
       <Filter>Src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\TextureAtlas.cpp">
+      <Filter>Src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Sprite.cpp">
+      <Filter>Src\Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

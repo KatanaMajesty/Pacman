@@ -19,10 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Game\Maze.h" />
     <ClInclude Include="src\Core\Renderer.h" />
+    <ClInclude Include="src\Core\Sprite.h" />
     <ClInclude Include="src\Core\Texture.h" />
     <ClInclude Include="src\Core\TextureLibrary.h" />
     <ClInclude Include="src\Core\Window.h" />
+    <ClInclude Include="src\Game\Level.h" />
+    <ClInclude Include="src\Game\TextureAtlas.h" />
     <ClInclude Include="src\Game\Player.h" />
     <ClInclude Include="src\Game\PlayerController.h" />
     <ClInclude Include="src\Utility\Clock.h" />
@@ -126,10 +130,14 @@
     <None Include="vendor\SFML\include\SFML\System\Vector3.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Game\Maze.cpp" />
     <ClCompile Include="src\Core\Renderer.cpp" />
+    <ClCompile Include="src\Core\Sprite.cpp" />
     <ClCompile Include="src\Core\Texture.cpp" />
     <ClCompile Include="src\Core\TextureLibrary.cpp" />
     <ClCompile Include="src\Core\Window.cpp" />
+    <ClCompile Include="src\Game\Level.cpp" />
+    <ClCompile Include="src\Game\TextureAtlas.cpp" />
     <ClCompile Include="src\Game\Player.cpp" />
     <ClCompile Include="src\Game\PlayerController.cpp" />
     <ClCompile Include="src\Pacman.cpp" />
