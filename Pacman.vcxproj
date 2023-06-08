@@ -151,6 +151,7 @@
     <ClCompile Include="src\Pacman.cpp" />
     <ClCompile Include="src\Utility\Clock.cpp" />
     <ClCompile Include="src\Utility\FileSystem.cpp" />
+    <ClCompile Include="src\Utility\Math.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Pacman.rc" />
