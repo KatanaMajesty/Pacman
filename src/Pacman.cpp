@@ -4,6 +4,7 @@
 #include "Core/Renderer.h"
 #include "Core/TextureLibrary.h"
 #include "Utility/Logger.h"
+#include "Audio/AudioManager.h"
 #include "Utility/Clock.h"
 #include "Utility/FileSystem.h"
 #include "Game/AnimationManager.h"
@@ -34,6 +35,10 @@ int main()
 
 	Clock clock;
 	clock.start();
+
+	AudioManager& audio = AudioManager::Get();
+	audio.PlaySound(AUDIO_FIGHT);
+	audio.PlaySound(AUDIO_AMBIENCE);
 
 	float lastFrame = 0.0f;
 	while (!window.ShouldClose())
