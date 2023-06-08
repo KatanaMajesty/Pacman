@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Audio\AudioManager.h" />
     <ClInclude Include="src\Core\Renderer.h" />
     <ClInclude Include="src\Core\Sprite.h" />
     <ClInclude Include="src\Core\SpriteAnimation.h" />
@@ -134,6 +135,7 @@
     <None Include="vendor\SFML\include\SFML\System\Vector3.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Audio\AudioManager.cpp" />
     <ClCompile Include="src\Core\Renderer.cpp" />
     <ClCompile Include="src\Core\Sprite.cpp" />
     <ClCompile Include="src\Core\SpriteAnimation.cpp" />
