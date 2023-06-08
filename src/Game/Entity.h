@@ -44,8 +44,7 @@ public:
 	T* RegisterEntity(Args&&... args) {
 		Entity* entity = new T(std::forward<Args>(args)...);
 		EntityType type = entity->GetType();
-		m_entities[type].push_back(entity);
-		return static_cast<T*>(entity);
+		return static_cast<T*>(m_entities[type].emplace_back(entity));
 	}
 
 	template<EntityType Type>
