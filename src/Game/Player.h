@@ -16,7 +16,7 @@ enum Direction
 class Player : public Entity
 {
 public:
-    Player();
+    Player(const Vec2& pos, const BoundingBox& boundingBox);
     virtual ~Player() = default;
 
     virtual void OnUpdate(float timestep) override;
@@ -25,10 +25,11 @@ public:
     void OnCoinPickup();
     void OnWeaponPickup();
     void OnEnemyInteract();
+    void SetDirection(Direction direction);
 
 private:
-    Vec2 m_position;
     bool m_hasWeapon = false;
     float m_timeSinceAnimationTick = 0.0f;
+    Sprite* m_activeSprite = nullptr;
     Sprite m_sprites[4]; // Sprite for each direction
 };

@@ -18,20 +18,18 @@ int main()
 	Renderer renderer;
 	renderer.Init(&window);
 
-	TextureAtlas atlas;
+	TextureAtlas& atlas = TextureAtlas::Get();
 
 	Level level("Assets/Maze.txt");
 	level.SetRenderer(&renderer);
 	level.SetMazeWallTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_TILE));
 	level.SetMazeFloorTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_WALL1));
 	
-	AnimationManager animationManager;
-
 	Sprite sprite;
 	sprite.SetScale(4.0f);
 	sprite.SetPosition(Vec2(400.0f, 300.0f));
 
-	SpriteAnimation* animation = animationManager.CreateAnimation("ANIM_YELLOW_SLIME");
+	SpriteAnimation* animation = AnimationManager::Get().CreateAnimation("ANIM_YELLOW_SLIME");
 	animation->AddTexture(atlas.GetTexture(TextureType::TEXTURE_SLIME_YELLOW_IDLE));
 	animation->AddTexture(atlas.GetTexture(TextureType::TEXTURE_SLIME_YELLOW_JUMPING));
 	animation->Init(&sprite, 0.5f);
@@ -47,7 +45,7 @@ int main()
 		float elapsed = clock.elapsed();
 		float timestep = elapsed - lastFrame;
 		lastFrame = elapsed;
-		animationManager.OnUpdate(timestep);
+		AnimationManager::Get().OnUpdate(timestep);
 
 		renderer.BeginFrame(FrameDesc());
 		

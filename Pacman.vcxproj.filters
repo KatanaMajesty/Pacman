@@ -415,5 +415,8 @@
     <ClCompile Include="src\Game\AnimationManager.cpp">
       <Filter>Src\Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Entity.cpp">
+      <Filter>Src\Game</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
