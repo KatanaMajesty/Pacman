@@ -2,19 +2,25 @@
 
 #include "../Utility/Logger.h"
 
-Level::Level(const char* mazeFilePath, const char cWall, const char cFloor)
-    : m_maze(mazeFilePath, cWall, cFloor)
-    , m_player(Vec2(400.0f, 300.0f), BoundingBox())
-    , m_playerController(&m_player)
+Level::Level(Renderer* renderer)
+    : m_renderer(renderer)
 {
+}
+
+bool Level::Init(const std::string& filepath)
+{
+    m_maze.reset(new Maze(filepath));
+    m_player.reset(new Player(Vec2(400.0f, 300.0f), BoundingBox()));
+    m_playerController.reset(new PlayerController(m_player.get()));
+    return true;
 }
 
 void Level::OnUpdate(float timestep)
 {
-    m_maze.Draw(m_renderer);
+    m_maze->Draw(m_renderer);
 
-    m_playerController.OnUpdate(timestep);
-    m_player.OnUpdate(timestep);
+    m_playerController->OnUpdate(timestep);
+    m_player->OnUpdate(timestep);
 
-    m_renderer->Draw(m_player.GetSprite());
+    m_renderer->Draw(m_player->GetSprite());
 }

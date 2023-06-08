@@ -1,6 +1,7 @@
 #pragma once
-#include <vector>
 
+#include <memory>
+#include <vector>
 #include "../Core/Renderer.h"
 #include "Maze.h"
 #include "Player.h"
@@ -9,14 +10,15 @@
 class Level
 {
 public:
-    Level(const char* mazeFilePath, const char cWall = '*', const char cFloor = '0');
+    Level(Renderer* renderer);
     
+    bool Init(const std::string& filepath);
     void OnUpdate(float timestep);
     inline void SetRenderer(Renderer* renderer) { m_renderer = renderer; }
 
 private:
     Renderer* m_renderer;
-    Maze m_maze;
-    Player m_player;
-    PlayerController m_playerController;
+    std::unique_ptr<Maze> m_maze;
+    std::unique_ptr<Player> m_player;
+    std::unique_ptr<PlayerController> m_playerController;
 };

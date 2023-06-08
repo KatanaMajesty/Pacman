@@ -6,10 +6,10 @@
 #include "TextureAtlas.h"
 #include "../Utility/Logger.h"
 
-Maze::Maze(const char* mazeFilePath, const char cWall, const char cFloor)
+Maze::Maze(const std::string& filepath, const char cWall, const char cFloor)
     :m_mazeWidth(0), m_mazeHeight(0)
 {
-    ParseMazeImage(mazeFilePath, cWall, cFloor);
+    ParseMazeImage(filepath, cWall, cFloor);
 }
 
 void Maze::Draw(Renderer* renderer)
@@ -39,7 +39,7 @@ void Maze::Draw(Renderer* renderer)
             float heightStep = renderer->GetWindowDimensions().y / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);
             float step = std::min(widthStep, heightStep);
 
-            currMazeObj.SetPosition(Vec2(static_cast<float>(j) * step, static_cast<float>(i) * step));
+            currMazeObj.SetPosition(Vec2(static_cast<float>(j) * 32.0f, static_cast<float>(i) * 32.0f));
             /*currMazeObj.SetScale(Vec2(widthStep / static_cast<float>(currMazeObj.GetTexture()->GetWidth()),
                 heightStep / static_cast<float>(currMazeObj.GetTexture()->GetHeight())));*/
 
@@ -48,9 +48,9 @@ void Maze::Draw(Renderer* renderer)
     }
 }
 
-void Maze::ParseMazeImage(const char* mazeFilePath, const char cWall, const char cFloor)
+void Maze::ParseMazeImage(const std::string& filepath, const char cWall, const char cFloor)
 {
-    std::ifstream mazeImageFile(mazeFilePath);
+    std::ifstream mazeImageFile(filepath);
 
     if (!mazeImageFile.is_open())
     {

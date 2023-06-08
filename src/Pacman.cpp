@@ -20,8 +20,8 @@ int main()
 
 	TextureAtlas& atlas = TextureAtlas::Get();
 
-	Level level("Assets/Maze.txt");
-	level.SetRenderer(&renderer);
+	Level level(&renderer);
+	level.Init((FileSystem::Get().GetAssetsPath() / "Maze.txt").string());
 	
 	Sprite sprite;
 	sprite.SetScale(4.0f);

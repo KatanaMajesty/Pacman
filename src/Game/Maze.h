@@ -18,7 +18,7 @@ enum class CellType
 class Maze
 {
 public:
-    explicit Maze(const char* mazeFilePath, const char cWall = '0', const char cFloor = '*');
+    explicit Maze(const std::string& filepath, const char cWall = '0', const char cFloor = '*');
 
     void Draw(Renderer* renderer);
 
@@ -27,7 +27,7 @@ public:
     inline const uint16_t& GetHeight() const { return m_mazeHeight; }
 
 private:
-    void ParseMazeImage(const char* mazeFilePath, const char cWall = '0', const char cFloor = '*');
+    void ParseMazeImage(const std::string& filepath, const char cWall = '0', const char cFloor = '*');
 
     std::vector<CellType> m_mazeGrid;
     uint16_t m_mazeWidth;
