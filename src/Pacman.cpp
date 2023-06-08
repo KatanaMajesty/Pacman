@@ -7,6 +7,7 @@
 #include "Utility/Clock.h"
 #include "Utility/FileSystem.h"
 #include "Game/TextureAtlas.h"
+#include "Game/Level.h"
 
 int main()
 {
@@ -17,31 +18,20 @@ int main()
 	renderer.Init(&window);
 
 	TextureAtlas atlas;
-	
-	uint32_t w = 64;
-	std::array<Sprite, TextureType::NUM_TEXTURES> sprites;
-	for (uint32_t i = 0; i < TextureType::NUM_TEXTURES; ++i)
-	{
-		Sprite& sprite = sprites[i];
-		sprite.SetTexture(atlas.GetAtlasPosition((TextureType)i));
-		uint32_t x = i % 4;
-		uint32_t y = i / 4;
-		sprite.SetPosition(Vec2(x * w, y * w));
-		sprite.SetScale(2.0f);
-	}
 
+	Level level("Assets/Maze.txt");
+	level.SetRenderer(&renderer);
+	level.SetMazeWallTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_TILE));
+	level.SetMazeFloorTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_WALL1));
+	
 	Clock clock;
 	clock.start();
 	while (!window.ShouldClose())
 	{
 		window.PollEvents();
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 		renderer.BeginFrame(FrameDesc());
-		{
-			for (Sprite& s : sprites)
-				renderer.Draw(&s);
-		}
+		level.Draw();
 		renderer.EndFrame();
 	}
 	clock.stop();

@@ -27,6 +27,8 @@
     <ClInclude Include="src\Core\Window.h" />
     <ClInclude Include="src\Game\Coin.h" />
     <ClInclude Include="src\Game\Entity.h" />
+    <ClInclude Include="src\Game\Level.h" />
+    <ClInclude Include="src\Game\Maze.h" />
     <ClInclude Include="src\Game\TextureAtlas.h" />
     <ClInclude Include="src\Game\Player.h" />
     <ClInclude Include="src\Game\PlayerController.h" />
@@ -137,6 +139,8 @@
     <ClCompile Include="src\Core\Texture.cpp" />
     <ClCompile Include="src\Core\TextureLibrary.cpp" />
     <ClCompile Include="src\Core\Window.cpp" />
+    <ClCompile Include="src\Game\Level.cpp" />
+    <ClCompile Include="src\Game\Maze.cpp" />
     <ClCompile Include="src\Game\TextureAtlas.cpp" />
     <ClCompile Include="src\Game\Player.cpp" />
     <ClCompile Include="src\Game\PlayerController.cpp" />
