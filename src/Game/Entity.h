@@ -24,7 +24,7 @@ public:
 	void SetPosition(const Vec2& pos) { m_pos = pos; }
 	const Vec2& GetPosition() const { return m_pos; }
 	const BoundingBox& GetAABB() const { return m_boundingBox; }
-	bool Collide(const Entity& otherEntity) {};
+	bool Collide(const Entity& otherEntity);
 
 protected:
 	BoundingBox m_boundingBox;

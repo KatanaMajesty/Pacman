@@ -339,6 +339,9 @@
     <ClInclude Include="src\Game\AnimationManager.h">
       <Filter>Src\Game</Filter>
     </ClInclude>
+    <ClInclude Include="src\Audio\AudioManager.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\SFML\include\SFML\Audio\SoundFileFactory.inl">
@@ -418,6 +421,11 @@
     <ClCompile Include="src\Game\Entity.cpp">
       <Filter>Src\Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utility\Math.cpp" />
+    <ClCompile Include="src\Utility\Math.cpp">
+      <Filter>Src\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Audio\AudioManager.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

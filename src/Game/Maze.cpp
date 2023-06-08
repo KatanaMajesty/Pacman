@@ -6,49 +6,34 @@
 #include "TextureAtlas.h"
 #include "../Utility/Logger.h"
 
-Maze::Maze(const std::string& filepath, const char cWall, const char cFloor)
-    :m_mazeWidth(0), m_mazeHeight(0)
+Maze::Maze(const std::string& filepath, Renderer* renderer)
+    :m_renderer(renderer), m_mazeWidth(0), m_mazeHeight(0)
 {
-    ParseMazeImage(filepath, cWall, cFloor);
+    ParseMazeImage(filepath);
 }
 
-void Maze::Draw(Renderer* renderer)
+void Maze::Draw()
 {
-    TextureAtlas& atlas = TextureAtlas::Get();
     for (uint16_t i = 0; i < m_mazeWidth; i++)
     {
         for (uint16_t j = 0; j < m_mazeHeight; j++)
         {
-            const CellType& cell = m_mazeGrid[static_cast<size_t>(i * m_mazeWidth + j)];
-            Sprite currMazeObj;
+            Cell& cell = m_mazeGrid[static_cast<size_t>(i * m_mazeWidth + j)];
 
-            switch (cell)
-            {
-            case CellType::WALL:
-                currMazeObj.SetTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_WALL1));
-                break;
-            case CellType::FLOOR:
-                currMazeObj.SetTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_TILE));
-                break;
-            default:
-                break;
-            }
-
-
-            float widthStep = renderer->GetWindowDimensions().x / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);
-            float heightStep = renderer->GetWindowDimensions().y / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);
+            float widthStep = m_renderer->GetWindowDimensions().x / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);
+            float heightStep = m_renderer->GetWindowDimensions().y / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);
             float step = std::min(widthStep, heightStep);
 
-            currMazeObj.SetPosition(Vec2(static_cast<float>(j) * 32.0f, static_cast<float>(i) * 32.0f));
+            cell.GetSpriteToModify()->SetPosition(Vec2(static_cast<float>(j) * 32.0f, static_cast<float>(i) * 32.0f));
             /*currMazeObj.SetScale(Vec2(widthStep / static_cast<float>(currMazeObj.GetTexture()->GetWidth()),
                 heightStep / static_cast<float>(currMazeObj.GetTexture()->GetHeight())));*/
 
-            renderer->Draw(&currMazeObj);
+            m_renderer->Draw(cell.GetSprite());
         }
     }
 }
 
-void Maze::ParseMazeImage(const std::string& filepath, const char cWall, const char cFloor)
+void Maze::ParseMazeImage(const std::string& filepath)
 {
     std::ifstream mazeImageFile(filepath);
 
@@ -69,15 +54,30 @@ void Maze::ParseMazeImage(const std::string& filepath, const char cWall, const c
     m_mazeWidth = static_cast<uint16_t>(line.size());
     m_mazeHeight = static_cast<uint16_t>(mazeString.size() / m_mazeWidth);
 
+    TextureAtlas& atlas = TextureAtlas::Get();
     for (size_t i = 0; i < mazeString.size(); ++i)
     {
-        if (mazeString[i] == cWall)
-            m_mazeGrid.emplace_back(CellType::WALL);
-        else if (mazeString[i] == cFloor)
-            m_mazeGrid.emplace_back(CellType::FLOOR);
-        else
-            m_mazeGrid.emplace_back(CellType::UNKNOWN);
+        if (mazeString[i] == '0')
+        {
+            m_mazeGrid.emplace_back(new Sprite(), CellType::WALL);
+            m_mazeGrid[i].GetSpriteToModify()->SetTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_WALL1));
+        }
+        else if (mazeString[i] == '*')
+        {
+            m_mazeGrid.emplace_back(new Sprite(), CellType::FLOOR);
+            m_mazeGrid[i].GetSpriteToModify()->SetTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_TILE));
+        }
     }
 
     mazeImageFile.close();
+}
+
+Cell::Cell()
+    : m_sprite(nullptr), m_type(CellType::UNKNOWN)
+{
+}
+
+Cell::Cell(Sprite* sprite, CellType type)
+    : m_sprite(sprite), m_type(type)
+{
 }
