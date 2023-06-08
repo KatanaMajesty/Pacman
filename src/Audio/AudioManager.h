@@ -15,4 +15,3 @@ public:
     void PlaySound(AudioType audioType);
     void LoadSound(AudioType audioType, const std::string& filename);
 };
-

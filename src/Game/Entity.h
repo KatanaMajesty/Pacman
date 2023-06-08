@@ -1,6 +1,9 @@
 #pragma once
 
+#include <concepts>
+#include <unordered_map>
 #include "../Utility/Math.h"
+#include "../Utility/Logger.h"
 
 enum EntityType
 {
@@ -24,9 +27,30 @@ public:
 	void SetPosition(const Vec2& pos) { m_pos = pos; }
 	const Vec2& GetPosition() const { return m_pos; }
 	const BoundingBox& GetAABB() const { return m_boundingBox; }
-	bool Collide(const Entity& otherEntity) {};
+	bool Collide(const Entity& otherEntity);
 
 protected:
 	BoundingBox m_boundingBox;
 	Vec2 m_pos;
+};
+
+class EntityFactory
+{
+public:
+	EntityFactory() = default;
+	~EntityFactory();
+
+	template<std::derived_from<Entity> T, typename... Args>
+	T* RegisterEntity(Args&&... args) {
+		Entity* entity = new T(std::forward<Args>(args)...);
+		EntityType type = entity->GetType();
+		m_entities[type].push_back(entity);
+		return static_cast<T*>(entity);
+	}
+
+	template<EntityType Type>
+	auto& GetEntities() { return m_entities[Type]; }
+
+private:
+	std::unordered_map<EntityType, std::vector<Entity*>> m_entities;
 };

@@ -31,6 +31,9 @@
     <Filter Include="Src\Game">
       <UniqueIdentifier>{76236572-d87e-489b-ab5f-4a33d73ab496}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Audio">
+      <UniqueIdentifier>{cfca5d49-43f7-45de-8cb7-2f13f6d73ca4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\SFML\include\SFML\Audio\AlResource.hpp">
@@ -339,6 +342,9 @@
     <ClInclude Include="src\Game\AnimationManager.h">
       <Filter>Src\Game</Filter>
     </ClInclude>
+    <ClInclude Include="src\Audio\AudioManager.h">
+      <Filter>Src\Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\SFML\include\SFML\Audio\SoundFileFactory.inl">
@@ -418,6 +424,11 @@
     <ClCompile Include="src\Game\Entity.cpp">
       <Filter>Src\Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utility\Math.cpp" />
+    <ClCompile Include="src\Utility\Math.cpp">
+      <Filter>Src\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Audio\AudioManager.cpp">
+      <Filter>Src\Audio</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
