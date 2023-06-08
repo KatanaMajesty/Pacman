@@ -1,8 +1,15 @@
+#include <memory>
+#include <array>
 #include "Core/Window.h"
 #include "Core/Renderer.h"
+#include "Core/TextureLibrary.h"
 #include "Utility/Logger.h"
+#include "Audio/AudioManager.h"
 #include "Utility/Clock.h"
 #include "Utility/FileSystem.h"
+#include "Game/AnimationManager.h"
+#include "Game/TextureAtlas.h"
+#include "Game/Level.h"
 
 int main()
 {
@@ -12,38 +19,43 @@ int main()
 	Renderer renderer;
 	renderer.Init(&window);
 
-	auto& filesystem = FileSystem::Get();
-	LOG("{}", filesystem.GetAssetsPath().string());
+	TextureAtlas& atlas = TextureAtlas::Get();
+
+	Level level(&renderer);
+	level.Init((FileSystem::Get().GetAssetsPath() / "Maze.txt").string());
+	
+	Sprite sprite;
+	sprite.SetScale(4.0f);
+	sprite.SetPosition(Vec2(400.0f, 300.0f));
+
+	SpriteAnimation* animation = AnimationManager::Get().CreateAnimation("ANIM_YELLOW_SLIME");
+	animation->AddTexture(atlas.GetTexture(TextureType::TEXTURE_SLIME_YELLOW_IDLE));
+	animation->AddTexture(atlas.GetTexture(TextureType::TEXTURE_SLIME_YELLOW_JUMPING));
+	animation->Init(&sprite, 0.5f);
 
 	Clock clock;
 	clock.start();
+
+	AudioManager& audio = AudioManager::Get();
+	audio.PlaySound(AUDIO_COIN_COLLECT);
+	audio.PlaySound(AUDIO_PLAYER_DEATH);
+
+	float lastFrame = 0.0f;
 	while (!window.ShouldClose())
 	{
 		window.PollEvents();
+		//window.SetView(800.0f, 800.0f);
+
+		float elapsed = clock.elapsed();
+		float timestep = elapsed - lastFrame;
+		lastFrame = elapsed;
+		AnimationManager::Get().OnUpdate(timestep);
 
 		renderer.BeginFrame(FrameDesc());
-		{
-			// Draw stuff that we need with renderer
-			uint32_t width = window.GetWidth();
-			uint32_t height = window.GetHeight();
-			Vec2 center(width / 2.0f, height / 2.0f);
+		
+		level.OnUpdate(timestep);
+		renderer.Draw(&sprite);
 
-			float t = std::fmod(clock.elapsed() / 10.0f, 60.0f);
-			float v1 = std::fmod(60.0f - t, 1.0f);
-			float v2 = std::fmod(60.0f - t, 0.66f);
-			float v3 = std::fmod(60.0f - t, 0.33f);
-
-			Vec3 colors[3];
-			colors[0] = Vec3(v1, v2, v3);
-			colors[1] = Vec3(v2, v1, v3);
-			colors[2] = Vec3(v3, v2, v1);
-
-			Vertex triangle[3];
-			triangle[0] = Vertex(center - Vec2(200.0f, -100.0f), ColorOf(colors[0], 1.0f));
-			triangle[1] = Vertex(center - Vec2(-200.0f, -100.0f), ColorOf(colors[1], 1.0f));
-			triangle[2] = Vertex(center - Vec2(0.0f, 100.0f), ColorOf(colors[2], 1.0f));
-			renderer.Draw(triangle, 3, PrimitiveType::Triangles);
-		}
 		renderer.EndFrame();
 	}
 	clock.stop();

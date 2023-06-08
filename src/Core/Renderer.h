@@ -1,13 +1,16 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include "Window.h"
+#include "Sprite.h"
+#include "../Utility/Math.h"
 
-using Vertex = sf::Vertex;
-using PrimitiveType = sf::PrimitiveType;
-using Vec2 = sf::Vector2f;
-using Vec3 = sf::Vector3f;
-using Color = sf::Color;
+// Primitive types, that are used in the project
+enum PrimitiveType
+{
+	POINTS,
+	LINES,
+	TRIANGLES
+};
 
 Color ColorOf(const Vec3& rgb, float alpha);
 
@@ -24,6 +27,9 @@ public:
 	void BeginFrame(const FrameDesc& framedesc);
 	void EndFrame();
 	void Draw(const Vertex* vertices, uint32_t numVertices, PrimitiveType primitive);
+	void Draw(const Sprite* sprite);
+
+	inline Vec2 GetWindowDimensions() const { return {static_cast<float>(m_window->GetWidth()), static_cast<float>(m_window->GetHeight())}; }
 
 private:
 	Window* m_window = nullptr;

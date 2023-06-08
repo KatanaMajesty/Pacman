@@ -1,52 +1,59 @@
 #include "Player.h"
 
+#include "../Utility/Logger.h"
+#include "TextureAtlas.h"
 
-Player::Player()
+Player::Player(const Vec2& pos, const BoundingBox& boundingBox)
+	: Entity(pos, boundingBox)
 {
-    m_circle.setRadius(20.f);
-    m_circle.setFillColor(sf::Color::Yellow);
-    m_circle.setOrigin(20.f, 20.f);
-    m_texture1.loadFromFile("./pacman1.png");
-    m_texture2.loadFromFile("./pacman2.png");
-    m_useTexture1 = true;
+	TextureAtlas& textureAtlas = TextureAtlas::Get();
+	m_sprites[DIRECTION_UP].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_BACK));
+	m_sprites[DIRECTION_LEFT].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_LEFT));
+	m_sprites[DIRECTION_DOWN].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_FRONT));
+	m_sprites[DIRECTION_RIGHT].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_RIGHT));
+	for (uint32_t i = 0; i < 4; ++i)
+		m_sprites[i].SetScale(2.0f);
+
+	this->SetDirection(DIRECTION_DOWN);
 }
 
-void Player::setPosition(float x, float y)
+void Player::OnUpdate(float timestep)
 {
-    m_circle.setPosition(x, y);
+	if (!m_activeSprite)
+		return;
+
+	m_activeSprite->SetPosition(m_pos);
+
+	// Do player logic
 }
 
-sf::Vector2f Player::getPosition() const
+void Player::OnEntityCollision(Entity* entity)
 {
-    return m_circle.getPosition();
+	EntityType otherType = entity->GetType();
+	switch (otherType)
+	{
+	case EntityType::ENTITY_COIN: this->OnCoinPickup(); break;
+	case EntityType::ENTITY_WEAPON: this->OnWeaponPickup(); break;
+	case EntityType::ENTITY_ENEMY: this->OnEnemyInteract(); break;
+	case EntityType::ENTITY_PLAYER: // should not happen
+	case EntityType::ENTITY_UNKNOWN:
+	default: ASSERT(false); break;
+	}
 }
 
-void Player::move(float offsetX, float offsetY)
+void Player::OnCoinPickup()
 {
-    m_circle.move(offsetX, offsetY);
 }
 
-void Player::draw(sf::RenderWindow& window)
+void Player::OnWeaponPickup()
 {
-    if (m_useTexture1)
-        m_circle.setTexture(&m_texture1);
-    else
-        m_circle.setTexture(&m_texture2);
-
-    window.draw(m_circle);
 }
 
-void Player::swapTextures()
+void Player::OnEnemyInteract()
 {
-    m_useTexture1 = !m_useTexture1;
 }
 
-float Player::getRadius() const
+void Player::SetDirection(Direction direction)
 {
-    return m_circle.getRadius();
-}
-
-void Player::setRotation(float angle)
-{
-    m_circle.setRotation(angle);
+	m_activeSprite = &m_sprites[direction];
 }

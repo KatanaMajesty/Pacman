@@ -1,25 +1,36 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 
-class Player
+#include "../Core/Sprite.h"
+#include "../Core/SpriteAnimation.h"
+#include "../Utility/Math.h"
+#include "Entity.h"
+
+enum Direction
 {
-public:
-    Player();
-
-    void setPosition(float x, float y);
-    sf::Vector2f getPosition() const;
-    void move(float offsetX, float offsetY);
-    void draw(sf::RenderWindow& window);
-    void swapTextures();
-    float getRadius() const;
-    void setRotation(float angle); // New function added
-
-    float movementSpeed = 0.2f;
-
-private:
-    sf::CircleShape m_circle;
-    sf::Texture m_texture1;
-    sf::Texture m_texture2;
-    bool m_useTexture1;
+    DIRECTION_UP, // W
+    DIRECTION_LEFT, // A
+    DIRECTION_DOWN, // S
+    DIRECTION_RIGHT, // D
 };
 
+class Player : public Entity
+{
+public:
+    Player(const Vec2& pos, const BoundingBox& boundingBox);
+    virtual ~Player() = default;
+
+    virtual void OnUpdate(float timestep) override;
+    virtual void OnEntityCollision(Entity* entity) override;
+    virtual EntityType GetType() const { return ENTITY_PLAYER; }
+    void OnCoinPickup();
+    void OnWeaponPickup();
+    void OnEnemyInteract();
+    void SetDirection(Direction direction);
+    Sprite* GetSprite() { return m_activeSprite; }
+
+private:
+    bool m_hasWeapon = false;
+    float m_timeSinceAnimationTick = 0.0f;
+    Sprite* m_activeSprite = nullptr;
+    Sprite m_sprites[4]; // Sprite for each direction
+};

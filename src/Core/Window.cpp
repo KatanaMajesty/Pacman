@@ -52,6 +52,18 @@ void Window::PollEvents()
 		// "close requested" event: we close the window
 		if (event.type == sf::Event::Closed)
 			m_window->close();
+
+		// catch the resize events
+		if (event.type == sf::Event::Resized)
+		{
+			m_width = static_cast<float>(event.size.width);
+			m_height = static_cast<float>(event.size.height);
+
+			sf::View view;
+			view.setCenter(m_width / 2.0f, m_height / 2.0f);
+			view.setSize(m_width, m_height);
+			m_window->setView(view);
+		}
 	}
 }
 
