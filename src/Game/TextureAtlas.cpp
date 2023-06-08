@@ -6,7 +6,7 @@
 #include "../Utility/Logger.h"
 
 // Define a map to store the top and left positions of textures in the atlas
-std::array g_atlasPositions = {
+static constexpr std::array g_atlasPositions = {
     std::pair<uint32_t, uint32_t>{0, 0},
     std::pair<uint32_t, uint32_t>{0, 1},
     std::pair<uint32_t, uint32_t>{0, 2},
@@ -33,6 +33,11 @@ TextureAtlas::TextureAtlas()
     : m_textureWidth(32)
     , m_textureHeight(32)
 {
+    static std::string filepath = (FileSystem::Get().GetAssetsPath() / "atlas.png").string();
+    TextureLibrary& library = TextureLibrary::Get();
+
+    for (auto [top, left] : g_atlasPositions)
+        m_textures.push_back(library.CreateTexture(filepath, top * m_textureHeight, left * m_textureWidth, m_textureWidth, m_textureHeight));
 }
 
 TextureAtlas& TextureAtlas::Get()
@@ -43,12 +48,9 @@ TextureAtlas& TextureAtlas::Get()
 
 Texture* TextureAtlas::GetTexture(TextureType textureType)
 {
-    static std::string filePath = (FileSystem::Get().GetAssetsPath() / "atlas.png").string();
-
     ASSERT(textureType < g_atlasPositions.size());
     if (textureType >= g_atlasPositions.size())
         return nullptr;
 
-    auto [top, left] = g_atlasPositions[textureType];
-    return TextureLibrary::Get().CreateTexture(filePath, m_textureHeight*top, m_textureWidth*left, m_textureWidth, m_textureHeight);
+    return m_textures.at(textureType);
 }

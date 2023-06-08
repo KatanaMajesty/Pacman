@@ -26,6 +26,7 @@ public:
     void OnWeaponPickup();
     void OnEnemyInteract();
     void SetDirection(Direction direction);
+    Sprite* GetSprite() { return m_activeSprite; }
 
 private:
     bool m_hasWeapon = false;

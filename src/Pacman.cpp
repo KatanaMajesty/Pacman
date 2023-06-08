@@ -22,8 +22,6 @@ int main()
 
 	Level level("Assets/Maze.txt");
 	level.SetRenderer(&renderer);
-	level.SetMazeWallTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_TILE));
-	level.SetMazeFloorTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_WALL1));
 	
 	Sprite sprite;
 	sprite.SetScale(4.0f);
@@ -41,6 +39,7 @@ int main()
 	while (!window.ShouldClose())
 	{
 		window.PollEvents();
+		//window.SetView(800.0f, 800.0f);
 
 		float elapsed = clock.elapsed();
 		float timestep = elapsed - lastFrame;
@@ -49,7 +48,7 @@ int main()
 
 		renderer.BeginFrame(FrameDesc());
 		
-		level.Draw();
+		level.OnUpdate(timestep);
 		renderer.Draw(&sprite);
 
 		renderer.EndFrame();

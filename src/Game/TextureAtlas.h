@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "../Core/Texture.h"
 
 enum TextureType // Changed to enum class for stronger typing
@@ -43,6 +44,7 @@ public:
     inline uint32_t GetTextureHeight() const { return m_textureHeight; }
 
 private:
+    std::vector<Texture*> m_textures;
     uint32_t m_textureWidth;
     uint32_t m_textureHeight;
 };

@@ -418,5 +418,6 @@
     <ClCompile Include="src\Game\Entity.cpp">
       <Filter>Src\Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utility\Math.cpp" />
   </ItemGroup>
 </Project>

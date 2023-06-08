@@ -1,5 +1,7 @@
 #pragma once
+
 #include "../Utility/Math.h"
+
 enum EntityType
 {
 	ENTITY_UNKNOWN,

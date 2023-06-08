@@ -3,7 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-
+#include "TextureAtlas.h"
 #include "../Utility/Logger.h"
 
 Maze::Maze(const char* mazeFilePath, const char cWall, const char cFloor)
@@ -14,6 +14,7 @@ Maze::Maze(const char* mazeFilePath, const char cWall, const char cFloor)
 
 void Maze::Draw(Renderer* renderer)
 {
+    TextureAtlas& atlas = TextureAtlas::Get();
     for (uint16_t i = 0; i < m_mazeWidth; i++)
     {
         for (uint16_t j = 0; j < m_mazeHeight; j++)
@@ -24,21 +25,23 @@ void Maze::Draw(Renderer* renderer)
             switch (cell)
             {
             case CellType::WALL:
-                currMazeObj.SetTexture(m_mazeWallTexture);
+                currMazeObj.SetTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_WALL1));
                 break;
             case CellType::FLOOR:
-                currMazeObj.SetTexture(m_mazeFloorTexture);
+                currMazeObj.SetTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_TILE));
                 break;
             default:
                 break;
             }
 
+
             float widthStep = renderer->GetWindowDimensions().x / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);
             float heightStep = renderer->GetWindowDimensions().y / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);
+            float step = std::min(widthStep, heightStep);
 
-            currMazeObj.SetPosition(Vec2(static_cast<float>(j) * widthStep, static_cast<float>(i) * heightStep));
-            currMazeObj.SetScale(Vec2(widthStep / static_cast<float>(currMazeObj.GetTexture()->GetWidth()),
-                heightStep / static_cast<float>(currMazeObj.GetTexture()->GetHeight())));
+            currMazeObj.SetPosition(Vec2(static_cast<float>(j) * step, static_cast<float>(i) * step));
+            /*currMazeObj.SetScale(Vec2(widthStep / static_cast<float>(currMazeObj.GetTexture()->GetWidth()),
+                heightStep / static_cast<float>(currMazeObj.GetTexture()->GetHeight())));*/
 
             renderer->Draw(&currMazeObj);
         }

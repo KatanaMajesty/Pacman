@@ -1,47 +1,62 @@
 #include "PlayerController.h"
 #include "Player.h"
 
-PlayerController::PlayerController(Player& player, sf::RenderWindow& window)
-    : m_player(player), m_window(window), m_windowSize(window.getSize())
+PlayerController::PlayerController(Player* player)
+    : m_player(player)
 {
 }
 
-void PlayerController::Update()
+void PlayerController::OnUpdate(float timestep)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    if (!m_player)
+        return;
+
+    using namespace sf;
+    if (Keyboard::isKeyPressed(Keyboard::W))
     {
-        OnMoveUp();
+        OnMoveUp(timestep);
     }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    
+    if (Keyboard::isKeyPressed(Keyboard::S))
     {
-        OnMoveDown();
+        OnMoveDown(timestep);
     }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    
+    if (Keyboard::isKeyPressed(Keyboard::A))
     {
-        OnMoveLeft();
+        OnMoveLeft(timestep);
     }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    
+    if (Keyboard::isKeyPressed(Keyboard::D))
     {
-        OnMoveRight();
+        OnMoveRight(timestep);
     }
 }
 
-void PlayerController::OnMoveUp()
+void PlayerController::OnMoveUp(float timestep)
 {
-
+    m_player->SetDirection(DIRECTION_UP);
+    Vec2 offset(0.0f, -timestep * m_speed);
+    m_player->AddPosition(offset);
 }
 
-void PlayerController::OnMoveDown()
+void PlayerController::OnMoveDown(float timestep)
 {
-
+    m_player->SetDirection(DIRECTION_DOWN);
+    Vec2 offset(0.0f, timestep * m_speed);
+    m_player->AddPosition(offset);
 }
 
-void PlayerController::OnMoveLeft()
+void PlayerController::OnMoveLeft(float timestep)
 {
-
+    m_player->SetDirection(DIRECTION_LEFT);
+    Vec2 offset(-timestep * m_speed, 0.0f);
+    m_player->AddPosition(offset);
 }
 
-void PlayerController::OnMoveRight()
+void PlayerController::OnMoveRight(float timestep)
 {
-
+    m_player->SetDirection(DIRECTION_RIGHT);
+    Vec2 offset(timestep * m_speed, 0.0f);
+    m_player->AddPosition(offset);
 }

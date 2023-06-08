@@ -11,7 +11,9 @@ using Color = sf::Color;
 class BoundingBox
 {
 public:
+	BoundingBox() = default;
 	BoundingBox(const Vec2& min, const Vec2& max) :m_min(min), m_max(max) {};
+
 	bool Collide(const BoundingBox& Bounds);
 private:
 	Vec2 m_max;
