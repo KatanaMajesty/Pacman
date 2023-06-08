@@ -2,6 +2,6 @@
 
 bool BoundingBox::Collide(const BoundingBox& otherBounds) {
 
-    return (m_max.x < otherBounds.m_min.x or m_min.x > otherBounds.m_max.x or
-        m_max.y < otherBounds.m_min.y or m_min.y > otherBounds.m_max.y);
+    return (max.x < otherBounds.min.x or min.x > otherBounds.max.x or
+        max.y < otherBounds.min.y or min.y > otherBounds.max.y);
 }
