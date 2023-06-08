@@ -9,7 +9,7 @@ Level::Level(Renderer* renderer)
 
 bool Level::Init(const std::string& filepath)
 {
-    m_maze.reset(new Maze(filepath));
+    m_maze.reset(new Maze(filepath, m_renderer));
 
     m_entityFactory.reset(new EntityFactory());
     m_player = m_entityFactory->RegisterEntity<Player>(Vec2(400.0f, 300.0f), BoundingBox());
