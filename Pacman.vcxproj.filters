@@ -309,10 +309,10 @@
     <ClInclude Include="src\Core\Window.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Controller.h">
+    <ClInclude Include="src\Game\Player.h">
       <Filter>Src\Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Player.h">
+    <ClInclude Include="src\Game\PlayerController.h">
       <Filter>Src\Game</Filter>
     </ClInclude>
   </ItemGroup>
@@ -364,14 +364,14 @@
     <ClCompile Include="src\Core\Window.cpp">
       <Filter>Src\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Controller.cpp">
-      <Filter>Src\Game</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Player.cpp">
       <Filter>Src\Game</Filter>
     </ClCompile>
     <ClCompile Include="src\Pacman.cpp">
       <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\PlayerController.cpp">
+      <Filter>Src\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

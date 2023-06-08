@@ -12,12 +12,10 @@ public:
     void AddPosition(float offsetX, float offsetY);
     void SetRotation(float angle);
 
-    float movementSpeed = 0.2f;
 
 private:
-    sf::CircleShape m_circle;
-    sf::Texture m_texture1;
-    sf::Texture m_texture2;
-    bool m_useTexture1;
+  //pos
+  //coincount
+  //sprite
 };
 
