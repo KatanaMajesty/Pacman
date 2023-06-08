@@ -2,6 +2,12 @@
 
 #include "../Utility/Logger.h"
 
+AnimationManager& AnimationManager::Get()
+{
+	static AnimationManager instance;
+	return instance;
+}
+
 void AnimationManager::OnUpdate(float timestep)
 {
 	for (auto& animation : m_animations)
