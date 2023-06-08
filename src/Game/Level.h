@@ -20,6 +20,5 @@ private:
     Renderer* m_renderer;
     std::unique_ptr<Maze> m_maze;
     std::unique_ptr<EntityFactory> m_entityFactory = nullptr;
-    Player* m_player;
     std::unique_ptr<PlayerController> m_playerController;
 };

@@ -1,8 +1,9 @@
 #pragma once
 
+#include <map>
+#include <queue>
 #include "../Utility/FileSystem.h"
 #include <SFML/Audio.hpp>
-#include <map>
 
 enum AudioType // Changed to enum class for stronger typing
 {
@@ -22,10 +23,10 @@ public:
     AudioManager();
     static AudioManager& Get();
     void PlaySound(AudioType audioType);
-    void StopSound(AudioType audioType);
+    /*void StopSound(AudioType audioType);*/
     void LoadSound(AudioType audioType, const std::string& filename);
 private:
     std::map<AudioType, sf::SoundBuffer> m_soundBuffers;
-    sf::Sound m_sound;
+    std::queue<sf::Sound> m_sounds;
 };
 

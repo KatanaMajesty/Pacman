@@ -36,10 +36,6 @@ int main()
 	Clock clock;
 	clock.start();
 
-	AudioManager& audio = AudioManager::Get();
-	audio.PlaySound(AUDIO_COIN_COLLECT);
-	audio.PlaySound(AUDIO_PLAYER_DEATH);
-
 	float lastFrame = 0.0f;
 	while (!window.ShouldClose())
 	{
