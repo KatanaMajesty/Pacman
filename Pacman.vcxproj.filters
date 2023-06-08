@@ -330,6 +330,15 @@
     <ClInclude Include="src\Core\SpriteAnimation.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\Level.h">
+      <Filter>Src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Maze.h">
+      <Filter>Src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\AnimationManager.h">
+      <Filter>Src\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\SFML\include\SFML\Audio\SoundFileFactory.inl">
@@ -396,6 +405,15 @@
     </ClCompile>
     <ClCompile Include="src\Core\SpriteAnimation.cpp">
       <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Level.cpp">
+      <Filter>Src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Maze.cpp">
+      <Filter>Src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\AnimationManager.cpp">
+      <Filter>Src\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
