@@ -15,6 +15,7 @@ public:
 	bool Close();
 	void PollEvents();
 	bool ShouldClose() const;
+	void SetViewport(float left, float top, float bottom, float right) const;
 
 	constexpr uint32_t GetWidth() const { return m_width; }
 	constexpr uint32_t GetHeight() const { return m_height; }

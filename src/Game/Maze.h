@@ -21,7 +21,7 @@ public:
     Cell();
     Cell(Sprite* sprite, CellType type);
 
-    inline Sprite* GetSpriteToModify() { return m_sprite.get(); }
+    inline Sprite* GetSprite() { return m_sprite.get(); }
 
     inline const Sprite* GetSprite() const { return m_sprite.get(); }
     inline const CellType GetType() const { return m_type; }
@@ -33,7 +33,7 @@ private:
 class Maze
 {
 public:
-    explicit Maze(const std::string& filepath, Renderer* renderer);
+    Maze(const std::string& filepath, Renderer* renderer);
 
     void Draw();
 
@@ -46,7 +46,7 @@ private:
 private:
     Renderer* m_renderer;
     std::vector<Cell> m_mazeGrid;
-    uint16_t m_mazeWidth;
-    uint16_t m_mazeHeight;
+    uint32_t m_mazeWidth;
+    uint32_t m_mazeHeight;
 };
 

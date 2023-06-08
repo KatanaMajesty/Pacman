@@ -15,7 +15,6 @@ public:
     
     bool Init(const std::string& filepath);
     void OnUpdate(float timestep);
-    inline void SetRenderer(Renderer* renderer) { m_renderer = renderer; }
 
 private:
     Renderer* m_renderer;

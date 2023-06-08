@@ -7,7 +7,7 @@
 #include "../Utility/Logger.h"
 
 Maze::Maze(const std::string& filepath, Renderer* renderer)
-    :m_renderer(renderer), m_mazeWidth(0), m_mazeHeight(0)
+    : m_renderer(renderer), m_mazeWidth(0), m_mazeHeight(0)
 {
     ParseMazeImage(filepath);
 }
@@ -20,13 +20,12 @@ void Maze::Draw()
         {
             Cell& cell = m_mazeGrid[static_cast<size_t>(i * m_mazeWidth + j)];
 
-            float widthStep = m_renderer->GetWindowDimensions().x / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);
-            float heightStep = m_renderer->GetWindowDimensions().y / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);
-            float step = std::min(widthStep, heightStep);
+            /*float widthStep = static_cast<float>(m_renderer->GetViewPort().first) / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);
+            float heightStep = static_cast<float>(m_renderer->GetViewPort().second) / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);*/
 
-            cell.GetSpriteToModify()->SetPosition(Vec2(static_cast<float>(j) * 32.0f, static_cast<float>(i) * 32.0f));
-            /*currMazeObj.SetScale(Vec2(widthStep / static_cast<float>(currMazeObj.GetTexture()->GetWidth()),
-                heightStep / static_cast<float>(currMazeObj.GetTexture()->GetHeight())));*/
+            cell.GetSprite()->SetPosition(Vec2(static_cast<float>(j) * 32.0f, static_cast<float>(i) * 32.0f));
+            cell.GetSprite()->SetScale(Vec2(32.0f / static_cast<float>(cell.GetSprite()->GetTexture()->GetWidth()),
+                32.0f / static_cast<float>(cell.GetSprite()->GetTexture()->GetHeight())));
 
             m_renderer->Draw(cell.GetSprite());
         }
@@ -60,12 +59,12 @@ void Maze::ParseMazeImage(const std::string& filepath)
         if (mazeString[i] == '0')
         {
             m_mazeGrid.emplace_back(new Sprite(), CellType::WALL);
-            m_mazeGrid[i].GetSpriteToModify()->SetTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_WALL1));
+            m_mazeGrid[i].GetSprite()->SetTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_WALL1));
         }
         else if (mazeString[i] == '*')
         {
             m_mazeGrid.emplace_back(new Sprite(), CellType::FLOOR);
-            m_mazeGrid[i].GetSpriteToModify()->SetTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_TILE));
+            m_mazeGrid[i].GetSprite()->SetTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_TILE));
         }
     }
 
