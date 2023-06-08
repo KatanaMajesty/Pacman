@@ -20,6 +20,10 @@ enum TextureType // Changed to enum class for stronger typing
     TEXTURE_SLIME_PURPLE_JUMPING,
     TEXTURE_COIN,
     TEXTURE_WAND,
+    TEXTURE_PLAYER_FRONT,
+    TEXTURE_PLAYER_BACK,
+    TEXTURE_PLAYER_LEFT,
+    TEXTURE_PLAYER_RIGHT,
     NUM_TEXTURES,
 };
 
