@@ -20,5 +20,8 @@ public:
 private:
     bool m_hasWeapon = false;
     float m_timeSinceAnimationTick = 0.0f;
-    Sprite m_sprite;
+    Sprite m_sprite_right;
+    Sprite m_sprite_left;
+    Sprite m_sprite_down;
+    Sprite m_sprite_up;
 };

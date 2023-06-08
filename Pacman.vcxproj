@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="src\Core\Renderer.h" />
     <ClInclude Include="src\Core\Sprite.h" />
     <ClInclude Include="src\Core\SpriteAnimation.h" />
@@ -141,6 +142,7 @@
     <ClCompile Include="src\Core\TextureLibrary.cpp" />
     <ClCompile Include="src\Core\Window.cpp" />
     <ClCompile Include="src\Game\AnimationManager.cpp" />
+    <ClCompile Include="src\Game\Entity.cpp" />
     <ClCompile Include="src\Game\Level.cpp" />
     <ClCompile Include="src\Game\Maze.cpp" />
     <ClCompile Include="src\Game\TextureAtlas.cpp" />
@@ -149,6 +151,9 @@
     <ClCompile Include="src\Pacman.cpp" />
     <ClCompile Include="src\Utility\Clock.cpp" />
     <ClCompile Include="src\Utility\FileSystem.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Pacman.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
