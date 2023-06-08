@@ -37,8 +37,8 @@ int main()
 	clock.start();
 
 	AudioManager& audio = AudioManager::Get();
-	audio.PlaySound(AUDIO_FIGHT);
-	audio.PlaySound(AUDIO_AMBIENCE);
+	audio.PlaySound(AUDIO_COIN_COLLECT);
+	audio.PlaySound(AUDIO_PLAYER_DEATH);
 
 	float lastFrame = 0.0f;
 	while (!window.ShouldClose())

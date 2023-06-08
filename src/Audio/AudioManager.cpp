@@ -30,9 +30,10 @@ void AudioManager::LoadSound(AudioType audioType, const std::string& filename)
 void AudioManager::PlaySound(AudioType audioType)
 {
     auto it = m_soundBuffers.find(audioType);
+    sf::Sound sound;
     if (it != m_soundBuffers.end()) {
-        m_sound.setBuffer(it->second);
-        m_sound.play();
+        sound.setBuffer(it->second);
+        sound.play();
     }
 }
 
