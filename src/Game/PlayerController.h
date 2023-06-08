@@ -6,16 +6,15 @@
 class PlayerController
 {
 public:
-    PlayerController(Player& player, sf::RenderWindow& window);
+    PlayerController(Player* player);
 
-    void Update();
-    void OnMoveUp();
-    void OnMoveDown();
-    void OnMoveLeft();
-    void OnMoveRight();
+    void OnUpdate(float timestep);
+    void OnMoveUp(float timestep);
+    void OnMoveDown(float timestep);
+    void OnMoveLeft(float timestep);
+    void OnMoveRight(float timestep);
 
 private:
-    Player& m_player;
-    sf::RenderWindow& m_window;
-    sf::Vector2u m_windowSize;
+    Player* m_player;
+    float m_speed = 200.0f;
 };
