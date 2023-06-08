@@ -21,21 +21,9 @@ int main()
 
 	Level level("Assets/Maze.txt");
 	level.SetRenderer(&renderer);
-	level.SetMazeWallTexture(atlas.GetAtlasPosition(TextureType::DUNGEON_TILE));
-	level.SetMazeFloorTexture(atlas.GetAtlasPosition(TextureType::DUNGEON_WALL1));
+	level.SetMazeWallTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_TILE));
+	level.SetMazeFloorTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_WALL1));
 	
-	/*uint32_t w = 64;
-	std::array<Sprite, TextureType::NUM_TEXTURES> sprites;
-	for (uint32_t i = 0; i < TextureType::NUM_TEXTURES; ++i)
-	{
-		Sprite& sprite = sprites[i];
-		sprite.SetTexture(atlas.GetAtlasPosition((TextureType)i));
-		uint32_t x = i % 4;
-		uint32_t y = i / 4;
-		sprite.SetPosition(Vec2(x * w, y * w));
-		sprite.SetScale(2.0f);
-	}*/
-
 	Clock clock;
 	clock.start();
 	while (!window.ShouldClose())
@@ -43,9 +31,7 @@ int main()
 		window.PollEvents();
 
 		renderer.BeginFrame(FrameDesc());
-		
 		level.Draw();
-
 		renderer.EndFrame();
 	}
 	clock.stop();

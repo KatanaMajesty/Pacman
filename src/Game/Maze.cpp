@@ -37,8 +37,8 @@ void Maze::Draw(Renderer* renderer)
             float heightStep = renderer->GetWindowDimensions().y / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);
 
             currMazeObj.SetPosition(Vec2(static_cast<float>(j) * widthStep, static_cast<float>(i) * heightStep));
-            currMazeObj.SetScale({ widthStep / static_cast<float>(currMazeObj.GetTexture()->GetWidth()),
-                heightStep / static_cast<float>(currMazeObj.GetTexture()->GetHeight()) });
+            currMazeObj.SetScale(Vec2(widthStep / static_cast<float>(currMazeObj.GetTexture()->GetWidth()),
+                heightStep / static_cast<float>(currMazeObj.GetTexture()->GetHeight())));
 
             renderer->Draw(&currMazeObj);
         }

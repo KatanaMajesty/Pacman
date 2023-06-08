@@ -7,12 +7,11 @@
 class Level
 {
 public:
-    explicit Level(const char* mazeFilePath, const char cWall = '0', const char cFloor = '*');
+    Level(const char* mazeFilePath, const char cWall = '*', const char cFloor = '0');
     
     void Draw();
 
     inline void SetRenderer(Renderer* renderer) { m_renderer = renderer; }
-
     inline void SetMazeWallTexture(Texture* mazeWallTexture) { m_maze.SetWallTexture(mazeWallTexture); }
     inline void SetMazeFloorTexture(Texture* mazeFloorTexture) { m_maze.SetFloorTexture(mazeFloorTexture); }
 

@@ -1,21 +1,24 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include "../Utility/Math.h"
 
-class Player
+#include "../Core/Sprite.h"
+#include "../Utility/Math.h"
+#include "Entity.h"
+
+class Player : public Entity
 {
 public:
     Player();
+    virtual ~Player() = default;
 
-    void SetPosition(float x, float y);
-    const Vec2& GetPosition() const;
-    void AddPosition(float offsetX, float offsetY);
-    void SetRotation(float angle);
-
+    virtual void OnUpdate(float timestep) override;
+    virtual void OnEntityCollision(Entity* entity) override;
+    virtual EntityType GetType() const { return ENTITY_PLAYER; }
+    void OnCoinPickup();
+    void OnWeaponPickup();
+    void OnEnemyInteract();
 
 private:
-  //pos
-  //coincount
-  //sprite
+    bool m_hasWeapon = false;
+    float m_timeSinceAnimationTick = 0.0f;
+    Sprite m_sprite;
 };
-

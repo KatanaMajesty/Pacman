@@ -321,6 +321,15 @@
     <ClInclude Include="src\Core\Sprite.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\Entity.h">
+      <Filter>Src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Coin.h">
+      <Filter>Src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\SpriteAnimation.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\SFML\include\SFML\Audio\SoundFileFactory.inl">
@@ -383,6 +392,9 @@
       <Filter>Src\Game</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\Sprite.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\SpriteAnimation.cpp">
       <Filter>Src\Core</Filter>
     </ClCompile>
   </ItemGroup>
