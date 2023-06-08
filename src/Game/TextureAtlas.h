@@ -29,8 +29,14 @@ enum TextureType // Changed to enum class for stronger typing
 
 class TextureAtlas
 {
-public:
+private:
     TextureAtlas();
+
+public:
+    TextureAtlas(const TextureAtlas&) = delete;
+    TextureAtlas& operator=(const TextureAtlas&) = delete;
+
+    static TextureAtlas& Get();
 
     Texture* GetTexture(TextureType textureType);
     inline uint32_t GetTextureWidth() const { return m_textureWidth; }

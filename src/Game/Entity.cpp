@@ -1,6 +1,7 @@
 #include "Entity.h"
 
-void Entity::Init(const Vec2& pos, BoundingBox bounds) {
-    m_bounds = bounds;
-    m_pos = pos;
+Entity::Entity(const Vec2& pos, const BoundingBox& boundingBox)
+    : m_boundingBox(boundingBox)
+    , m_pos(pos)
+{
 }

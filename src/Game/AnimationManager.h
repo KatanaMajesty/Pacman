@@ -7,8 +7,14 @@
 
 class AnimationManager
 {
-public:
+private:
 	AnimationManager() = default;
+
+public:
+	AnimationManager(const AnimationManager&) = delete;
+	AnimationManager& operator=(const AnimationManager&) = delete;
+
+	static AnimationManager& Get();
 
 	void OnUpdate(float timestep);
 	SpriteAnimation* CreateAnimation(const std::string& name);

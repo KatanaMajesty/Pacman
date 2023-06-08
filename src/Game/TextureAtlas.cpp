@@ -35,6 +35,12 @@ TextureAtlas::TextureAtlas()
 {
 }
 
+TextureAtlas& TextureAtlas::Get()
+{
+    static TextureAtlas instance;
+    return instance;
+}
+
 Texture* TextureAtlas::GetTexture(TextureType textureType)
 {
     static std::string filePath = (FileSystem::Get().GetAssetsPath() / "atlas.png").string();
