@@ -8,21 +8,25 @@
 // Define a map to store the top and left positions of textures in the atlas
 std::array g_atlasPositions = {
     std::pair<uint32_t, uint32_t>{0, 0},
-    std::pair<uint32_t, uint32_t>{0, 32},
-    std::pair<uint32_t, uint32_t>{0, 64},
-    std::pair<uint32_t, uint32_t>{0, 96},
-    std::pair<uint32_t, uint32_t>{32, 0},
-    std::pair<uint32_t, uint32_t>{32, 32},
-    std::pair<uint32_t, uint32_t>{32, 64},
-    std::pair<uint32_t, uint32_t>{32, 96},
-    std::pair<uint32_t, uint32_t>{64, 0},
-    std::pair<uint32_t, uint32_t>{64, 32},
-    std::pair<uint32_t, uint32_t>{64, 64},
-    std::pair<uint32_t, uint32_t>{64, 96},
-    std::pair<uint32_t, uint32_t>{96, 0},
-    std::pair<uint32_t, uint32_t>{96, 32},
-    std::pair<uint32_t, uint32_t>{96, 64},
-    std::pair<uint32_t, uint32_t>{96, 96}
+    std::pair<uint32_t, uint32_t>{0, 1},
+    std::pair<uint32_t, uint32_t>{0, 2},
+    std::pair<uint32_t, uint32_t>{0, 3},
+    std::pair<uint32_t, uint32_t>{1, 0},
+    std::pair<uint32_t, uint32_t>{1, 1},
+    std::pair<uint32_t, uint32_t>{1, 2},
+    std::pair<uint32_t, uint32_t>{1, 3},
+    std::pair<uint32_t, uint32_t>{2, 0},
+    std::pair<uint32_t, uint32_t>{2, 1},
+    std::pair<uint32_t, uint32_t>{2, 2},
+    std::pair<uint32_t, uint32_t>{2, 3},
+    std::pair<uint32_t, uint32_t>{3, 0},
+    std::pair<uint32_t, uint32_t>{3, 1},
+    std::pair<uint32_t, uint32_t>{3, 2},
+    std::pair<uint32_t, uint32_t>{3, 3},
+    std::pair<uint32_t, uint32_t>{4, 0},
+    std::pair<uint32_t, uint32_t>{4, 1},
+    std::pair<uint32_t, uint32_t>{4, 2},
+    std::pair<uint32_t, uint32_t>{4, 3}
 };
 
 TextureAtlas::TextureAtlas()
@@ -40,5 +44,5 @@ Texture* TextureAtlas::GetTexture(TextureType textureType)
         return nullptr;
 
     auto [top, left] = g_atlasPositions[textureType];
-    return TextureLibrary::Get().CreateTexture(filePath, top, left, m_textureWidth, m_textureHeight);
+    return TextureLibrary::Get().CreateTexture(filePath, m_textureHeight*top, m_textureWidth*left, m_textureWidth, m_textureHeight);
 }
