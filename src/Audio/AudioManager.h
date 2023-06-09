@@ -2,6 +2,8 @@
 
 #include <map>
 #include <queue>
+#include <thread>
+#include <memory>
 #include "../Utility/FileSystem.h"
 #include <SFML/Audio.hpp>
 
@@ -21,12 +23,18 @@ class AudioManager
 {
 public:
     AudioManager();
+    ~AudioManager();
+
     static AudioManager& Get();
+
     void PlaySound(AudioType audioType);
     /*void StopSound(AudioType audioType);*/
     void LoadSound(AudioType audioType, const std::string& filename);
+
 private:
-    std::map<AudioType, sf::SoundBuffer> m_soundBuffers;
+    bool m_isDead = false;
+    std::jthread m_soundThread;
+    std::map<AudioType, std::unique_ptr<sf::SoundBuffer>> m_soundBuffers;
     std::queue<sf::Sound> m_sounds;
 };
 
