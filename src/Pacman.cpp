@@ -10,6 +10,7 @@
 #include "Game/AnimationManager.h"
 #include "Game/TextureAtlas.h"
 #include "Game/Level.h"
+#include "UI/TextManager.h"
 
 int main()
 {
@@ -20,6 +21,8 @@ int main()
 	renderer.Init(&window);
 
 	TextureAtlas& atlas = TextureAtlas::Get();
+
+	TextManager& text = TextManager::Get();
 
 	Level level(&renderer);
 	level.Init((FileSystem::Get().GetAssetsPath() / "Maze.txt").string());
@@ -47,6 +50,8 @@ int main()
 		frameDesc.viewportTop = 0.0f;
 		frameDesc.viewportBottom = 0.5f;
 		frameDesc.viewportRight = 0.5f;*/
+
+		//text.PrintText("Bruh", { 300,300 });
 
 		renderer.BeginFrame(frameDesc);
 		level.OnUpdate(timestep);
