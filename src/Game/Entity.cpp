@@ -6,9 +6,9 @@ Entity::Entity(const Vec2& pos, const BoundingBox& boundingBox)
 {
 }
 
-bool Entity::Collide(const Entity& otherEntity) 
+bool Entity::Collide(const Entity* otherEntity) const
 {
-    return m_boundingBox.Collide(otherEntity.m_boundingBox);
+    return m_boundingBox.Collide(otherEntity->GetAABB());
 }
 
 EntityFactory::~EntityFactory()
