@@ -22,15 +22,13 @@ int main()
 
 	TextureAtlas& atlas = TextureAtlas::Get();
 
+	TextManager& text = TextManager::Get();
+
 	Level level(&renderer);
 	level.Init((FileSystem::Get().GetAssetsPath() / "Maze.txt").string());
 	
 	Clock clock;
 	clock.start();
-
-	TextManager& text = TextManager::Get();
-	
-	text.PrintText("bruh",{400,300});
 
 	float lastFrame = 0.0f;
 	while (!window.ShouldClose())
@@ -53,7 +51,7 @@ int main()
 		frameDesc.viewportBottom = 0.5f;
 		frameDesc.viewportRight = 0.5f;*/
 
-		renderer.Draw();
+		//text.PrintText("Bruh", { 300,300 });
 
 		renderer.BeginFrame(frameDesc);
 		level.OnUpdate(timestep);

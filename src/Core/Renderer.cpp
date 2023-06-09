@@ -54,6 +54,12 @@ void Renderer::Draw(const Sprite* sprite)
 	rw->draw(sprite->m_sprite);
 }
 
+void Renderer::Draw(const TextManager* text)
+{
+	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
+	rw->draw(text->m_text);
+}
+
 Color ColorOf(const Vec3& rgb, float alpha)
 {
 	sf::Uint8 r = static_cast<sf::Uint8>(rgb.x * 255.0f);

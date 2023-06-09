@@ -10,7 +10,6 @@ TextManager::TextManager()
     m_text.setCharacterSize(21);
 }
 
-
 TextManager& TextManager::Get()
 {
     static TextManager instance;
@@ -21,6 +20,7 @@ void TextManager::PrintText(std::string textToPrint, const Vec2& pos)
 {
     m_text.setString(textToPrint);
     m_text.setPosition(pos);
+    
 }
 
 void TextManager::SetFont(const std::string& fontPath)
