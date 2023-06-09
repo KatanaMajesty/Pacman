@@ -25,6 +25,8 @@ public:
     AudioManager();
     ~AudioManager();
 
+    static bool Init();
+    static void Deinit();
     static AudioManager& Get();
 
     void PlaySound(AudioType audioType);
@@ -34,7 +36,9 @@ public:
 private:
     bool m_isDead = false;
     std::jthread m_soundThread;
-    std::map<AudioType, std::unique_ptr<sf::SoundBuffer>> m_soundBuffers;
+    std::map<AudioType, sf::SoundBuffer> m_soundBuffers;
     std::queue<sf::Sound> m_sounds;
+
+    static inline AudioManager* s_instance = nullptr;
 };
 

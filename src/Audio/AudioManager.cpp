@@ -10,26 +10,20 @@ static void SoundThread(std::queue<sf::Sound>* sounds, const bool* isDead)
 {
     while (!(*isDead))
     {
-        std::unique_lock lock(g_soundMutex);
+        std::lock_guard lock(g_soundMutex);
         if (sounds->empty())
             continue;
 
+        sf::Sound& queried = sounds->front();
+        if (queried.getStatus() == sf::SoundSource::Playing)
+            continue;
 
-        LOG("Status!");
-        sounds->front().play();
         sounds->pop();
     }
 }
 
 AudioManager::AudioManager() 
 {
-    LoadSound(AUDIO_AMBIENCE, "ambience.wav");
-    LoadSound(AUDIO_COIN_COLLECT, "coin_collect.wav");
-    LoadSound(AUDIO_ENEMY_DEATH, "enemy_death.wav");
-    LoadSound(AUDIO_FIGHT, "fight.wav");
-    LoadSound(AUDIO_LEVEL_COMPLATED, "level_complated.wav");
-    LoadSound(AUDIO_LEVEL_FAILED, "level_failed.wav");
-    LoadSound(AUDIO_PLAYER_DEATH, "player_death.wav");
     m_soundThread = std::jthread(SoundThread, &m_sounds, &m_isDead);
 }
 
@@ -38,23 +32,43 @@ AudioManager::~AudioManager()
     m_isDead = true;
 }
 
+bool AudioManager::Init()
+{
+    if (s_instance)
+        Deinit();
+
+    s_instance = new AudioManager();
+    s_instance->LoadSound(AUDIO_AMBIENCE, "ambience.wav");
+    s_instance->LoadSound(AUDIO_COIN_COLLECT, "coin_collect.wav");
+    s_instance->LoadSound(AUDIO_ENEMY_DEATH, "enemy_death.wav");
+    s_instance->LoadSound(AUDIO_FIGHT, "fight.wav");
+    s_instance->LoadSound(AUDIO_LEVEL_COMPLATED, "level_complated.wav");
+    s_instance->LoadSound(AUDIO_LEVEL_FAILED, "level_failed.wav");
+    s_instance->LoadSound(AUDIO_PLAYER_DEATH, "player_death.wav");
+    return true;
+}
+
+void AudioManager::Deinit()
+{
+    if (s_instance)
+    {
+        delete s_instance;
+        s_instance = nullptr;
+    }
+}
+
 AudioManager& AudioManager::Get()
 {
-    static AudioManager instance;
-    return instance;
+    return *s_instance;
 }
 
 void AudioManager::LoadSound(AudioType audioType, const std::string& filename)
 {
     static std::filesystem::path filepath = (FileSystem::Get().GetAssetsPath() / "Audio");
-    std::string fullname = (filepath / filename).string();
-    sf::SoundBuffer* buffer = new sf::SoundBuffer();
-    if (!buffer->loadFromFile(fullname))
-    {
-        delete buffer;
-        return;
+    sf::SoundBuffer buffer;
+    if (buffer.loadFromFile((filepath / filename).string())) {
+        m_soundBuffers[audioType] = buffer;
     }
-    m_soundBuffers[audioType] = std::unique_ptr<sf::SoundBuffer>(buffer);
 }
 
 void AudioManager::PlaySound(AudioType audioType)
@@ -62,10 +76,9 @@ void AudioManager::PlaySound(AudioType audioType)
     auto it = m_soundBuffers.find(audioType);
     if (it != m_soundBuffers.end()) 
     {
-        sf::Sound sound(*it->second);
+        std::lock_guard lock(g_soundMutex);
+        sf::Sound& sound = m_sounds.emplace(it->second);
         sound.play();
-        //std::unique_lock lock(g_soundMutex);
-        //sf::Sound& sound = m_sounds.emplace(*it->second);
     }
 }
 

@@ -23,6 +23,12 @@ bool Level::Init(const std::string& filepath)
 
     coinPos = Vec2(200.0f, 200.0f);
     m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
+    coinPos = Vec2(250.0f, 200.0f);
+    m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
+    coinPos = Vec2(225.0f, 200.0f);
+    m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
+    coinPos = Vec2(275.0f, 200.0f);
+    m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
 
     coinPos = Vec2(400.0f, 200.0f);
     m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
@@ -37,7 +43,7 @@ bool Level::Init(const std::string& filepath)
 
 void Level::OnUpdate(float timestep)
 {
-    //m_maze->Draw();
+    m_maze->Draw();
 
     Player* player = (Player*) m_entityFactory->GetEntities<ENTITY_PLAYER>().front();
     player->OnUpdate(timestep);
@@ -79,10 +85,17 @@ void Level::OnUpdate(float timestep)
 
 void Level::OnWindowResize(const WindowResizedEvent& wre)
 {
-    SetLevelScale(0.0f, 0.0f);
+    float desiredTileWidth = static_cast<float>(wre.width) / static_cast<float>(m_maze.get()->GetWidth());
+    float desiredTileHeight = static_cast<float>(wre.height) / static_cast<float>(m_maze.get()->GetHeight());
+
+    //SetLevelScale(desiredTileWidth, desiredTileHeight);
 }
 
 void Level::SetLevelScale(float x, float y) const
 {
-    
+    for (auto& cell : m_maze.get()->GetGrid())
+    {
+        cell.GetSprite()->SetScale(x / cell.GetSprite()->GetTexture()->GetWidth(),
+            y / cell.GetSprite()->GetTexture()->GetHeight());
+    }
 }

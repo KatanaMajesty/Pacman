@@ -23,7 +23,7 @@ void Maze::Draw()
         {
             Sprite* cellSprite = m_mazeGrid[static_cast<size_t>(i * m_mazeWidth + j)].GetSprite();
 
-            cellSprite->SetPosition(Vec2(j * desiredTileWidth, i * desiredTileHeight));
+            cellSprite->SetPosition(Vec2(j * 32.0f, i * 32.0f));
             m_renderer->Draw(cellSprite);
         }
     }

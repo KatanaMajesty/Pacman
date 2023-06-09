@@ -71,8 +71,13 @@ void Window::PollEvents()
 			m_width = static_cast<float>(event.size.width);
 			m_height = static_cast<float>(event.size.height);
 
+			float m = 31.0f * 32.0f;
+			float desiredTileWidth = static_cast<float>(m_width) / 31.0f;
+			float desiredTileHeight = static_cast<float>(m_height) / 31.0f;
+
 			m_view.setCenter(m_width / 2.0f, m_height / 2.0f);
 			m_view.setSize(m_width, m_height);
+			m_view.zoom(m / std::min(m_width, m_height));
 			m_window->setView(m_view);
 		}
 	}

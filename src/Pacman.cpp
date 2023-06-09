@@ -21,10 +21,13 @@ int main()
 	Renderer renderer;
 	renderer.Init(&window);
 
-	EventBus& eventBus = EventBus::Get();
+	if (!AudioManager::Init())
+	{
+		LOG("Failed to initialize Audio Manager");
+		return 1;
+	}
 
 	TextureAtlas& atlas = TextureAtlas::Get();
-
 	TextManager& text = TextManager::Get();
 
 	Level level(&renderer);
@@ -61,4 +64,6 @@ int main()
 		renderer.EndFrame();
 	}
 	clock.stop();
+
+	AudioManager::Deinit(); // Deinitialize the AudioManager
 }
