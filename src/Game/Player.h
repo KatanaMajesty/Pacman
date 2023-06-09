@@ -27,6 +27,7 @@ public:
     void SetDirection(Direction direction);
 
 private:
+    Vec2 m_playerPos;
     bool m_hasWeapon = false;
     float m_lastTimestep = 0.0f;
     float m_timeSinceAnimationTick = 0.0f;

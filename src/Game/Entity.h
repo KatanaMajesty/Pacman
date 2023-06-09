@@ -28,7 +28,7 @@ public:
 	virtual Sprite* GetSprite() = 0;
 	void AddPosition(const Vec2& offset) { m_pos += offset; }
 	void SetPosition(const Vec2& pos) { m_pos = pos; }
-	void SetAABB(float width, float height) { m_boundingBox = BoundingBox(m_pos, width, height); }
+	void SetAABB(const Vec2& pos, float radius) { m_boundingBox = BoundingBox(pos, radius); }
 	bool Collide(const Entity* otherEntity) const;
 	const Vec2& GetPosition() const { return m_pos; }
 	const BoundingBox& GetAABB() const { return m_boundingBox; }

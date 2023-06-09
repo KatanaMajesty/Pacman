@@ -1,15 +1,16 @@
 #include <memory>
 #include <array>
+#include "Audio/AudioManager.h"
 #include "Core/Window.h"
 #include "Core/Renderer.h"
 #include "Core/TextureLibrary.h"
-#include "Utility/Logger.h"
-#include "Audio/AudioManager.h"
-#include "Utility/Clock.h"
-#include "Utility/FileSystem.h"
 #include "Game/AnimationManager.h"
 #include "Game/TextureAtlas.h"
 #include "Game/Level.h"
+#include "Utility/Logger.h"
+#include "Utility/Clock.h"
+#include "Utility/FileSystem.h"
+#include "Utility/EventBus.h"
 #include "UI/TextManager.h"
 
 int main()
@@ -27,8 +28,6 @@ int main()
 	}
 
 	TextureAtlas& atlas = TextureAtlas::Get();
-	TextManager& text = TextManager::Get();
-
 	Level level(&renderer);
 	level.Init((FileSystem::Get().GetAssetsPath() / "Maze.txt").string());
 	
@@ -48,7 +47,7 @@ int main()
 
 		FrameDesc frameDesc;
 		frameDesc.clearcolor[0] = 0.0f;
-		frameDesc.clearcolor[1] = 1.0f;
+		frameDesc.clearcolor[1] = 0.0f;
 		frameDesc.clearcolor[2] = 0.0f;
 		frameDesc.clearcolor[3] = 1.0f;
 		/*frameDesc.viewportLeft = 0.0f;
