@@ -360,6 +360,9 @@
     <ClInclude Include="src\UI\TextManager.h">
       <Filter>Src\UI</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utility\EventBus.h">
+      <Filter>Src\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\SFML\include\SFML\Audio\SoundFileFactory.inl">

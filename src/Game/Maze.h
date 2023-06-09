@@ -5,26 +5,6 @@
 #include "../Core/Texture.h"
 #include "Tile.h"
 
-//enum class CellType
-//{
-//    UNKNOWN = -1,
-//    WALL = 0,
-//    FLOOR = 1
-//};
-//
-//class Cell
-//{
-//public:
-//    Cell();
-//    Cell(Tile* tile, CellType type);
-//
-//    inline Tile* GetTile() { return m_tile; }
-//    inline const CellType GetType() const { return m_type; }
-//private:
-//    Tile* m_tile;
-//    CellType m_type;
-//};
-
 class Maze
 {
 public:
@@ -36,6 +16,8 @@ public:
     inline auto& GetGrid() const { return m_grid; }
     inline uint32_t GetWidth() const { return m_width; }
     inline uint32_t GetHeight() const { return m_height; }
+    Vec2 GetPosition(uint32_t x, uint32_t y) const;
+    float GetViewsize() const;
 
 private:
     void ParseMazeImage(const std::string& filepath);
@@ -45,5 +27,7 @@ private:
     std::vector<std::vector<Tile*>> m_grid;
     uint32_t m_width;
     uint32_t m_height;
+    uint32_t m_textureWidth;
+    uint32_t m_textureHeight;
 };
 

@@ -16,7 +16,7 @@ public:
     
     bool Init(const std::string& filepath);
     void OnUpdate(float timestep);
-    void OnWindowResize(const WindowResizedEvent& wre);
+    inline Maze* GetMaze() { return m_maze.get(); }
 
 private:
     Renderer* m_renderer;

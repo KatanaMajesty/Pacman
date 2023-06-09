@@ -29,15 +29,6 @@ bool Window::Open()
 		creationResult = true;
 	}
 
-
-	float m = 31.0f * 32.0f;
-	float zoom = m / std::min(m_width, m_height);
-	float scaledWidth = m_width * zoom;
-	float scaledHeight = m_height * zoom;
-	m_view.setSize(scaledWidth, scaledHeight);
-	m_view.setCenter(m / 2.0f, m / 2.0f);
-	m_window->setView(m_view);
-
 	return creationResult;
 }
 
@@ -73,12 +64,10 @@ void Window::PollEvents()
 			m_height = static_cast<float>(event.size.height);
 			EventBus::Get().publish(WindowResizedEvent(this, m_width, m_height));
 
-			float m = 31.0f * 32.0f;
-			float zoom = m / std::min(m_width, m_height);
+			float zoom = m_viewsize / std::min(m_width, m_height);
 			float scaledWidth = m_width * zoom;
 			float scaledHeight = m_height * zoom;
 			m_view.setSize(scaledWidth, scaledHeight);
-			//m_view.setCenter(scaledWidth / 2.0f, scaledHeight / 2.0f);
 			m_window->setView(m_view);
 		}
 	}
@@ -100,5 +89,16 @@ void Window::SetViewport(float left, float top, float bottom, float right)
 	rect.width = right - left;
 	rect.height = bottom - top;
 	m_view.setViewport(rect);
+	m_window->setView(m_view);
+}
+
+void Window::SetViewsize(float viewsize)
+{
+	m_viewsize = viewsize;
+	float zoom = viewsize / std::min(m_width, m_height);
+	float scaledWidth = m_width * zoom;
+	float scaledHeight = m_height * zoom;
+	m_view.setSize(scaledWidth, scaledHeight);
+	m_view.setCenter(viewsize / 2.0f, viewsize / 2.0f);
 	m_window->setView(m_view);
 }

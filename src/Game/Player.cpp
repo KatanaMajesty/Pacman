@@ -15,10 +15,6 @@ Player::Player(const Vec2& pos, const BoundingBox& boundingBox)
 	m_sprites[DIRECTION_LEFT].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_LEFT));
 	m_sprites[DIRECTION_DOWN].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_FRONT));
 	m_sprites[DIRECTION_RIGHT].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_RIGHT));
-	/*for (uint32_t i = 0; i < 4; ++i)
-		m_sprites[i].SetScale(1.0f);*/
-
-	//Vec2 spritePos()
 	this->SetDirection(DIRECTION_DOWN);
 }
 
