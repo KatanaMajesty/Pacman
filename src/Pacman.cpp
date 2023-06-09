@@ -36,6 +36,8 @@ int main()
 	Clock clock;
 	clock.start();
 
+	TextManager& text = TextManager::Get();
+
 	TextureLibrary& library = TextureLibrary::Get();
 	std::string filepath = (fs.GetAssetsPath() / "textbox.png").string();
 	Sprite ui;
@@ -68,6 +70,9 @@ int main()
 
 		renderer.SetViewport(Vec2(0.1f, 0.8f), Vec2(0.9f, 1.0f));
 		renderer.Draw(&ui);
+
+		text.PrintText("bruh", { 0,0 });
+		renderer.Draw(&text);
 
 		renderer.EndFrame();
 	}

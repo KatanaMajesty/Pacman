@@ -2,7 +2,6 @@
 
 #include "../Utility/Math.h"
 #include "../Utility/FileSystem.h"
-#include "../Core/Renderer.h"
 #include <string>
 
 class TextManager

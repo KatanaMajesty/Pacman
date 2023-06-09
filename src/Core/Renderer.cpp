@@ -78,11 +78,11 @@ void Renderer::Draw(const Vec2& min, const Vec2& max)
 #endif
 }
 
-//void Renderer::Draw(const TextManager* text)
-//{
-//	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
-//	rw->draw(text->m_text);
-//}
+void Renderer::Draw(const TextManager* text)
+{
+	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
+	rw->draw(text->m_text);
+}
 
 Color ColorOf(const Vec3& rgb, float alpha)
 {

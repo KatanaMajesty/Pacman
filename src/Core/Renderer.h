@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "Sprite.h"
 #include "../Utility/Math.h"
+#include "../UI/TextManager.h"
 
 // Primitive types, that are used in the project
 enum PrimitiveType
@@ -31,7 +32,7 @@ public:
 	void Draw(const Vertex* vertices, uint32_t numVertices, PrimitiveType primitive);
 	void Draw(const Sprite* sprite);
 	void Draw(const Vec2& min, const Vec2& max);
-	//void Draw(const TextManager* text);
+	void Draw(const TextManager* text);
 
 	inline uint32_t GetWindowWidth() const { return m_window->GetWidth(); }
 	inline uint32_t GetWindowHeight() const { return m_window->GetHeight(); }
