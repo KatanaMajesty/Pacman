@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <cstdlib>
 #include "TextureAtlas.h"
 #include "../Utility/Logger.h"
 
@@ -80,7 +81,8 @@ void Maze::ParseMazeImage(const std::string& filepath)
             Vec2 pos = this->GetPosition(x, y);
             size_t index = x + m_width * y;
             bool isWall = mazeString[index] == '0';
-            TextureType type = isWall ? TEXTURE_DUNGEON_WALL1 : TEXTURE_DUNGEON_TILE;
+            uint32_t i = std::rand() % 3;
+            TextureType type = isWall ? TextureType(TEXTURE_DUNGEON_WALL1 + i) : TEXTURE_DUNGEON_TILE;
             Tile* tile = m_entityFactory->RegisterEntity<Tile>(pos, BoundingBox(pos, m_textureWidth, m_textureHeight), type, isWall);
             m_grid[x][y] = tile;
         }

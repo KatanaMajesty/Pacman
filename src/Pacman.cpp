@@ -29,7 +29,7 @@ int main()
 
 	TextureAtlas& atlas = TextureAtlas::Get();
 	Level level(&renderer);
-	level.Init((FileSystem::Get().GetAssetsPath() / "Maze.txt").string());
+	level.Init((FileSystem::Get().GetAssetsPath() / "Maze2.txt").string());
 	window.SetViewsize(level.GetMaze()->GetViewsize());
 
 	Clock clock;
@@ -44,7 +44,6 @@ int main()
 		float elapsed = clock.elapsed();
 		float timestep = elapsed - lastFrame;
 		lastFrame = elapsed;
-		AnimationManager::Get().OnUpdate(timestep);
 
 		FrameDesc frameDesc;
 		frameDesc.clearcolor[0] = 0.0f;

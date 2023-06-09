@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 #include "../Core/Sprite.h"
+#include "../Core/SpriteAnimation.h"
 
 class Coin : public Entity
 {
@@ -15,5 +16,6 @@ public:
 	virtual Sprite* GetSprite() { return &m_sprite; }
 
 private:
+	SpriteAnimation* m_animation;
 	Sprite m_sprite;
 };

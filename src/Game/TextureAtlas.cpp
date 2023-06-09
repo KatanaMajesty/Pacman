@@ -17,8 +17,8 @@ static constexpr std::array g_atlasPositions = {
     std::pair<uint32_t, uint32_t>{1, 3},
     std::pair<uint32_t, uint32_t>{2, 0},
     std::pair<uint32_t, uint32_t>{2, 1},
-    std::pair<uint32_t, uint32_t>{2, 2},
-    std::pair<uint32_t, uint32_t>{2, 3},
+    //std::pair<uint32_t, uint32_t>{2, 2}, // Was a coin (now empty)
+    std::pair<uint32_t, uint32_t>{2, 3}, // wand
     std::pair<uint32_t, uint32_t>{3, 0},
     std::pair<uint32_t, uint32_t>{3, 1},
     std::pair<uint32_t, uint32_t>{3, 2},
@@ -26,7 +26,11 @@ static constexpr std::array g_atlasPositions = {
     std::pair<uint32_t, uint32_t>{4, 0},
     std::pair<uint32_t, uint32_t>{4, 1},
     std::pair<uint32_t, uint32_t>{4, 2},
-    std::pair<uint32_t, uint32_t>{4, 3}
+    std::pair<uint32_t, uint32_t>{4, 3},
+    std::pair<uint32_t, uint32_t>{5, 0},
+    std::pair<uint32_t, uint32_t>{5, 1},
+    std::pair<uint32_t, uint32_t>{5, 2},
+    std::pair<uint32_t, uint32_t>{5, 3}
 };
 
 TextureAtlas::TextureAtlas()

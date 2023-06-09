@@ -2,6 +2,7 @@
 
 #include "../Utility/Logger.h"
 #include "../Audio/AudioManager.h"
+#include "AnimationManager.h"
 #include "Coin.h"
 #include "Tile.h"
 
@@ -43,6 +44,7 @@ bool Level::Init(const std::string& filepath)
 
 void Level::OnUpdate(float timestep)
 {
+    AnimationManager::Get().OnUpdate(timestep);
     m_maze->Draw();
 
     Player* player = (Player*) m_entityFactory->GetEntities<ENTITY_PLAYER>().front();
