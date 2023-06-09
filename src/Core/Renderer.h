@@ -2,7 +2,6 @@
 
 #include "Window.h"
 #include "Sprite.h"
-#include "../UI/TextManager.h"
 #include "../Utility/Math.h"
 
 // Primitive types, that are used in the project

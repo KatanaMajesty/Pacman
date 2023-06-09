@@ -34,6 +34,9 @@
     <Filter Include="Src\Audio">
       <UniqueIdentifier>{70276518-9b91-41d2-953a-3c3bb6014a69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\UI">
+      <UniqueIdentifier>{d8a3ab8b-d139-481c-997b-b3b776110712}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\SFML\include\SFML\Audio\AlResource.hpp">
@@ -354,6 +357,9 @@
     <ClInclude Include="src\Audio\AudioManager.h">
       <Filter>Src\Audio</Filter>
     </ClInclude>
+    <ClInclude Include="src\UI\TextManager.h">
+      <Filter>Src\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\SFML\include\SFML\Audio\SoundFileFactory.inl">
@@ -450,6 +456,9 @@
     </ClCompile>
     <ClCompile Include="src\Audio\AudioManager.cpp">
       <Filter>Src\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\TextManager.cpp">
+      <Filter>Src\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
