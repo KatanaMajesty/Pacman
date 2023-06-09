@@ -17,10 +17,6 @@ Color ColorOf(const Vec3& rgb, float alpha);
 struct FrameDesc
 {
 	float clearcolor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	float viewportTop = 0.0f;
-	float viewportBottom = 1.0f;
-	float viewportLeft = 0.0f;
-	float viewportRight = 1.0f;
 };
 
 class Renderer
@@ -30,6 +26,7 @@ public:
 
 	void BeginFrame(const FrameDesc& framedesc);
 	void EndFrame();
+	void SetViewport(const Vec2& topLeft, const Vec2& bottomRight);
 
 	void Draw(const Vertex* vertices, uint32_t numVertices, PrimitiveType primitive);
 	void Draw(const Sprite* sprite);

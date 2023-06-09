@@ -16,7 +16,6 @@ bool Renderer::Init(Window* window)
 
 void Renderer::BeginFrame(const FrameDesc& framedesc)
 {
-	m_window->SetViewport(framedesc.viewportLeft, framedesc.viewportTop, framedesc.viewportBottom, framedesc.viewportRight);
 	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
 	sf::Uint8 r = static_cast<sf::Uint8>(framedesc.clearcolor[0] * 255.0f);
 	sf::Uint8 g = static_cast<sf::Uint8>(framedesc.clearcolor[1] * 255.0f);
@@ -29,6 +28,11 @@ void Renderer::EndFrame()
 {
 	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
 	rw->display();
+}
+
+void Renderer::SetViewport(const Vec2& topLeft, const Vec2& bottomRight)
+{
+	m_window->SetViewport(topLeft.x, topLeft.y, bottomRight.y, bottomRight.x);
 }
 
 static sf::PrimitiveType GetSFMLPrimitiveType(PrimitiveType type)

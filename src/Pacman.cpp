@@ -27,13 +27,24 @@ int main()
 		return 1;
 	}
 
+	FileSystem& fs = FileSystem::Get();
 	TextureAtlas& atlas = TextureAtlas::Get();
 	Level level(&renderer);
-	level.Init((FileSystem::Get().GetAssetsPath() / "Maze2.txt").string());
+	level.Init((fs.GetAssetsPath() / "Maze2.txt").string());
 	window.SetViewsize(level.GetMaze()->GetViewsize());
 
 	Clock clock;
 	clock.start();
+
+	TextureLibrary& library = TextureLibrary::Get();
+	std::string filepath = (fs.GetAssetsPath() / "textbox.png").string();
+	Sprite ui;
+	Texture* t = library.CreateTexture(filepath);
+	float vs = window.GetViewsize();
+	float scaleX = vs / t->GetWidth();
+	float scaleY = vs / t->GetHeight();
+	ui.SetTexture(t);
+	ui.SetScale(scaleX, scaleY);
 
 	float lastFrame = 0.0f;
 	while (!window.ShouldClose())
@@ -50,15 +61,14 @@ int main()
 		frameDesc.clearcolor[1] = 0.0f;
 		frameDesc.clearcolor[2] = 0.0f;
 		frameDesc.clearcolor[3] = 1.0f;
-		/*frameDesc.viewportLeft = 0.0f;
-		frameDesc.viewportTop = 0.0f;
-		frameDesc.viewportBottom = 0.5f;
-		frameDesc.viewportRight = 0.5f;*/
-
-		//text.PrintText("Bruh", { 300,300 });
-
 		renderer.BeginFrame(frameDesc);
+
+		renderer.SetViewport(Vec2(0.1f, 0.0f), Vec2(0.9f, 0.8f));
 		level.OnUpdate(timestep);
+
+		renderer.SetViewport(Vec2(0.1f, 0.8f), Vec2(0.9f, 1.0f));
+		renderer.Draw(&ui);
+
 		renderer.EndFrame();
 	}
 	clock.stop();
