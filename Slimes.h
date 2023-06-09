@@ -1,5 +1,14 @@
 #pragma once
 #include "../Pacman/src/Game/Entity.h"
+
+enum class BehaviorSlime 
+{
+    Chase,
+    Scatter,
+    Frightened,
+    UNKNOWN
+};
+
 enum class Slimes
 {
     FreezSlime,
@@ -11,7 +20,8 @@ enum class Slimes
 
 class ISlime: public Entity
 {
-    
+    ISlime() = default;
+
 }; 
 
 class FreezSlime : public ISlime

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PathFinding.h" />
     <ClInclude Include="Slimes.h" />
     <ClInclude Include="src\Audio\AudioManager.h" />
     <ClInclude Include="src\Core\Renderer.h" />
@@ -137,6 +138,7 @@
     <None Include="vendor\SFML\include\SFML\System\Vector3.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="PathFinding.cpp" />
     <ClCompile Include="Slimes.cpp" />
     <ClCompile Include="src\Audio\AudioManager.cpp" />
     <ClCompile Include="src\Core\Renderer.cpp" />
