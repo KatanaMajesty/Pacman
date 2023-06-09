@@ -23,6 +23,12 @@ bool Level::Init(const std::string& filepath)
 
     coinPos = Vec2(200.0f, 200.0f);
     m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
+    coinPos = Vec2(250.0f, 200.0f);
+    m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
+    coinPos = Vec2(225.0f, 200.0f);
+    m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
+    coinPos = Vec2(275.0f, 200.0f);
+    m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
 
     coinPos = Vec2(400.0f, 200.0f);
     m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
