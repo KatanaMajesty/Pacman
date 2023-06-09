@@ -6,8 +6,8 @@
 #include <functional>
 #include <utility>
 #include <memory>
-#include "../Pacman/src/Utility/Math.h"
-#include "../Pacman/src/Game/Maze.h"
+#include "../Utility/Math.h"
+#include "../Game/Maze.h"
 
     struct Node
     {
@@ -49,7 +49,7 @@
          * @return true if it is possible to move from parent to neigbor
          * @return false if there is no way to move from parent to neighbor
          */
-        bool isWall(const Vec2& parent, const Vec2& neighbor) const;
+        //bool isWall(const Vec2& parent, const Vec2& neighbor) const;
         inline constexpr size_t toIndex1D(const Vec2& v) const { return static_cast<size_t>((v.y * m_dimensions.x) + v.x); };
 
     private:

@@ -51,8 +51,8 @@ std::vector<Vec2> Pathfinder::invoke(const Vec2& start, const Vec2& goal, const 
             Vec2 neighborPos = Vec2(currentPos.x + v.x, currentPos.y + v.y);
             size_t index = toIndex1D(neighborPos);
 
-            if (!isValid(neighborPos) || isWall((Vec2)currentPos, (Vec2)neighborPos) || m_closedList[index])
-                continue;
+           // if (!isValid(neighborPos) || isWall((Vec2)currentPos, (Vec2)neighborPos) || m_closedList[index])
+                //continue;
 
             // we count new f, g and h
             uint32_t g = m_pathList[toIndex1D(currentPos)].g + 1;
@@ -92,12 +92,12 @@ std::vector<Vec2> Pathfinder::recreatePath(const Vec2& goal) const
     return path;
 }
 
-bool Pathfinder::isWall(const Vec2& parent, const Vec2& neighbor) const
-{
-    // I get delta between vector neigbor and parent, based on which I will choose the direction
-    // Example: Parent = {0, 1} and Neighbor = {0, 2}. Then Delta = {0, 1}, which is Direction::SOUTH
-    Vec2 delta = {neighbor.x - parent.x, neighbor.y - parent.y };
-    // now, when we got a direction, we can check if we can move from parent to neighbor
-    //here
-   
-}
+//bool Pathfinder::isWall(const Vec2& parent, const Vec2& neighbor) const
+//{
+//    // I get delta between vector neigbor and parent, based on which I will choose the direction
+//    // Example: Parent = {0, 1} and Neighbor = {0, 2}. Then Delta = {0, 1}, which is Direction::SOUTH
+//    Vec2 delta = {neighbor.x - parent.x, neighbor.y - parent.y };
+//    // now, when we got a direction, we can check if we can move from parent to neighbor
+//    //here
+//   
+//}

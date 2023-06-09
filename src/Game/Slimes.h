@@ -1,5 +1,5 @@
 #pragma once
-#include "../Pacman/src/Game/Entity.h"
+#include "../Game/Entity.h"
 
 enum class BehaviorSlime 
 {
