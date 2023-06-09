@@ -38,6 +38,7 @@ void Level::OnUpdate(float timestep)
     //// Here we will update the tiles and other stuff
     //player->CanMove() = false; // CanMove will be set to false if the player collides with a tile
 
+    // Player-Tile collisions and Tile drawing
     for (Entity* tile : m_entityFactory->GetEntities<ENTITY_TILE>())
     {
         tile->OnUpdate(timestep);
@@ -49,16 +50,19 @@ void Level::OnUpdate(float timestep)
         m_renderer->Draw(tile->GetSprite());
     }
 
+
     if (player->CanMove()) // Only update player controller if the player can move
         m_playerController->OnUpdate(timestep);
 
+    // Player-Coin collisions and coin drawing
     for (Entity* e : m_entityFactory->GetEntities<ENTITY_COIN>())
     {
         e->OnUpdate(timestep);
         if (player->Collide(e))
         {
             player->OnEntityCollision(e);
-            e->OnEntityCollision(player);
+            // e->OnEntityCollision(player); // Actually coin does nothing here
+            m_entityFactory->DestroyEntity(e);
         }
         m_renderer->Draw(e->GetSprite());
     }

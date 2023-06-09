@@ -52,11 +52,14 @@ public:
 	~EntityFactory();
 
 	template<std::derived_from<Entity> T, typename... Args>
-	T* RegisterEntity(Args&&... args) {
+	T* RegisterEntity(Args&&... args) 
+	{
 		Entity* entity = new T(std::forward<Args>(args)...);
 		EntityType type = entity->GetType();
 		return static_cast<T*>(m_entities[type].emplace_back(entity));
 	}
+
+	void DestroyEntity(Entity* entity);
 
 	template<EntityType Type>
 	auto& GetEntities() { return m_entities[Type]; }

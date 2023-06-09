@@ -1,6 +1,7 @@
 #include "Player.h"
 
 #include "../Utility/Logger.h"
+#include "../Audio/AudioManager.h"
 #include "TextureAtlas.h"
 
 Player::Player(const Vec2& pos, const BoundingBox& boundingBox)
@@ -20,6 +21,7 @@ Player::Player(const Vec2& pos, const BoundingBox& boundingBox)
 
 void Player::OnUpdate(float timestep)
 {
+	m_lastTimestep = timestep;
 	if (!m_activeSprite)
 		return;
 
@@ -47,6 +49,8 @@ void Player::OnEntityCollision(Entity* entity)
 void Player::OnCoinPickup()
 {
 	//LOG("COIN COLLIISION!");
+	AudioManager::Get().PlaySound(AudioType::AUDIO_COIN_COLLECT);
+	++m_collectedCoins;
 }
 
 void Player::OnWeaponPickup()
@@ -60,7 +64,8 @@ void Player::OnEnemyInteract()
 void Player::OnTileCollision()
 {
 	Vec2 dir = VecFromDirection(GetOppositeDirection(m_direction));
-	AddPosition(dir * 0.01f);
+	float pixels = 32.0f * m_lastTimestep; // how many pixels to offset per second
+	AddPosition(dir * pixels); // use timestep to avoid relying on FPS
 }
 
 void Player::SetDirection(Direction direction)

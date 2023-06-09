@@ -28,7 +28,9 @@ public:
 
 private:
     bool m_hasWeapon = false;
+    float m_lastTimestep = 0.0f;
     float m_timeSinceAnimationTick = 0.0f;
+    uint32_t m_collectedCoins = 0;
     Sprite* m_activeSprite = nullptr;
     Sprite m_sprites[4]; // Sprite for each direction
     Direction m_direction;
