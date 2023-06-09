@@ -49,7 +49,6 @@ void Player::OnEntityCollision(Entity* entity)
 void Player::OnCoinPickup()
 {
 	//LOG("COIN COLLIISION!");
-	AudioManager::Get().PlaySound(AudioType::AUDIO_COIN_COLLECT);
 	++m_collectedCoins;
 }
 
