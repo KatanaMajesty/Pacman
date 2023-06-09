@@ -27,3 +27,35 @@ struct BoundingBox
 	Vec2 max;
 	Vec2 min;
 };
+
+enum Direction
+{
+	DIRECTION_UP, // W
+	DIRECTION_LEFT, // A
+	DIRECTION_DOWN, // S
+	DIRECTION_RIGHT, // D
+};
+
+inline constexpr Direction GetOppositeDirection(Direction direction)
+{
+	switch (direction)
+	{
+	case DIRECTION_UP: return DIRECTION_DOWN;
+	case DIRECTION_LEFT: return DIRECTION_RIGHT;
+	case DIRECTION_DOWN: return DIRECTION_UP;
+	case DIRECTION_RIGHT: return DIRECTION_LEFT;
+	default: return (Direction)-1;
+	}
+}
+
+inline Vec2 VecFromDirection(Direction direction)
+{
+	switch (direction)
+	{
+	case DIRECTION_UP: return Vec2(0.0f, -1.0f);
+	case DIRECTION_LEFT: return Vec2(-1.0f, 0.0f);
+	case DIRECTION_DOWN: return Vec2(0.0f, 1.0f);
+	case DIRECTION_RIGHT: return Vec2(1.0f, 0.0f);
+	default: return Vec2(0.0f, 0.0f);
+	}
+}

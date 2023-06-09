@@ -24,7 +24,8 @@ void Player::OnUpdate(float timestep)
 		return;
 
 	m_activeSprite->SetPosition(m_pos);
-	SetAABB(32.0f, 32.0f);
+	this->SetAABB(32.0f, 32.0f);
+	this->CanMove() = true;
 	// Do player logic
 }
 
@@ -36,6 +37,7 @@ void Player::OnEntityCollision(Entity* entity)
 	case EntityType::ENTITY_COIN: this->OnCoinPickup(); break;
 	case EntityType::ENTITY_WEAPON: this->OnWeaponPickup(); break;
 	case EntityType::ENTITY_ENEMY: this->OnEnemyInteract(); break;
+	case EntityType::ENTITY_TILE: this->OnTileCollision(); break;
 	case EntityType::ENTITY_PLAYER: // should not happen
 	case EntityType::ENTITY_UNKNOWN:
 	default: ASSERT(false); break;
@@ -44,7 +46,7 @@ void Player::OnEntityCollision(Entity* entity)
 
 void Player::OnCoinPickup()
 {
-	LOG("COIN COLLIISION!");
+	//LOG("COIN COLLIISION!");
 }
 
 void Player::OnWeaponPickup()
@@ -55,7 +57,14 @@ void Player::OnEnemyInteract()
 {
 }
 
+void Player::OnTileCollision()
+{
+	Vec2 dir = VecFromDirection(GetOppositeDirection(m_direction));
+	AddPosition(dir * 0.05f);
+}
+
 void Player::SetDirection(Direction direction)
 {
+	m_direction = direction;
 	m_activeSprite = &m_sprites[direction];
 }

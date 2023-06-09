@@ -33,7 +33,14 @@ public:
 	const Vec2& GetPosition() const { return m_pos; }
 	const BoundingBox& GetAABB() const { return m_boundingBox; }
 
+	// CanMove function returns true if the entity can move
+	// The function is reset every frame for some entities, like player or enemy
+	// For tiles and coins this value is immutable in most cases
+	auto& CanMove() { return m_canMove; }
+	auto& CanMove() const { return m_canMove; }
+
 protected:
+	bool m_canMove = true;
 	BoundingBox m_boundingBox;
 	Vec2 m_pos;
 };

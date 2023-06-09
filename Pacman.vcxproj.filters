@@ -433,5 +433,8 @@
     <ClCompile Include="src\Game\Coin.cpp">
       <Filter>Src\Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Tile.cpp">
+      <Filter>Src\Game</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

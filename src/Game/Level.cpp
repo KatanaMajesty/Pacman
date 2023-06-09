@@ -2,6 +2,7 @@
 
 #include "../Utility/Logger.h"
 #include "Coin.h"
+#include "Tile.h"
 
 Level::Level(Renderer* renderer)
     : m_renderer(renderer)
@@ -15,21 +16,40 @@ bool Level::Init(const std::string& filepath)
     m_entityFactory.reset(new EntityFactory());
     Vec2 playerPos = Vec2(400.0f, 300.0f);
     Player* player = m_entityFactory->RegisterEntity<Player>(Vec2(400.0f, 300.0f), BoundingBox(playerPos, 16.0f, 16.0f));
+    m_playerController.reset(new PlayerController(player));
 
     Vec2 coinPos = Vec2(600.0f, 200.0f);
     m_entityFactory->RegisterEntity<Coin>(Vec2(600.0f, 200.0f), BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
-    m_playerController.reset(new PlayerController(player));
+
+    Vec2 tilepos = Vec2(400.0f, 300.0f);
+    m_entityFactory->RegisterEntity<Tile>(tilepos, BoundingBox(tilepos, 32.0f, 32.0f), true);
 
     return true;
 }
 
 void Level::OnUpdate(float timestep)
 {
-    m_maze->Draw();
-    m_playerController->OnUpdate(timestep);
+    //m_maze->Draw();
 
     Player* player = (Player*) m_entityFactory->GetEntities<ENTITY_PLAYER>().front();
     player->OnUpdate(timestep);
+
+    //// Here we will update the tiles and other stuff
+    //player->CanMove() = false; // CanMove will be set to false if the player collides with a tile
+
+    for (Entity* tile : m_entityFactory->GetEntities<ENTITY_TILE>())
+    {
+        tile->OnUpdate(timestep);
+        if (tile->Collide(player))
+        {
+            player->OnEntityCollision(tile);
+            tile->OnEntityCollision(player);
+        }
+        m_renderer->Draw(tile->GetSprite());
+    }
+
+    if (player->CanMove()) // Only update player controller if the player can move
+        m_playerController->OnUpdate(timestep);
 
     for (Entity* e : m_entityFactory->GetEntities<ENTITY_COIN>())
     {
@@ -37,6 +57,7 @@ void Level::OnUpdate(float timestep)
         if (player->Collide(e))
         {
             player->OnEntityCollision(e);
+            e->OnEntityCollision(player);
         }
         m_renderer->Draw(e->GetSprite());
     }
