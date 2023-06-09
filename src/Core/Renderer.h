@@ -2,6 +2,7 @@
 
 #include "Window.h"
 #include "Sprite.h"
+#include "../UI/TextManager.h"
 #include "../Utility/Math.h"
 
 // Primitive types, that are used in the project
@@ -33,6 +34,7 @@ public:
 
 	void Draw(const Vertex* vertices, uint32_t numVertices, PrimitiveType primitive);
 	void Draw(const Sprite* sprite);
+	//void Draw(const TextManager* text);
 
 	inline uint32_t GetWindowWidth() const { return m_window->GetWidth(); }
 	inline uint32_t GetWindowHeight() const { return m_window->GetHeight(); }

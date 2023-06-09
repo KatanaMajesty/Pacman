@@ -38,6 +38,7 @@
     <ClInclude Include="src\Game\Player.h" />
     <ClInclude Include="src\Game\PlayerController.h" />
     <ClInclude Include="src\Game\Tile.h" />
+    <ClInclude Include="src\UI\TextManager.h" />
     <ClInclude Include="src\Utility\Clock.h" />
     <ClInclude Include="src\Utility\FileSystem.h" />
     <ClInclude Include="src\Utility\Logger.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="src\Game\PlayerController.cpp" />
     <ClCompile Include="src\Game\Tile.cpp" />
     <ClCompile Include="src\Pacman.cpp" />
+    <ClCompile Include="src\UI\TextManager.cpp" />
     <ClCompile Include="src\Utility\Clock.cpp" />
     <ClCompile Include="src\Utility\FileSystem.cpp" />
     <ClCompile Include="src\Utility\Math.cpp" />

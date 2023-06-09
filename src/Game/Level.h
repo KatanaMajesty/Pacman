@@ -22,5 +22,4 @@ private:
     std::unique_ptr<Maze> m_maze;
     std::unique_ptr<EntityFactory> m_entityFactory = nullptr;
     std::unique_ptr<PlayerController> m_playerController;
-    EventBus m_events;
 };

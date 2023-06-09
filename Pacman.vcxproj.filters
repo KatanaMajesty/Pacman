@@ -31,6 +31,9 @@
     <Filter Include="Src\Game">
       <UniqueIdentifier>{76236572-d87e-489b-ab5f-4a33d73ab496}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Audio">
+      <UniqueIdentifier>{70276518-9b91-41d2-953a-3c3bb6014a69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\SFML\include\SFML\Audio\AlResource.hpp">
@@ -339,9 +342,6 @@
     <ClInclude Include="src\Game\AnimationManager.h">
       <Filter>Src\Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Audio\AudioManager.h">
-      <Filter>Src\Core</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\Tile.h">
       <Filter>Src\Game</Filter>
     </ClInclude>
@@ -350,6 +350,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\Slimes.h">
       <Filter>Src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Audio\AudioManager.h">
+      <Filter>Src\Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -433,9 +436,6 @@
     <ClCompile Include="src\Utility\Math.cpp">
       <Filter>Src\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="src\Audio\AudioManager.cpp">
-      <Filter>Src\Core</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Coin.cpp">
       <Filter>Src\Game</Filter>
     </ClCompile>
@@ -447,6 +447,9 @@
     </ClCompile>
     <ClCompile Include="src\Game\Slimes.cpp">
       <Filter>Src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Audio\AudioManager.cpp">
+      <Filter>Src\Audio</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
