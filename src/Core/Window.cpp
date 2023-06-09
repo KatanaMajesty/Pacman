@@ -74,3 +74,15 @@ bool Window::ShouldClose() const
 
 	return !m_window->isOpen();
 }
+
+void Window::SetViewport(float left, float top, float bottom, float right) const
+{
+	sf::View view;
+	sf::FloatRect rect;
+	rect.top = top;
+	rect.left = left;
+	rect.width = right - left;
+	rect.height = -top + bottom;
+	view.setViewport(rect);
+	m_window->setView(view);
+}
