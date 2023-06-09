@@ -65,6 +65,9 @@ void Window::PollEvents()
 		// catch the resize events
 		if (event.type == sf::Event::Resized)
 		{
+
+			EventBus::Get().publish(WindowResizedEvent(this, m_width, m_height));
+
 			m_width = static_cast<float>(event.size.width);
 			m_height = static_cast<float>(event.size.height);
 

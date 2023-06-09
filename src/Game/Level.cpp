@@ -30,6 +30,8 @@ bool Level::Init(const std::string& filepath)
     Vec2 tilepos = Vec2(400.0f, 300.0f);
     m_entityFactory->RegisterEntity<Tile>(tilepos, BoundingBox(tilepos, 32.0f, 32.0f), true);
 
+    EventBus::Get().subscribe(this, &Level::OnWindowResize);
+
     return true;
 }
 
@@ -73,4 +75,14 @@ void Level::OnUpdate(float timestep)
         m_renderer->Draw(e->GetSprite());
     }
 
+}
+
+void Level::OnWindowResize(const WindowResizedEvent& wre)
+{
+    SetLevelScale(0.0f, 0.0f);
+}
+
+void Level::SetLevelScale(float x, float y) const
+{
+    
 }

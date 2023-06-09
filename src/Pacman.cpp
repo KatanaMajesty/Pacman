@@ -1,15 +1,16 @@
 #include <memory>
 #include <array>
+#include "Audio/AudioManager.h"
 #include "Core/Window.h"
 #include "Core/Renderer.h"
 #include "Core/TextureLibrary.h"
-#include "Utility/Logger.h"
-#include "Audio/AudioManager.h"
-#include "Utility/Clock.h"
-#include "Utility/FileSystem.h"
 #include "Game/AnimationManager.h"
 #include "Game/TextureAtlas.h"
 #include "Game/Level.h"
+#include "Utility/Logger.h"
+#include "Utility/Clock.h"
+#include "Utility/FileSystem.h"
+#include "Utility/EventBus.h"
 #include "UI/TextManager.h"
 
 int main()
@@ -19,6 +20,8 @@ int main()
 
 	Renderer renderer;
 	renderer.Init(&window);
+
+	EventBus& eventBus = EventBus::Get();
 
 	TextureAtlas& atlas = TextureAtlas::Get();
 

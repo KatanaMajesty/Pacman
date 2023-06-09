@@ -22,14 +22,14 @@ template<typename Receiver, typename EventType>
 class EventHandler : public EventDispatcher
 {
 public:
-	using HandlerFn = void(Receiver::*)(EventType&);
+	using HandlerFn = void(Receiver::*)(const EventType&);
 
 	EventHandler(Receiver* receiver, HandlerFn handlerFn)
 		: m_Receiver(receiver), m_HandlerFn(handlerFn) {}
 
 	virtual void invokeHandler(Event& e) const override
 	{
-		(m_Receiver->*m_HandlerFn)(static_cast<EventType&>(e));
+		(m_Receiver->*m_HandlerFn)(static_cast<const EventType&>(e));
 	}
 
 	bool operator==(const EventHandler<Receiver, EventType>& rhs) const
@@ -52,9 +52,13 @@ public:
 	using Dispatcher = std::unique_ptr<EventDispatcher>;
 	using HandlerList = std::vector<Dispatcher>;
 
+private:
 	EventBus() = default;
+public:
 	EventBus(const EventBus&) = delete;
 	EventBus& operator=(const EventBus&) = delete;
+
+	inline static EventBus& Get() { static EventBus instance; return instance; }
 
 	template<typename EventType>
 	void publish(EventType&& e)
@@ -71,7 +75,7 @@ public:
 	}
 
 	template<typename Receiver, typename EventType>
-	void subscribe(Receiver* receiver, void(Receiver::* handlerFn)(EventType&))
+	void subscribe(Receiver* receiver, void(Receiver::* handlerFn)(const EventType&))
 	{
 		HandlerList& handlers = m_Subscriptions[typeid(EventType)];
 		handlers.emplace_back(
@@ -80,7 +84,7 @@ public:
 	}
 
 	template<typename Receiver, typename EventType>
-	void unsubscribe(Receiver* receiver, void(Receiver::* handlerFn)(EventType&))
+	void unsubscribe(Receiver* receiver, void(Receiver::* handlerFn)(const EventType&))
 	{
 		auto entry = m_Subscriptions.find(typeid(EventType));
 		if (entry != m_Subscriptions.end())
