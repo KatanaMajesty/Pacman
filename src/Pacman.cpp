@@ -10,6 +10,7 @@
 #include "Game/AnimationManager.h"
 #include "Game/TextureAtlas.h"
 #include "Game/Level.h"
+#include "UI/TextManager.h"
 
 int main()
 {
@@ -26,6 +27,10 @@ int main()
 	
 	Clock clock;
 	clock.start();
+
+	TextManager& text = TextManager::Get();
+	
+	text.PrintText("bruh",{400,300});
 
 	float lastFrame = 0.0f;
 	while (!window.ShouldClose())
@@ -47,6 +52,8 @@ int main()
 		frameDesc.viewportTop = 0.0f;
 		frameDesc.viewportBottom = 0.5f;
 		frameDesc.viewportRight = 0.5f;*/
+
+		renderer.Draw();
 
 		renderer.BeginFrame(frameDesc);
 		level.OnUpdate(timestep);
