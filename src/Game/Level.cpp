@@ -33,6 +33,7 @@ void Level::OnUpdate(float timestep)
 
     Player* player = (Player*) m_entityFactory->GetEntities<ENTITY_PLAYER>().front();
     player->OnUpdate(timestep);
+    m_renderer->Draw(player->GetSprite());
 
     //// Here we will update the tiles and other stuff
     //player->CanMove() = false; // CanMove will be set to false if the player collides with a tile
@@ -62,5 +63,4 @@ void Level::OnUpdate(float timestep)
         m_renderer->Draw(e->GetSprite());
     }
 
-    m_renderer->Draw(player->GetSprite());
 }

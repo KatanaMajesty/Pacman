@@ -24,15 +24,6 @@ int main()
 	Level level(&renderer);
 	level.Init((FileSystem::Get().GetAssetsPath() / "Maze.txt").string());
 	
-	Sprite sprite;
-	sprite.SetScale(4.0f);
-	sprite.SetPosition(Vec2(400.0f, 300.0f));
-
-	SpriteAnimation* animation = AnimationManager::Get().CreateAnimation("ANIM_YELLOW_SLIME");
-	animation->AddTexture(atlas.GetTexture(TextureType::TEXTURE_SLIME_YELLOW_IDLE));
-	animation->AddTexture(atlas.GetTexture(TextureType::TEXTURE_SLIME_YELLOW_JUMPING));
-	animation->Init(&sprite, 0.5f);
-
 	Clock clock;
 	clock.start();
 
@@ -52,16 +43,13 @@ int main()
 		frameDesc.clearcolor[1] = 1.0f;
 		frameDesc.clearcolor[2] = 0.0f;
 		frameDesc.clearcolor[3] = 1.0f;
-		frameDesc.viewportLeft = 0.0f;
+		/*frameDesc.viewportLeft = 0.0f;
 		frameDesc.viewportTop = 0.0f;
 		frameDesc.viewportBottom = 0.5f;
-		frameDesc.viewportRight = 0.5f;
+		frameDesc.viewportRight = 0.5f;*/
 
 		renderer.BeginFrame(frameDesc);
-
 		level.OnUpdate(timestep);
-		renderer.Draw(&sprite);
-
 		renderer.EndFrame();
 	}
 	clock.stop();

@@ -13,7 +13,6 @@ Tile::Tile(const Vec2& pos, const BoundingBox& boundingBox, bool isCollider)
 
 void Tile::OnEntityCollision(Entity* entity)
 {
-	LOG("Tile collision!");
 	if (IsCollider())
 	{
 		EntityType type = entity->GetType();

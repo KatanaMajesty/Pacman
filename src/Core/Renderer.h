@@ -18,9 +18,9 @@ struct FrameDesc
 {
 	float clearcolor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	float viewportTop = 0.0f;
-	float viewportBottom = 0.0f;
+	float viewportBottom = 1.0f;
 	float viewportLeft = 0.0f;
-	float viewportRight = 0.0f;
+	float viewportRight = 1.0f;
 };
 
 class Renderer

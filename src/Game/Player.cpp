@@ -60,7 +60,7 @@ void Player::OnEnemyInteract()
 void Player::OnTileCollision()
 {
 	Vec2 dir = VecFromDirection(GetOppositeDirection(m_direction));
-	AddPosition(dir * 0.05f);
+	AddPosition(dir * 0.01f);
 }
 
 void Player::SetDirection(Direction direction)
