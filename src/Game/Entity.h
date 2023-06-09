@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include "../Utility/Math.h"
 #include "../Utility/Logger.h"
+#include "../Core/Sprite.h"
 
 enum EntityType
 {
@@ -12,6 +13,7 @@ enum EntityType
 	ENTITY_ENEMY,
 	ENTITY_COIN,
 	ENTITY_WEAPON,
+	ENTITY_TILE,
 };
 
 class Entity
@@ -23,11 +25,13 @@ public:
 	virtual void OnUpdate(float timestep) = 0;
 	virtual void OnEntityCollision(Entity* entity) = 0;
 	virtual EntityType GetType() const { return ENTITY_UNKNOWN; }
+	virtual Sprite* GetSprite() = 0;
 	void AddPosition(const Vec2& offset) { m_pos += offset; }
 	void SetPosition(const Vec2& pos) { m_pos = pos; }
+	void SetAABB(float width, float height) { m_boundingBox = BoundingBox(m_pos, width, height); }
+	bool Collide(const Entity* otherEntity) const;
 	const Vec2& GetPosition() const { return m_pos; }
 	const BoundingBox& GetAABB() const { return m_boundingBox; }
-	bool Collide(const Entity& otherEntity);
 
 protected:
 	BoundingBox m_boundingBox;

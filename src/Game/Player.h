@@ -22,11 +22,11 @@ public:
     virtual void OnUpdate(float timestep) override;
     virtual void OnEntityCollision(Entity* entity) override;
     virtual EntityType GetType() const { return ENTITY_PLAYER; }
+    virtual Sprite* GetSprite() override { return m_activeSprite; }
     void OnCoinPickup();
     void OnWeaponPickup();
     void OnEnemyInteract();
     void SetDirection(Direction direction);
-    Sprite* GetSprite() { return m_activeSprite; }
 
 private:
     bool m_hasWeapon = false;
