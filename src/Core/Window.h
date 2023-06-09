@@ -5,6 +5,8 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 
+#include "../Utility/EventBus.h"
+
 class Window
 {
 public:
@@ -29,4 +31,15 @@ private:
 	std::string m_title;
 	std::unique_ptr<sf::RenderWindow> m_window;
 	sf::View m_view;
+};
+
+struct WindowResizedEvent
+	: Event
+{
+	Window* window;
+	uint32_t width;
+	uint32_t height;
+
+	WindowResizedEvent(Window* window, uint32_t width, uint32_t height)
+		: window(window), width(width), height(height) {}
 };

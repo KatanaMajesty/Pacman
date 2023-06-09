@@ -36,12 +36,14 @@ bool Level::Init(const std::string& filepath)
     Vec2 tilepos = Vec2(400.0f, 300.0f);
     m_entityFactory->RegisterEntity<Tile>(tilepos, BoundingBox(tilepos, 32.0f, 32.0f), true);
 
+    EventBus::Get().subscribe(this, &Level::OnWindowResize);
+
     return true;
 }
 
 void Level::OnUpdate(float timestep)
 {
-    //m_maze->Draw();
+    m_maze->Draw();
 
     Player* player = (Player*) m_entityFactory->GetEntities<ENTITY_PLAYER>().front();
     player->OnUpdate(timestep);
@@ -79,4 +81,21 @@ void Level::OnUpdate(float timestep)
         m_renderer->Draw(e->GetSprite());
     }
 
+}
+
+void Level::OnWindowResize(const WindowResizedEvent& wre)
+{
+    float desiredTileWidth = static_cast<float>(wre.width) / static_cast<float>(m_maze.get()->GetWidth());
+    float desiredTileHeight = static_cast<float>(wre.height) / static_cast<float>(m_maze.get()->GetHeight());
+
+    //SetLevelScale(desiredTileWidth, desiredTileHeight);
+}
+
+void Level::SetLevelScale(float x, float y) const
+{
+    for (auto& cell : m_maze.get()->GetGrid())
+    {
+        cell.GetSprite()->SetScale(x / cell.GetSprite()->GetTexture()->GetWidth(),
+            y / cell.GetSprite()->GetTexture()->GetHeight());
+    }
 }

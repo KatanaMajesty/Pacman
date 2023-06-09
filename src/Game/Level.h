@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include "../Core/Renderer.h"
+#include "../Utility/EventBus.h"
 #include "Entity.h"
 #include "Maze.h"
 #include "Player.h"
@@ -15,6 +16,8 @@ public:
     
     bool Init(const std::string& filepath);
     void OnUpdate(float timestep);
+    void OnWindowResize(const WindowResizedEvent& wre);
+    void SetLevelScale(float x, float y) const;
 
 private:
     Renderer* m_renderer;
