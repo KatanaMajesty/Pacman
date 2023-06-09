@@ -34,6 +34,7 @@ public:
 
     void Draw();
 
+    inline std::vector<Cell>& GetGrid() { return m_mazeGrid; }
     inline const std::vector<Cell>& GetGrid() const { return m_mazeGrid; }
     inline const uint16_t& GetWidth() const { return m_mazeWidth; }
     inline const uint16_t& GetHeight() const { return m_mazeHeight; }

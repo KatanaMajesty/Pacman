@@ -29,7 +29,7 @@ bool Level::Init(const std::string& filepath)
 
 void Level::OnUpdate(float timestep)
 {
-    //m_maze->Draw();
+    m_maze->Draw();
 
     Player* player = (Player*) m_entityFactory->GetEntities<ENTITY_PLAYER>().front();
     player->OnUpdate(timestep);
@@ -65,6 +65,7 @@ void Level::OnUpdate(float timestep)
             m_entityFactory->DestroyEntity(e);
         }
         m_renderer->Draw(e->GetSprite());
+        m_events.publish()
     }
 
 }

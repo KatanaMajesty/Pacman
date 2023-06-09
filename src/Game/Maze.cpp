@@ -14,17 +14,16 @@ Maze::Maze(const std::string& filepath, Renderer* renderer)
 
 void Maze::Draw()
 {
-    float desiredTileWidth = m_renderer->GetWindowWidth() / m_mazeWidth;
-    float desiredTileHeight = m_renderer->GetWindowHeight() / m_mazeHeight;
+    float desiredTileWidth = static_cast<float>(m_renderer->GetWindowWidth()) / static_cast<float>(m_mazeWidth);
+    float desiredTileHeight = static_cast<float>(m_renderer->GetWindowHeight()) / static_cast<float>(m_mazeHeight);
 
-    for (uint16_t i = 0; i < m_mazeWidth; i++)
+    for (uint32_t i = 0; i < m_mazeWidth; i++)
     {
-        for (uint16_t j = 0; j < m_mazeHeight; j++)
+        for (uint32_t j = 0; j < m_mazeHeight; j++)
         {
             Sprite* cellSprite = m_mazeGrid[static_cast<size_t>(i * m_mazeWidth + j)].GetSprite();
 
             cellSprite->SetPosition(Vec2(j * desiredTileWidth, i * desiredTileHeight));
-            cellSprite->SetScale(Vec2(1.5f, 1.5f));
             m_renderer->Draw(cellSprite);
         }
     }
