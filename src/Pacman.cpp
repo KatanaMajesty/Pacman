@@ -52,10 +52,10 @@ int main()
 		frameDesc.clearcolor[1] = 1.0f;
 		frameDesc.clearcolor[2] = 0.0f;
 		frameDesc.clearcolor[3] = 1.0f;
-		frameDesc.viewportLeft = 0.25f;
-		frameDesc.viewportTop = 0.25f;
-		frameDesc.viewportBottom = 0.75f;
-		frameDesc.viewportRight = 0.75f;
+		frameDesc.viewportLeft = 0.0f;
+		frameDesc.viewportTop = 0.0f;
+		frameDesc.viewportBottom = 0.5f;
+		frameDesc.viewportRight = 0.5f;
 
 		renderer.BeginFrame(frameDesc);
 

@@ -4,9 +4,6 @@
 #include "../Core/Renderer.h"
 #include "../Core/Texture.h"
 
-constexpr uint8_t MAX_MAZE_WIDTH_IN_TILES = 32;
-constexpr uint8_t MAX_MAZE_HEIGHT_IN_TILES = 32;
-
 
 enum class CellType
 {

@@ -15,17 +15,26 @@ Window::~Window()
 
 bool Window::Open()
 {
+	bool creationResult = false;
 	// If window was never created before - we allocate it
 	if (!m_window)
 	{
 		m_window.reset(new sf::RenderWindow(sf::VideoMode(m_width, m_height), m_title));
 		LOG("Allocating a window {}", m_title);
-		return true;
+	}
+	else
+	{
+		m_window->close();
+		m_window->create(sf::VideoMode(m_width, m_height), m_title);
+		creationResult = true;
 	}
 
-	m_window->close();
-	m_window->create(sf::VideoMode(m_width, m_height), m_title);
-	return true;
+
+	m_view.setCenter(m_width / 2.0f, m_height / 2.0f);
+	m_view.setSize(m_width, m_height);
+	m_window->setView(m_view);
+
+	return creationResult;
 }
 
 bool Window::Close()
@@ -59,10 +68,9 @@ void Window::PollEvents()
 			m_width = static_cast<float>(event.size.width);
 			m_height = static_cast<float>(event.size.height);
 
-			sf::View view;
-			view.setCenter(m_width / 2.0f, m_height / 2.0f);
-			view.setSize(m_width, m_height);
-			m_window->setView(view);
+			m_view.setCenter(m_width / 2.0f, m_height / 2.0f);
+			m_view.setSize(m_width, m_height);
+			m_window->setView(m_view);
 		}
 	}
 }
@@ -75,14 +83,13 @@ bool Window::ShouldClose() const
 	return !m_window->isOpen();
 }
 
-void Window::SetViewport(float left, float top, float bottom, float right) const
+void Window::SetViewport(float left, float top, float bottom, float right)
 {
-	sf::View view;
 	sf::FloatRect rect;
-	rect.top = top;
 	rect.left = left;
+	rect.top = top;
 	rect.width = right - left;
-	rect.height = -top + bottom;
-	view.setViewport(rect);
-	m_window->setView(view);
+	rect.height = bottom - top;
+	m_view.setViewport(rect);
+	m_window->setView(m_view);
 }
