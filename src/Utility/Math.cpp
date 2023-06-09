@@ -2,6 +2,13 @@
 
 bool BoundingBox::Collide(const BoundingBox& other) const
 {
-	return (other.min.x <= this->max.x && other.max.x >= this->min.x)
-		&& (other.min.y <= this->max.y && other.max.y >= this->min.y);
+    if (max.x < other.min.x || min.x > other.max.x) {
+        return false;  // No collision on the X-axis
+    }
+
+    if (max.y < other.min.y || min.y > other.max.y) {
+        return false;  // No collision on the Y-axis
+    }
+
+    return true;  // Colliding on both X-axis and Y-axis
 }

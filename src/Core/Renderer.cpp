@@ -54,9 +54,11 @@ void Renderer::Draw(const Sprite* sprite)
 	rw->draw(sprite->m_sprite);
 }
 
+#define KABANCHIKOM 0
 void Renderer::Draw(const Vec2& min, const Vec2& max)
 {
 	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
+#if KABANCHIKOM == 1
 	Vertex vertices[5];
 	vertices[0].position = min;
 	vertices[1].position = Vec2(min.x, max.y);
@@ -64,6 +66,12 @@ void Renderer::Draw(const Vec2& min, const Vec2& max)
 	vertices[3].position = Vec2(max.x, min.y);
 	vertices[4].position = min;
 	rw->draw(vertices, 5, sf::LineStrip);
+#elif KABANCHIKOM == 2
+	Vertex vertices[2];
+	vertices[0].position = min;
+	vertices[1].position = max;
+	rw->draw(vertices, 2, sf::Points);
+#endif
 }
 
 //void Renderer::Draw(const TextManager* text)

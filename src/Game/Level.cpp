@@ -1,6 +1,7 @@
 #include "Level.h"
 
 #include "../Utility/Logger.h"
+#include "../Audio/AudioManager.h"
 #include "Coin.h"
 #include "Tile.h"
 
@@ -31,14 +32,12 @@ bool Level::Init(const std::string& filepath)
     coinPos = Vec2(400.0f, 200.0f);
     m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
 
-    Vec2 tilepos = Vec2(400.0f, 300.0f);
-    m_entityFactory->RegisterEntity<Tile>(tilepos, BoundingBox(tilepos, 32.0f, 32.0f), TEXTURE_DUNGEON_WALL3, true);
-
     m_maze.reset(new Maze(m_entityFactory.get(), m_renderer));
     m_maze->Init(filepath);
 
     EventBus::Get().subscribe(this, &Level::OnWindowResize);
 
+    AudioManager::Get().PlaySound(AUDIO_AMBIENCE);
     return true;
 }
 
