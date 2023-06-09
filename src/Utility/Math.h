@@ -17,8 +17,15 @@ struct BoundingBox
 	{
 	};
 	BoundingBox(const Vec2& pos, float width, float height)
-		: min(pos - Vec2(width / 2.0f, height / 2.0f))
-		, max(pos + Vec2(width / 2.0f, height / 2.0f))
+		/*: min(pos - Vec2(width / 2.0f, height / 2.0f))
+		, max(pos + Vec2(width / 2.0f, height / 2.0f))*/
+		: min(Vec2(pos.x, pos.y + height))
+		, max(Vec2(pos.x + width, pos.y))
+	{
+	}
+	BoundingBox(const Vec2& pos, float radius)
+		: min(pos - Vec2(radius / 2.0f, radius / 2.0f))
+		, max(pos + Vec2(radius / 2.0f, radius / 2.0f))
 	{
 	}
 

@@ -33,6 +33,7 @@ public:
 
 	void Draw(const Vertex* vertices, uint32_t numVertices, PrimitiveType primitive);
 	void Draw(const Sprite* sprite);
+	void Draw(const Vec2& min, const Vec2& max);
 	//void Draw(const TextManager* text);
 
 	inline uint32_t GetWindowWidth() const { return m_window->GetWidth(); }

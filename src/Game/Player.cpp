@@ -8,6 +8,9 @@ Player::Player(const Vec2& pos, const BoundingBox& boundingBox)
 	: Entity(pos, boundingBox)
 {
 	TextureAtlas& textureAtlas = TextureAtlas::Get();
+	uint32_t textureWidth = textureAtlas.GetTextureWidth();
+	uint32_t textureHeight = textureAtlas.GetTextureHeight();
+	m_playerPos = pos + Vec2(textureWidth / 2.0f, textureHeight / 2.0f);
 	m_sprites[DIRECTION_UP].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_BACK));
 	m_sprites[DIRECTION_LEFT].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_LEFT));
 	m_sprites[DIRECTION_DOWN].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_FRONT));
@@ -26,7 +29,12 @@ void Player::OnUpdate(float timestep)
 		return;
 
 	m_activeSprite->SetPosition(m_pos);
-	this->SetAABB(32.0f, 32.0f);
+	TextureAtlas& textureAtlas = TextureAtlas::Get();
+	float w = textureAtlas.GetTextureWidth() / 2.0f;
+	float h = textureAtlas.GetTextureHeight() / 2.0f;
+	m_playerPos = m_pos + Vec2(w, h);
+
+	this->SetAABB(m_playerPos, w);
 	this->CanMove() = true;
 	// Do player logic
 }

@@ -2,12 +2,12 @@
 
 #include "TextureAtlas.h"
 
-Tile::Tile(const Vec2& pos, const BoundingBox& boundingBox, bool isCollider)
+Tile::Tile(const Vec2& pos, const BoundingBox& boundingBox, TextureType type, bool isCollider)
 	: Entity(pos, boundingBox)
 	, m_isCollider(isCollider)
 {
 	TextureAtlas& atlas = TextureAtlas::Get();
-	m_sprite.SetTexture(atlas.GetTexture(TEXTURE_DUNGEON_WALL1));
+	m_sprite.SetTexture(atlas.GetTexture(type));
 	m_sprite.SetPosition(pos);
 }
 

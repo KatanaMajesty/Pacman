@@ -54,11 +54,23 @@ void Renderer::Draw(const Sprite* sprite)
 	rw->draw(sprite->m_sprite);
 }
 
-/*void Renderer::Draw(const TextManager* text)
+void Renderer::Draw(const Vec2& min, const Vec2& max)
 {
 	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
-	rw->draw(text->m_text);
-}*/
+	Vertex vertices[5];
+	vertices[0].position = min;
+	vertices[1].position = Vec2(min.x, max.y);
+	vertices[2].position = max;
+	vertices[3].position = Vec2(max.x, min.y);
+	vertices[4].position = min;
+	rw->draw(vertices, 5, sf::LineStrip);
+}
+
+//void Renderer::Draw(const TextManager* text)
+//{
+//	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
+//	rw->draw(text->m_text);
+//}
 
 Color ColorOf(const Vec3& rgb, float alpha)
 {

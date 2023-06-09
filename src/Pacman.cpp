@@ -47,7 +47,7 @@ int main()
 
 		FrameDesc frameDesc;
 		frameDesc.clearcolor[0] = 0.0f;
-		frameDesc.clearcolor[1] = 1.0f;
+		frameDesc.clearcolor[1] = 0.0f;
 		frameDesc.clearcolor[2] = 0.0f;
 		frameDesc.clearcolor[3] = 1.0f;
 		/*frameDesc.viewportLeft = 0.0f;

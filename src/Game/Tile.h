@@ -1,11 +1,12 @@
 #pragma once
 
 #include "Entity.h"
+#include "TextureAtlas.h"
 
 class Tile : public Entity
 {
 public:
-    Tile(const Vec2& pos, const BoundingBox& boundingBox, bool isCollider);
+    Tile(const Vec2& pos, const BoundingBox& boundingBox, TextureType type, bool isCollider);
     virtual ~Tile() = default;
 
     virtual void OnUpdate(float timestep) override {}

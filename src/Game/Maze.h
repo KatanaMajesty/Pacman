@@ -1,50 +1,49 @@
 #pragma once
-#include <vector>
 
+#include <vector>
 #include "../Core/Renderer.h"
 #include "../Core/Texture.h"
+#include "Tile.h"
 
-
-enum class CellType
-{
-    UNKNOWN = -1,
-    WALL = 0,
-    FLOOR = 1
-};
-
-class Cell
-{
-public:
-    Cell();
-    Cell(Sprite* sprite, CellType type);
-
-    inline Sprite* GetSprite() { return m_sprite.get(); }
-
-    inline const Sprite* GetSprite() const { return m_sprite.get(); }
-    inline const CellType GetType() const { return m_type; }
-private:
-    std::unique_ptr<Sprite> m_sprite;
-    CellType m_type;
-};
+//enum class CellType
+//{
+//    UNKNOWN = -1,
+//    WALL = 0,
+//    FLOOR = 1
+//};
+//
+//class Cell
+//{
+//public:
+//    Cell();
+//    Cell(Tile* tile, CellType type);
+//
+//    inline Tile* GetTile() { return m_tile; }
+//    inline const CellType GetType() const { return m_type; }
+//private:
+//    Tile* m_tile;
+//    CellType m_type;
+//};
 
 class Maze
 {
 public:
-    Maze(const std::string& filepath, Renderer* renderer);
+    Maze(EntityFactory* entityFactory, Renderer* renderer);
 
+    bool Init(const std::string& filepath);
     void Draw();
-
-    inline std::vector<Cell>& GetGrid() { return m_mazeGrid; }
-    inline const std::vector<Cell>& GetGrid() const { return m_mazeGrid; }
-    inline const uint32_t& GetWidth() const { return m_mazeWidth; }
-    inline const uint32_t& GetHeight() const { return m_mazeHeight; }
+    inline auto& GetGrid() { return m_grid; }
+    inline auto& GetGrid() const { return m_grid; }
+    inline uint32_t GetWidth() const { return m_width; }
+    inline uint32_t GetHeight() const { return m_height; }
 
 private:
     void ParseMazeImage(const std::string& filepath);
-private:
+
+    EntityFactory* m_entityFactory;
     Renderer* m_renderer;
-    std::vector<Cell> m_mazeGrid;
-    uint32_t m_mazeWidth;
-    uint32_t m_mazeHeight;
+    std::vector<std::vector<Tile*>> m_grid;
+    uint32_t m_width;
+    uint32_t m_height;
 };
 

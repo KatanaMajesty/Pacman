@@ -30,8 +30,12 @@ bool Window::Open()
 	}
 
 
-	m_view.setCenter(m_width / 2.0f, m_height / 2.0f);
-	m_view.setSize(m_width, m_height);
+	float m = 31.0f * 32.0f;
+	float zoom = m / std::min(m_width, m_height);
+	float scaledWidth = m_width * zoom;
+	float scaledHeight = m_height * zoom;
+	m_view.setSize(scaledWidth, scaledHeight);
+	m_view.setCenter(m / 2.0f, m / 2.0f);
 	m_window->setView(m_view);
 
 	return creationResult;
@@ -65,19 +69,16 @@ void Window::PollEvents()
 		// catch the resize events
 		if (event.type == sf::Event::Resized)
 		{
-
-			EventBus::Get().publish(WindowResizedEvent(this, m_width, m_height));
-
 			m_width = static_cast<float>(event.size.width);
 			m_height = static_cast<float>(event.size.height);
+			EventBus::Get().publish(WindowResizedEvent(this, m_width, m_height));
 
 			float m = 31.0f * 32.0f;
-			float desiredTileWidth = static_cast<float>(m_width) / 31.0f;
-			float desiredTileHeight = static_cast<float>(m_height) / 31.0f;
-
-			m_view.setCenter(m_width / 2.0f, m_height / 2.0f);
-			m_view.setSize(m_width, m_height);
-			m_view.zoom(m / std::min(m_width, m_height));
+			float zoom = m / std::min(m_width, m_height);
+			float scaledWidth = m_width * zoom;
+			float scaledHeight = m_height * zoom;
+			m_view.setSize(scaledWidth, scaledHeight);
+			//m_view.setCenter(scaledWidth / 2.0f, scaledHeight / 2.0f);
 			m_window->setView(m_view);
 		}
 	}

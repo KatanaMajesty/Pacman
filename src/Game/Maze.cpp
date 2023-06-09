@@ -6,24 +6,33 @@
 #include "TextureAtlas.h"
 #include "../Utility/Logger.h"
 
-Maze::Maze(const std::string& filepath, Renderer* renderer)
-    : m_renderer(renderer), m_mazeWidth(0), m_mazeHeight(0)
+Maze::Maze(EntityFactory* entityFactory, Renderer* renderer)
+    : m_entityFactory(entityFactory)
+    , m_renderer(renderer)
+    , m_width(0)
+    , m_height(0)
 {
+}
+
+bool Maze::Init(const std::string& filepath)
+{
+    m_grid.clear();
     ParseMazeImage(filepath);
+    return true;
 }
 
 void Maze::Draw()
 {
-    float desiredTileWidth = static_cast<float>(m_renderer->GetWindowWidth()) / static_cast<float>(m_mazeWidth);
-    float desiredTileHeight = static_cast<float>(m_renderer->GetWindowHeight()) / static_cast<float>(m_mazeHeight);
-
-    for (uint32_t i = 0; i < m_mazeWidth; i++)
+    uint32_t textureWidth = TextureAtlas::Get().GetTextureWidth();
+    uint32_t textureHeight = TextureAtlas::Get().GetTextureHeight();
+    for (uint32_t x = 0; x < m_width; ++x)
     {
-        for (uint32_t j = 0; j < m_mazeHeight; j++)
+        for (uint32_t y = 0; y < m_height; ++y)
         {
-            Sprite* cellSprite = m_mazeGrid[static_cast<size_t>(i * m_mazeWidth + j)].GetSprite();
+            //size_t index = x + m_width * y;
+            Sprite* cellSprite = m_grid[x][y]->GetSprite();
 
-            cellSprite->SetPosition(Vec2(j * 32.0f, i * 32.0f));
+            cellSprite->SetPosition(Vec2(x * textureWidth, y * textureHeight));
             m_renderer->Draw(cellSprite);
         }
     }
@@ -47,33 +56,38 @@ void Maze::ParseMazeImage(const std::string& filepath)
 
     std::string mazeString = oss.str();
 
-    m_mazeWidth = static_cast<uint16_t>(line.size());
-    m_mazeHeight = static_cast<uint16_t>(mazeString.size() / m_mazeWidth);
+    m_width = static_cast<uint32_t>(line.size());
+    m_height = static_cast<uint32_t>(mazeString.size()) / m_width;
 
-    TextureAtlas& atlas = TextureAtlas::Get();
-    for (size_t i = 0; i < mazeString.size(); ++i)
+    // Resize the grid
+    m_grid.resize(m_width);
+    for (auto& col : m_grid)
+        col.resize(m_height);
+
+    uint32_t textureWidth = TextureAtlas::Get().GetTextureWidth();
+    uint32_t textureHeight = TextureAtlas::Get().GetTextureHeight();
+    for (uint32_t x = 0; x < m_width; ++x)
     {
-        if (mazeString[i] == '0')
+        for (uint32_t y = 0; y < m_height; ++y)
         {
-            m_mazeGrid.emplace_back(new Sprite(), CellType::WALL);
-            m_mazeGrid[i].GetSprite()->SetTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_WALL1));
-        }
-        else if (mazeString[i] == '*')
-        {
-            m_mazeGrid.emplace_back(new Sprite(), CellType::FLOOR);
-            m_mazeGrid[i].GetSprite()->SetTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_TILE));
+            Vec2 pos = Vec2(x * textureWidth, y * textureHeight);
+            size_t index = x + m_width * y;
+            bool isWall = mazeString[index] == '0';
+            TextureType type = isWall ? TEXTURE_DUNGEON_WALL1 : TEXTURE_DUNGEON_TILE;
+            Tile* tile = m_entityFactory->RegisterEntity<Tile>(pos, BoundingBox(pos, textureWidth, textureHeight), type, isWall);
+            m_grid[x][y] = tile;
         }
     }
 
     mazeImageFile.close();
 }
 
-Cell::Cell()
-    : m_sprite(nullptr), m_type(CellType::UNKNOWN)
-{
-}
-
-Cell::Cell(Sprite* sprite, CellType type)
-    : m_sprite(sprite), m_type(type)
-{
-}
+//Cell::Cell()
+//    : m_sprite(nullptr), m_type(CellType::UNKNOWN)
+//{
+//}
+//
+//Cell::Cell(Sprite* sprite, CellType type)
+//    : m_sprite(sprite), m_type(type)
+//{
+//}
