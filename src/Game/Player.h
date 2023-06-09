@@ -5,13 +5,7 @@
 #include "../Utility/Math.h"
 #include "Entity.h"
 
-enum Direction
-{
-    DIRECTION_UP, // W
-    DIRECTION_LEFT, // A
-    DIRECTION_DOWN, // S
-    DIRECTION_RIGHT, // D
-};
+
 
 class Player : public Entity
 {
@@ -19,13 +13,17 @@ public:
     Player(const Vec2& pos, const BoundingBox& boundingBox);
     virtual ~Player() = default;
 
+    // OnUpdate will update the position of sprites, AABB and CanMove state
+    // Should be called before updating all the Tiles
     virtual void OnUpdate(float timestep) override;
+    
     virtual void OnEntityCollision(Entity* entity) override;
     virtual EntityType GetType() const { return ENTITY_PLAYER; }
     virtual Sprite* GetSprite() override { return m_activeSprite; }
     void OnCoinPickup();
     void OnWeaponPickup();
     void OnEnemyInteract();
+    void OnTileCollision();
     void SetDirection(Direction direction);
 
 private:
@@ -33,4 +31,5 @@ private:
     float m_timeSinceAnimationTick = 0.0f;
     Sprite* m_activeSprite = nullptr;
     Sprite m_sprites[4]; // Sprite for each direction
+    Direction m_direction;
 };

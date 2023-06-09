@@ -14,20 +14,18 @@ Maze::Maze(const std::string& filepath, Renderer* renderer)
 
 void Maze::Draw()
 {
+    float desiredTileWidth = m_renderer->GetWindowWidth() / m_mazeWidth;
+    float desiredTileHeight = m_renderer->GetWindowHeight() / m_mazeHeight;
+
     for (uint16_t i = 0; i < m_mazeWidth; i++)
     {
         for (uint16_t j = 0; j < m_mazeHeight; j++)
         {
-            Cell& cell = m_mazeGrid[static_cast<size_t>(i * m_mazeWidth + j)];
+            Sprite* cellSprite = m_mazeGrid[static_cast<size_t>(i * m_mazeWidth + j)].GetSprite();
 
-            /*float widthStep = static_cast<float>(m_renderer->GetViewPort().first) / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);
-            float heightStep = static_cast<float>(m_renderer->GetViewPort().second) / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);*/
-
-            cell.GetSprite()->SetPosition(Vec2(static_cast<float>(j) * 32.0f, static_cast<float>(i) * 32.0f));
-            cell.GetSprite()->SetScale(Vec2(32.0f / static_cast<float>(cell.GetSprite()->GetTexture()->GetWidth()),
-                32.0f / static_cast<float>(cell.GetSprite()->GetTexture()->GetHeight())));
-
-            m_renderer->Draw(cell.GetSprite());
+            cellSprite->SetPosition(Vec2(j * desiredTileWidth, i * desiredTileHeight));
+            cellSprite->SetScale(Vec2(1.5f, 1.5f));
+            m_renderer->Draw(cellSprite);
         }
     }
 }

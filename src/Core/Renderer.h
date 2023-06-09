@@ -18,9 +18,9 @@ struct FrameDesc
 {
 	float clearcolor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	float viewportTop = 0.0f;
-	float viewportBottom = 0.0f;
+	float viewportBottom = 1.0f;
 	float viewportLeft = 0.0f;
-	float viewportRight = 0.0f;
+	float viewportRight = 1.0f;
 };
 
 class Renderer
@@ -34,7 +34,8 @@ public:
 	void Draw(const Vertex* vertices, uint32_t numVertices, PrimitiveType primitive);
 	void Draw(const Sprite* sprite);
 
-	inline Vec2 GetWindowDimensions() const { return {static_cast<float>(m_window->GetWidth()), static_cast<float>(m_window->GetHeight())}; }
+	inline uint32_t GetWindowWidth() const { return m_window->GetWidth(); }
+	inline uint32_t GetWindowHeight() const { return m_window->GetHeight(); }
 
 private:
 	Window* m_window = nullptr;

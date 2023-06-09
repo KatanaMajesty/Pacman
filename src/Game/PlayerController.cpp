@@ -16,18 +16,15 @@ void PlayerController::OnUpdate(float timestep)
     {
         OnMoveUp(timestep);
     }
-    
-    if (Keyboard::isKeyPressed(Keyboard::S))
+    else if (Keyboard::isKeyPressed(Keyboard::S))
     {
         OnMoveDown(timestep);
     }
-    
-    if (Keyboard::isKeyPressed(Keyboard::A))
+    else if (Keyboard::isKeyPressed(Keyboard::A))
     {
         OnMoveLeft(timestep);
     }
-    
-    if (Keyboard::isKeyPressed(Keyboard::D))
+    else if (Keyboard::isKeyPressed(Keyboard::D))
     {
         OnMoveRight(timestep);
     }

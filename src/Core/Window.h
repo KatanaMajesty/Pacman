@@ -15,7 +15,7 @@ public:
 	bool Close();
 	void PollEvents();
 	bool ShouldClose() const;
-	void SetViewport(float left, float top, float bottom, float right) const;
+	void SetViewport(float left, float top, float bottom, float right);
 
 	constexpr uint32_t GetWidth() const { return m_width; }
 	constexpr uint32_t GetHeight() const { return m_height; }
@@ -28,4 +28,5 @@ private:
 	uint32_t m_height;
 	std::string m_title;
 	std::unique_ptr<sf::RenderWindow> m_window;
+	sf::View m_view;
 };
