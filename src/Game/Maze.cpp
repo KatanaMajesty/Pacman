@@ -17,25 +17,34 @@ Maze::Maze(EntityFactory* entityFactory, Renderer* renderer)
 bool Maze::Init(const std::string& filepath)
 {
     m_grid.clear();
+    m_textureWidth = TextureAtlas::Get().GetTextureWidth();
+    m_textureHeight = TextureAtlas::Get().GetTextureHeight();
     ParseMazeImage(filepath);
     return true;
 }
 
 void Maze::Draw()
 {
-    uint32_t textureWidth = TextureAtlas::Get().GetTextureWidth();
-    uint32_t textureHeight = TextureAtlas::Get().GetTextureHeight();
     for (uint32_t x = 0; x < m_width; ++x)
     {
         for (uint32_t y = 0; y < m_height; ++y)
         {
-            //size_t index = x + m_width * y;
-            Sprite* cellSprite = m_grid[x][y]->GetSprite();
-
-            cellSprite->SetPosition(Vec2(x * textureWidth, y * textureHeight));
-            m_renderer->Draw(cellSprite);
+            Sprite* sprite = m_grid[x][y]->GetSprite();
+            sprite->SetPosition(Vec2(x * m_textureWidth, y * m_textureHeight));
+            m_renderer->Draw(sprite);
         }
     }
+}
+
+Vec2 Maze::GetPosition(uint32_t x, uint32_t y) const
+{
+    return Vec2(x * m_textureWidth, y * m_textureHeight);
+}
+
+float Maze::GetViewsize() const
+{
+    float viewsize = std::min(static_cast<float>(m_width) * m_textureWidth, static_cast<float>(m_height) * m_textureHeight);
+    return viewsize;
 }
 
 void Maze::ParseMazeImage(const std::string& filepath)
@@ -64,30 +73,18 @@ void Maze::ParseMazeImage(const std::string& filepath)
     for (auto& col : m_grid)
         col.resize(m_height);
 
-    uint32_t textureWidth = TextureAtlas::Get().GetTextureWidth();
-    uint32_t textureHeight = TextureAtlas::Get().GetTextureHeight();
     for (uint32_t x = 0; x < m_width; ++x)
     {
         for (uint32_t y = 0; y < m_height; ++y)
         {
-            Vec2 pos = Vec2(x * textureWidth, y * textureHeight);
+            Vec2 pos = this->GetPosition(x, y);
             size_t index = x + m_width * y;
             bool isWall = mazeString[index] == '0';
             TextureType type = isWall ? TEXTURE_DUNGEON_WALL1 : TEXTURE_DUNGEON_TILE;
-            Tile* tile = m_entityFactory->RegisterEntity<Tile>(pos, BoundingBox(pos, textureWidth, textureHeight), type, isWall);
+            Tile* tile = m_entityFactory->RegisterEntity<Tile>(pos, BoundingBox(pos, m_textureWidth, m_textureHeight), type, isWall);
             m_grid[x][y] = tile;
         }
     }
 
     mazeImageFile.close();
 }
-
-//Cell::Cell()
-//    : m_sprite(nullptr), m_type(CellType::UNKNOWN)
-//{
-//}
-//
-//Cell::Cell(Sprite* sprite, CellType type)
-//    : m_sprite(sprite), m_type(type)
-//{
-//}

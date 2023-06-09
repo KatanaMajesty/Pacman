@@ -35,7 +35,7 @@ bool Level::Init(const std::string& filepath)
     m_maze.reset(new Maze(m_entityFactory.get(), m_renderer));
     m_maze->Init(filepath);
 
-    EventBus::Get().subscribe(this, &Level::OnWindowResize);
+    //EventBus::Get().subscribe(this, &Level::OnWindowResize);
 
     AudioManager::Get().PlaySound(AUDIO_AMBIENCE);
     return true;
@@ -43,36 +43,25 @@ bool Level::Init(const std::string& filepath)
 
 void Level::OnUpdate(float timestep)
 {
-    //m_maze->Draw();
+    m_maze->Draw();
 
     Player* player = (Player*) m_entityFactory->GetEntities<ENTITY_PLAYER>().front();
     player->OnUpdate(timestep);
-
-    //// Here we will update the tiles and other stuff
-    //player->CanMove() = false; // CanMove will be set to false if the player collides with a tile
 
     // Player-Tile collisions and Tile drawing
     for (Entity* entity : m_entityFactory->GetEntities<ENTITY_TILE>())
     {
         Tile* tile = (Tile*)entity;
-        tile->OnUpdate(timestep);
+        // tile->OnUpdate(timestep);
         if (tile->IsCollider() && tile->Collide(player))
         {
-            player->OnEntityCollision(tile);
             tile->OnEntityCollision(player);
+            player->OnEntityCollision(tile);
+            break;
         }
-        m_renderer->Draw(tile->GetSprite());
-    }
-
-    for (Entity* entity : m_entityFactory->GetEntities<ENTITY_TILE>())
-    {
-        Tile* tile = (Tile*)entity;
-        if (tile->IsCollider())
-            m_renderer->Draw(tile->GetAABB().min, tile->GetAABB().max);
     }
     
     m_renderer->Draw(player->GetSprite());
-    m_renderer->Draw(player->GetAABB().min, player->GetAABB().max);
     if (player->CanMove()) // Only update player controller if the player can move
         m_playerController->OnUpdate(timestep);
 
@@ -87,24 +76,5 @@ void Level::OnUpdate(float timestep)
             m_entityFactory->DestroyEntity(e);
         }
         m_renderer->Draw(e->GetSprite());
-        m_renderer->Draw(e->GetAABB().min, e->GetAABB().max);
     }
-
 }
-
-void Level::OnWindowResize(const WindowResizedEvent& wre)
-{
-    float desiredTileWidth = static_cast<float>(wre.width) / static_cast<float>(m_maze.get()->GetWidth());
-    float desiredTileHeight = static_cast<float>(wre.height) / static_cast<float>(m_maze.get()->GetHeight());
-
-    //SetLevelScale(desiredTileWidth, desiredTileHeight);
-}
-
-//void Level::SetLevelScale(float x, float y) const
-//{
-//    for (auto& cell : m_maze.get()->GetGrid())
-//    {
-//        cell.GetSprite()->SetScale(x / cell.GetSprite()->GetTexture()->GetWidth(),
-//            y / cell.GetSprite()->GetTexture()->GetHeight());
-//    }
-//}

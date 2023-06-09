@@ -18,6 +18,7 @@ public:
 	void PollEvents();
 	bool ShouldClose() const;
 	void SetViewport(float left, float top, float bottom, float right);
+	void SetViewsize(float viewsize);
 
 	constexpr uint32_t GetWidth() const { return m_width; }
 	constexpr uint32_t GetHeight() const { return m_height; }
@@ -26,6 +27,7 @@ public:
 	void* GetHandle() { return m_window.get(); }
 
 private:
+	float m_viewsize = 0.0f;	
 	uint32_t m_width;
 	uint32_t m_height;
 	std::string m_title;

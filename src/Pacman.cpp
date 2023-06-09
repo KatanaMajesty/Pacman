@@ -30,7 +30,8 @@ int main()
 	TextureAtlas& atlas = TextureAtlas::Get();
 	Level level(&renderer);
 	level.Init((FileSystem::Get().GetAssetsPath() / "Maze.txt").string());
-	
+	window.SetViewsize(level.GetMaze()->GetViewsize());
+
 	Clock clock;
 	clock.start();
 

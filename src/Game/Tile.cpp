@@ -13,12 +13,9 @@ Tile::Tile(const Vec2& pos, const BoundingBox& boundingBox, TextureType type, bo
 
 void Tile::OnEntityCollision(Entity* entity)
 {
-	if (IsCollider())
-	{
-		EntityType type = entity->GetType();
-		if (type != ENTITY_PLAYER && type != ENTITY_ENEMY)
-			return;
+	EntityType type = entity->GetType();
+	if (type != ENTITY_PLAYER && type != ENTITY_ENEMY)
+		return;
 
-		entity->CanMove() = false;
-	}
+	entity->CanMove() = false;
 }
