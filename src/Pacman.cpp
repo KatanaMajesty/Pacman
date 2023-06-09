@@ -27,8 +27,6 @@ int main()
 	}
 
 	TextureAtlas& atlas = TextureAtlas::Get();
-	TextManager& text = TextManager::Get();
-
 	Level level(&renderer);
 	level.Init((FileSystem::Get().GetAssetsPath() / "Maze.txt").string());
 	
