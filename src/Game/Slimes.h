@@ -4,14 +4,8 @@
 #include "../Game/Maze.h"
 #include "../Game/AnimationManager.h"
 #include "vector"
+#include "../Audio/AudioManager.h"
 
-enum class BehaviorSlime 
-{
-    Chase,
-    Scatter,
-    Frightened,
-    UNKNOWN
-};
 
 enum class Slimes
 {
@@ -38,7 +32,7 @@ public:
     virtual void OnUpdate(float timestep);
     virtual EntityType GetType()const { return ENTITY_ENEMY; }
     virtual Sprite* GetSprite() override { return &m_sprite; }
-    virtual void OnEntityCollision(Entity* entity) {};
+    virtual void OnEntityCollision(Entity* entity);
     virtual void SetPath(const std::vector<Vec2>& path) { m_path = path; }
     virtual bool IsArrived()const { return m_arrived; }
 

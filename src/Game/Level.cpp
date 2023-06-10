@@ -24,7 +24,7 @@ bool Level::Init(const std::string& filepath)
     Player* player = m_entityFactory->RegisterEntity<Player>(playerPos, BoundingBox(playerPos, 16.0f, 16.0f));
     m_playerController.reset(new PlayerController(player));
 
-    Vec2 SlimePos = m_maze->GetCenterPosition();
+    Vec2 SlimePos = { 32,32 };
     Slime * slime = m_entityFactory->RegisterEntity<Slime>(SlimePos, BoundingBox(SlimePos, 16.0f, 16.0f));
 
     uint32_t w = m_maze->GetWidth();
@@ -85,6 +85,18 @@ void Level::OnUpdate(float timestep)
         }
         m_renderer->Draw(e->GetSprite());
     }
+
+    for (Entity* slime : m_entityFactory->GetEntities<ENTITY_ENEMY>()   )
+    {
+        slime->OnUpdate(timestep);
+        if (player->Collide(slime))
+        {
+            player->OnEntityCollision(slime);
+            slime->OnEntityCollision(player); // Actually coin does nothing here
+        }
+        m_renderer->Draw(slime->GetSprite());
+    }
+
 
     Slime* slime = (Slime*)m_entityFactory->GetEntities<ENTITY_ENEMY>().front();
     slime->OnUpdate(timestep);
