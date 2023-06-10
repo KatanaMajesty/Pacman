@@ -26,6 +26,10 @@ bool Maze::Init(const std::string& filepath)
     Pathfinder pathfinder;
     pathfinder.Init(m_grid, 1, 1, GetWidth() - 2, GetHeight() - 2);
     m_path = pathfinder.GetPath();
+    m_positions.reserve(m_path.size());
+    for (auto [x, y] : m_path)
+        m_positions.push_back(this->GetPosition(x, y));
+
     return true;
 }
 

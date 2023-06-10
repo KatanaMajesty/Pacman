@@ -97,7 +97,7 @@ void Pathfinder::RecreatePath(uint32_t xgoal, uint32_t ygoal)
 	std::reverse(m_path.begin(), m_path.end());
 
 	Node& start = m_pathList[xcurrent][ycurrent];
-	m_path.push_back({ start.x, start.y });
+	m_path.insert(m_path.begin(), { start.x, start.y });
 }
 
 float Pathfinder::Heuristic(uint32_t x, uint32_t y, uint32_t goalx, uint32_t goaly)
