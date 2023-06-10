@@ -17,8 +17,10 @@ public:
     inline uint32_t GetWidth() const { return m_width; }
     inline uint32_t GetHeight() const { return m_height; }
     Vec2 GetPosition(uint32_t x, uint32_t y) const;
+    Vec2 GetCenterPosition() const;
+    const Tile* At(uint32_t x, uint32_t y) const { return m_grid.at(x).at(y); }
     float GetViewsize() const;
-    inline Tile* GetTile(uint32_t x, uint32_t y)const;
+    inline Tile* GetTile(uint32_t x, uint32_t y);
 
 private:
     void ParseMazeImage(const std::string& filepath);

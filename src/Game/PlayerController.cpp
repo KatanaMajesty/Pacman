@@ -12,19 +12,19 @@ void PlayerController::OnUpdate(float timestep)
         return;
 
     using namespace sf;
-    if (Keyboard::isKeyPressed(Keyboard::W))
+    if (Keyboard::isKeyPressed(Keyboard::W) || Keyboard::isKeyPressed(Keyboard::Up))
     {
         OnMoveUp(timestep);
     }
-    else if (Keyboard::isKeyPressed(Keyboard::S))
+    else if (Keyboard::isKeyPressed(Keyboard::S) || Keyboard::isKeyPressed(Keyboard::Down))
     {
         OnMoveDown(timestep);
     }
-    else if (Keyboard::isKeyPressed(Keyboard::A))
+    else if (Keyboard::isKeyPressed(Keyboard::A) || Keyboard::isKeyPressed(Keyboard::Left))
     {
         OnMoveLeft(timestep);
     }
-    else if (Keyboard::isKeyPressed(Keyboard::D))
+    else if (Keyboard::isKeyPressed(Keyboard::D) || Keyboard::isKeyPressed(Keyboard::Right))
     {
         OnMoveRight(timestep);
     }

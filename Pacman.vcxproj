@@ -19,7 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Game\PathFinding.h" />
+    <ClInclude Include="src\Game\Pathfinder.h" />
+    <ClInclude Include="src\UI\TextComponent.h" />
     <ClInclude Include="src\Utility\EventBus.h" />
     <ClInclude Include="src\Audio\AudioManager.h" />
     <ClInclude Include="src\Core\Renderer.h" />
@@ -33,6 +34,7 @@
     <ClInclude Include="src\Game\Entity.h" />
     <ClInclude Include="src\Game\Level.h" />
     <ClInclude Include="src\Game\Maze.h" />
+    <ClInclude Include="src\Game\PathFinding.h" />
     <ClInclude Include="src\Game\Slimes.h" />
     <ClInclude Include="src\Game\TextureAtlas.h" />
     <ClInclude Include="src\Game\Player.h" />
@@ -152,6 +154,7 @@
     <ClCompile Include="src\Game\Entity.cpp" />
     <ClCompile Include="src\Game\Level.cpp" />
     <ClCompile Include="src\Game\Maze.cpp" />
+    <ClCompile Include="src\Game\Pathfinder.cpp" />
     <ClCompile Include="src\Game\PathFinding.cpp" />
     <ClCompile Include="src\Game\Slimes.cpp" />
     <ClCompile Include="src\Game\TextureAtlas.cpp" />
@@ -159,6 +162,7 @@
     <ClCompile Include="src\Game\PlayerController.cpp" />
     <ClCompile Include="src\Game\Tile.cpp" />
     <ClCompile Include="src\Pacman.cpp" />
+    <ClCompile Include="src\UI\TextComponent.cpp" />
     <ClCompile Include="src\UI\TextManager.cpp" />
     <ClCompile Include="src\Utility\Clock.cpp" />
     <ClCompile Include="src\Utility\FileSystem.cpp" />

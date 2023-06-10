@@ -19,6 +19,7 @@ public:
 	bool ShouldClose() const;
 	void SetViewport(float left, float top, float bottom, float right);
 	void SetViewsize(float viewsize);
+	float GetViewsize() const { return m_viewsize; }
 
 	constexpr uint32_t GetWidth() const { return m_width; }
 	constexpr uint32_t GetHeight() const { return m_height; }

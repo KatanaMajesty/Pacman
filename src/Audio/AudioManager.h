@@ -16,6 +16,7 @@ enum AudioType // Changed to enum class for stronger typing
     AUDIO_LEVEL_COMPLATED,
     AUDIO_LEVEL_FAILED,
     AUDIO_PLAYER_DEATH,
+    AUDIO_DUBSTEP,
     NUM_AUDIOS
 };
 
@@ -29,7 +30,7 @@ public:
     static void Deinit();
     static AudioManager& Get();
 
-    void PlaySound(AudioType audioType);
+    void PlaySound(AudioType audioType, float pitch = 1.0f, float volume = 20.0f);
     /*void StopSound(AudioType audioType);*/
     void LoadSound(AudioType audioType, const std::string& filename);
 

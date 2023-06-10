@@ -16,7 +16,6 @@ bool Renderer::Init(Window* window)
 
 void Renderer::BeginFrame(const FrameDesc& framedesc)
 {
-	m_window->SetViewport(framedesc.viewportLeft, framedesc.viewportTop, framedesc.viewportBottom, framedesc.viewportRight);
 	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
 	sf::Uint8 r = static_cast<sf::Uint8>(framedesc.clearcolor[0] * 255.0f);
 	sf::Uint8 g = static_cast<sf::Uint8>(framedesc.clearcolor[1] * 255.0f);
@@ -29,6 +28,11 @@ void Renderer::EndFrame()
 {
 	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
 	rw->display();
+}
+
+void Renderer::SetViewport(const Vec2& topLeft, const Vec2& bottomRight)
+{
+	m_window->SetViewport(topLeft.x, topLeft.y, bottomRight.y, bottomRight.x);
 }
 
 static sf::PrimitiveType GetSFMLPrimitiveType(PrimitiveType type)
@@ -54,8 +58,15 @@ void Renderer::Draw(const Sprite* sprite)
 	rw->draw(sprite->m_sprite);
 }
 
+void Renderer::Draw(const TextComponent* text)
+{
+	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
+	const sf::Text& sftext = *reinterpret_cast<const sf::Text*>(text->GetHandle());
+	rw->draw(sftext);
+}
+
 #define KABANCHIKOM 0
-void Renderer::Draw(const Vec2& min, const Vec2& max)
+void Renderer::DebugDraw(const Vec2& min, const Vec2& max)
 {
 	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
 #if KABANCHIKOM == 1
@@ -73,12 +84,6 @@ void Renderer::Draw(const Vec2& min, const Vec2& max)
 	rw->draw(vertices, 2, sf::Points);
 #endif
 }
-
-//void Renderer::Draw(const TextManager* text)
-//{
-//	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
-//	rw->draw(text->m_text);
-//}
 
 Color ColorOf(const Vec3& rgb, float alpha)
 {

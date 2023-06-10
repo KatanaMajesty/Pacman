@@ -1,7 +1,9 @@
 #include "Level.h"
 
+#include <cstdlib>
 #include "../Utility/Logger.h"
 #include "../Audio/AudioManager.h"
+#include "AnimationManager.h"
 #include "Coin.h"
 #include "Tile.h"
 #include "../Game/Slimes.h"
@@ -14,38 +16,37 @@ Level::Level(Renderer* renderer)
 bool Level::Init(const std::string& filepath)
 {
     m_entityFactory.reset(new EntityFactory());
-    Vec2 playerPos = Vec2(400.0f, 300.0f);
-    Player* player = m_entityFactory->RegisterEntity<Player>(Vec2(400.0f, 300.0f), BoundingBox(playerPos, 16.0f, 16.0f));
-    m_playerController.reset(new PlayerController(player));
-    FireSlime* Slime = m_entityFactory->RegisterEntity<FireSlime>(Vec2(200.0f, 300.0f), BoundingBox(playerPos, 16.0f, 16.0f));
-
-
-    Vec2 coinPos = Vec2(600.0f, 200.0f);
-    m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
-
-    coinPos = Vec2(200.0f, 200.0f);
-    m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
-    coinPos = Vec2(250.0f, 200.0f);
-    m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
-    coinPos = Vec2(225.0f, 200.0f);
-    m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
-    coinPos = Vec2(275.0f, 200.0f);
-    m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
-
-    coinPos = Vec2(400.0f, 200.0f);
-    m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
 
     m_maze.reset(new Maze(m_entityFactory.get(), m_renderer));
     m_maze->Init(filepath);
 
+    Vec2 playerPos = m_maze->GetCenterPosition();
+    Player* player = m_entityFactory->RegisterEntity<Player>(playerPos, BoundingBox(playerPos, 16.0f, 16.0f));
+    m_playerController.reset(new PlayerController(player));
+
+    Vec2 SlimePos = m_maze->GetCenterPosition();
+    Slime * slime = m_entityFactory->RegisterEntity<Slime>(SlimePos, BoundingBox(SlimePos, 16.0f, 16.0f));
+
+    uint32_t w = m_maze->GetWidth();
+    uint32_t h = m_maze->GetHeight();
+    for (uint32_t i = 0; i < 30; ++i)
+    {
+        uint32_t x = std::rand() % w;
+        uint32_t y = std::rand() % h;
+        Vec2 pos = m_maze->GetPosition(x, y);
+        if (!m_maze->At(x, y)->IsCollider())
+            m_entityFactory->RegisterEntity<Coin>(pos, BoundingBox(pos, 16.0f, 16.0f));
+    }
+
     //EventBus::Get().subscribe(this, &Level::OnWindowResize);
 
-    AudioManager::Get().PlaySound(AUDIO_AMBIENCE);
+    AudioManager::Get().PlaySound(AUDIO_DUBSTEP, 1.5f);
     return true;
 }
 
 void Level::OnUpdate(float timestep)
 {
+    AnimationManager::Get().OnUpdate(timestep);
     m_maze->Draw();
 
     Player* player = (Player*) m_entityFactory->GetEntities<ENTITY_PLAYER>().front();
@@ -81,6 +82,8 @@ void Level::OnUpdate(float timestep)
         m_renderer->Draw(e->GetSprite());
     }
 
-    FireSlime* Slime = (FireSlime*)m_entityFactory->GetEntities<ENTITY_ENEMY>().front();
-    Slime->OnUpdate(timestep);
+    Slime* slime = (Slime*)m_entityFactory->GetEntities<ENTITY_ENEMY>().front();
+    slime->OnUpdate(timestep);
+    m_renderer->Draw(slime->GetSprite());
+
 }

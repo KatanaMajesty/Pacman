@@ -45,6 +45,7 @@ bool AudioManager::Init()
     s_instance->LoadSound(AUDIO_LEVEL_COMPLATED, "level_complated.wav");
     s_instance->LoadSound(AUDIO_LEVEL_FAILED, "level_failed.wav");
     s_instance->LoadSound(AUDIO_PLAYER_DEATH, "player_death.wav");
+    s_instance->LoadSound(AUDIO_DUBSTEP, "far_cry_dubstep.wav");
     return true;
 }
 
@@ -71,13 +72,15 @@ void AudioManager::LoadSound(AudioType audioType, const std::string& filename)
     }
 }
 
-void AudioManager::PlaySound(AudioType audioType)
+void AudioManager::PlaySound(AudioType audioType, float pitch, float volume)
 {
     auto it = m_soundBuffers.find(audioType);
     if (it != m_soundBuffers.end()) 
     {
         std::lock_guard lock(g_soundMutex);
         sf::Sound& sound = m_sounds.emplace(it->second);
+        sound.setVolume(volume);
+        sound.setPitch(pitch);
         sound.play();
     }
 }

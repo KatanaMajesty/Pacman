@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <cstdlib>
 #include "TextureAtlas.h"
 #include "../Utility/Logger.h"
 
@@ -23,7 +24,7 @@ bool Maze::Init(const std::string& filepath)
     return true;
 }
 
-Tile* Maze::GetTile(uint32_t x, uint32_t y)const {
+Tile* Maze::GetTile(uint32_t x, uint32_t y){
     return m_grid[x][y];
 }
 
@@ -43,6 +44,11 @@ void Maze::Draw()
 Vec2 Maze::GetPosition(uint32_t x, uint32_t y) const
 {
     return Vec2(x * m_textureWidth, y * m_textureHeight);
+}
+
+Vec2 Maze::GetCenterPosition() const
+{
+    return GetPosition(m_width / 2, m_height / 2);
 }
 
 float Maze::GetViewsize() const
@@ -84,7 +90,8 @@ void Maze::ParseMazeImage(const std::string& filepath)
             Vec2 pos = this->GetPosition(x, y);
             size_t index = x + m_width * y;
             bool isWall = mazeString[index] == '0';
-            TextureType type = isWall ? TEXTURE_DUNGEON_WALL1 : TEXTURE_DUNGEON_TILE;
+            uint32_t i = std::rand() % 3;
+            TextureType type = isWall ? TextureType(TEXTURE_DUNGEON_WALL1 + i) : TEXTURE_DUNGEON_TILE;
             Tile* tile = m_entityFactory->RegisterEntity<Tile>(pos, BoundingBox(pos, m_textureWidth, m_textureHeight), type, isWall);
             m_grid[x][y] = tile;
         }
