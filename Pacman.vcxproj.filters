@@ -348,9 +348,6 @@
     <ClInclude Include="src\Game\Tile.h">
       <Filter>Src\Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\PathFinding.h">
-      <Filter>Src\Game</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\Slimes.h">
       <Filter>Src\Game</Filter>
     </ClInclude>
@@ -455,9 +452,6 @@
       <Filter>Src\Game</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Tile.cpp">
-      <Filter>Src\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game\PathFinding.cpp">
       <Filter>Src\Game</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Slimes.cpp">

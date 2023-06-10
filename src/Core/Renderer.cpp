@@ -65,7 +65,7 @@ void Renderer::Draw(const TextComponent* text)
 	rw->draw(sftext);
 }
 
-#define KABANCHIKOM 0
+#define KABANCHIKOM 1
 void Renderer::DebugDraw(const Vec2& min, const Vec2& max)
 {
 	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
@@ -83,6 +83,14 @@ void Renderer::DebugDraw(const Vec2& min, const Vec2& max)
 	vertices[1].position = max;
 	rw->draw(vertices, 2, sf::Points);
 #endif
+}
+
+void Renderer::DebugDraw(const Vec2& point)
+{
+	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
+	Vertex p;
+	p.position = point;
+	rw->draw(&p, 1, sf::Points);
 }
 
 Color ColorOf(const Vec3& rgb, float alpha)
