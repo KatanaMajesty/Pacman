@@ -20,6 +20,7 @@ public:
     bool IsArrived()const { return m_arrived; }
     void SetAttackInterval(float interval) { m_attackInterval = interval; }
     void SetPath(const std::vector<Vec2>& path) { m_path = path; }
+    const auto& GetPath() const { return m_path; }
     void Move(const Vec2& from, const Vec2& to, float t);
     void SetTilesPerSec(float tilesPerSec) { m_tilesPerSec = tilesPerSec; }
 
@@ -30,7 +31,7 @@ protected:
     SpriteAnimation* m_animation;
     Sprite m_sprite;
     float m_attackInterval = 4.0f;
-    float m_timeSinceLastAttack = 0.0f;
+    //float m_timeSinceLastAttack = 0.0f;
     float m_moveTime = 0.0f;
-    float m_tilesPerSec = 1.0f;
+    float m_tilesPerSec = 4.0f;
 }; 

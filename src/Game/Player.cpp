@@ -15,7 +15,13 @@ Player::Player(const Vec2& pos, const BoundingBox& boundingBox)
 	m_sprites[DIRECTION_LEFT].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_LEFT));
 	m_sprites[DIRECTION_DOWN].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_FRONT));
 	m_sprites[DIRECTION_RIGHT].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_RIGHT));
+
+	m_damageSprites[DIRECTION_UP].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_IMMUNE_BACK));
+	m_damageSprites[DIRECTION_LEFT].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_IMMUNE_LEFT));
+	m_damageSprites[DIRECTION_DOWN].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_IMMUNE_FRONT));
+	m_damageSprites[DIRECTION_RIGHT].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_IMMUNE_RIGHT));
 	this->SetDirection(DIRECTION_DOWN);
+	m_activeSprite = &m_sprites[DIRECTION_DOWN];
 }
 
 void Player::OnUpdate(float timestep)
@@ -24,7 +30,6 @@ void Player::OnUpdate(float timestep)
 	if (!m_activeSprite)
 		return;
 
-	m_activeSprite->SetPosition(m_pos);
 	TextureAtlas& textureAtlas = TextureAtlas::Get();
 	float w = textureAtlas.GetTextureWidth() / 2.0f;
 	float h = textureAtlas.GetTextureHeight() / 2.0f;
@@ -32,6 +37,18 @@ void Player::OnUpdate(float timestep)
 
 	this->SetAABB(m_playerPos, w);
 	this->CanMove() = true;
+
+	// Hardcoded 4 seconds of damage resistance
+	m_timeSinceDamageDealt += timestep;
+	if (m_timeSinceDamageDealt > 4.0f)
+	{
+		m_activeSprite = &m_sprites[m_direction];
+	}
+	else
+	{
+		m_activeSprite = &m_damageSprites[m_direction];
+	}
+	m_activeSprite->SetPosition(m_pos);
 	// Do player logic
 }
 
@@ -62,11 +79,9 @@ void Player::OnWeaponPickup()
 
 void Player::OnEnemyInteract()
 {
-	// Damage is dealt in Slime::OnEntityCollision
-	/*if (m_health == 0) {
-		return;
-	}
-	m_health--;*/
+	if (!IsImmune())
+		m_timeSinceDamageDealt = 0.0f;
+
 }
 
 void Player::OnTileCollision()
@@ -79,5 +94,5 @@ void Player::OnTileCollision()
 void Player::SetDirection(Direction direction)
 {
 	m_direction = direction;
-	m_activeSprite = &m_sprites[direction];
+	//m_activeSprite = &m_sprites[direction];
 }

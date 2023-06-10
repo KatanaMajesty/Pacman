@@ -26,11 +26,11 @@ Slime::Slime(const Vec2& pos, const BoundingBox& boundingBox)
 void Slime::OnUpdate(float timestep)
 {
 	AnimationManager::Get().Apply("anim_slime", &m_sprite);
-	m_timeSinceLastAttack += timestep;
+	//m_timeSinceLastAttack += timestep;
 
 	if (!m_path.empty())
 	{
-
+		m_arrived = false;
 		float time = 1.0f / m_tilesPerSec;
 		m_moveTime += timestep;
 		if (m_path.size() > 1)
@@ -47,7 +47,16 @@ void Slime::OnUpdate(float timestep)
 				Move(from, to, m_moveTime * m_tilesPerSec);
 			}
 		}
+		else
+		{
+			Vec2 pos = m_path.back();
+			this->SetPosition(pos);
+			this->GetSprite()->SetPosition(pos);
+			m_boundingBox = BoundingBox(pos, 16.0f, 16.0f);
+			m_path.clear();
+		}
 	}
+	else m_arrived = true;
 }
 
 void Slime::Move(const Vec2& from, const Vec2& to, float t)
@@ -57,7 +66,7 @@ void Slime::Move(const Vec2& from, const Vec2& to, float t)
 	pos.y = std::lerp(from.y, to.y, t);
 	this->SetPosition(pos);
 	this->GetSprite()->SetPosition(pos);
-	m_boundingBox = BoundingBox(m_pos, 16.0f, 16.0f);
+	m_boundingBox = BoundingBox(pos, 16.0f, 16.0f);
 }
 
 void Slime::OnEntityCollision(Entity* entity) {
@@ -65,11 +74,10 @@ void Slime::OnEntityCollision(Entity* entity) {
 	if (entity->GetType() == ENTITY_PLAYER)
 	{
 		Player* player = (Player*)entity;
-		if (m_timeSinceLastAttack > m_attackInterval)
+		if (!player->IsImmune())
 		{
 			AudioManager::Get().PlaySound(AudioType::AUDIO_ENEMY_DAMAGE);
 			player->DealDamage();
-			m_timeSinceLastAttack = 0.0f;
 		}
 	}
 };

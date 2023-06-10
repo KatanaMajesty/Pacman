@@ -23,6 +23,8 @@ public:
 
 private:
     Renderer* m_renderer;
+    Pathfinder m_pathfinder;
+    bool m_isOver = false;
     std::unique_ptr<Maze> m_maze;
     std::unique_ptr<EntityFactory> m_entityFactory = nullptr;
     std::unique_ptr<PlayerController> m_playerController;
