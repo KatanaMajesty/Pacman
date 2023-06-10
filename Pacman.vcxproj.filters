@@ -366,6 +366,9 @@
     <ClInclude Include="src\UI\TextComponent.h">
       <Filter>Src\UI</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\Pathfinder.h">
+      <Filter>Src\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\SFML\include\SFML\Audio\SoundFileFactory.inl">
@@ -468,6 +471,9 @@
     </ClCompile>
     <ClCompile Include="src\UI\TextComponent.cpp">
       <Filter>Src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Pathfinder.cpp">
+      <Filter>Src\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

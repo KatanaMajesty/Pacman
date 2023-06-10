@@ -30,7 +30,7 @@ public:
     static void Deinit();
     static AudioManager& Get();
 
-    void PlaySound(AudioType audioType);
+    void PlaySound(AudioType audioType, float pitch = 1.0f, float volume = 20.0f);
     /*void StopSound(AudioType audioType);*/
     void LoadSound(AudioType audioType, const std::string& filename);
 
