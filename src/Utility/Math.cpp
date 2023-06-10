@@ -1,7 +1,14 @@
 #include "Math.h"
 
-bool BoundingBox::Collide(const BoundingBox& otherBounds) {
+bool BoundingBox::Collide(const BoundingBox& other) const
+{
+    if (max.x < other.min.x || min.x > other.max.x) {
+        return false;  // No collision on the X-axis
+    }
 
-    return (max.x < otherBounds.min.x or min.x > otherBounds.max.x or
-        max.y < otherBounds.min.y or min.y > otherBounds.max.y);
+    if (max.y < other.min.y || min.y > other.max.y) {
+        return false;  // No collision on the Y-axis
+    }
+
+    return true;  // Colliding on both X-axis and Y-axis
 }

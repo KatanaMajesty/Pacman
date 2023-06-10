@@ -1,21 +1,66 @@
 #include "AudioManager.h"
+
+#include <mutex>
 #include "../Utility/FileSystem.h"
+#include "../Utility/Logger.h"
+
+std::mutex g_soundMutex;
+
+static void SoundThread(std::queue<sf::Sound>* sounds, const bool* isDead)
+{
+    while (!(*isDead))
+    {
+        std::lock_guard lock(g_soundMutex);
+        if (sounds->empty())
+            continue;
+
+        sf::Sound& queried = sounds->front();
+        if (queried.getStatus() == sf::SoundSource::Playing)
+            continue;
+
+        sounds->pop();
+    }
+}
 
 AudioManager::AudioManager() 
 {
-    LoadSound(AUDIO_AMBIENCE, "ambience.wav");
-    LoadSound(AUDIO_COIN_COLLECT, "coin_collect.wav");
-    LoadSound(AUDIO_ENEMY_DEATH, "enemy_death.wav");
-    LoadSound(AUDIO_FIGHT, "fight.wav");
-    LoadSound(AUDIO_LEVEL_COMPLATED, "level_complated.wav");
-    LoadSound(AUDIO_LEVEL_FAILED, "level_failed.wav");
-    LoadSound(AUDIO_PLAYER_DEATH, "player_death.wav");
+    m_soundThread = std::jthread(SoundThread, &m_sounds, &m_isDead);
+}
+
+AudioManager::~AudioManager()
+{
+    m_isDead = true;
+}
+
+bool AudioManager::Init()
+{
+    if (s_instance)
+        Deinit();
+
+    s_instance = new AudioManager();
+    s_instance->LoadSound(AUDIO_AMBIENCE, "ambience.wav");
+    s_instance->LoadSound(AUDIO_COIN_COLLECT, "coin_collect.wav");
+    s_instance->LoadSound(AUDIO_ENEMY_DAMAGE, "enemy_death.wav");
+    s_instance->LoadSound(AUDIO_FIGHT, "fight.wav");
+    s_instance->LoadSound(AUDIO_LEVEL_COMPLATED, "level_complated.wav");
+    s_instance->LoadSound(AUDIO_LEVEL_FAILED, "level_failed.wav");
+    s_instance->LoadSound(AUDIO_PLAYER_DEATH, "player_death.wav");
+    s_instance->LoadSound(AUDIO_DUBSTEP, "far_cry_dubstep.wav");
+    return true;
+}
+
+void AudioManager::Deinit()
+{
+    if (s_instance)
+    {
+        delete s_instance;
+        s_instance = nullptr;
+    }
 }
 
 AudioManager& AudioManager::Get()
 {
-    static AudioManager instance;
-    return instance;
+    return *s_instance;
 }
 
 void AudioManager::LoadSound(AudioType audioType, const std::string& filename)
@@ -27,20 +72,23 @@ void AudioManager::LoadSound(AudioType audioType, const std::string& filename)
     }
 }
 
-void AudioManager::PlaySound(AudioType audioType)
+void AudioManager::PlaySound(AudioType audioType, float pitch, float volume)
 {
     auto it = m_soundBuffers.find(audioType);
-    sf::Sound sound;
-    if (it != m_soundBuffers.end()) {
-        sound.setBuffer(it->second);
+    if (it != m_soundBuffers.end()) 
+    {
+        std::lock_guard lock(g_soundMutex);
+        sf::Sound& sound = m_sounds.emplace(it->second);
+        sound.setVolume(volume);
+        sound.setPitch(pitch);
         sound.play();
     }
 }
 
-void AudioManager::StopSound(AudioType audioType) {
-    auto it = m_soundBuffers.find(audioType);
-    if (it != m_soundBuffers.end()) {
-        m_sound.setBuffer(it->second);
-        m_sound.stop();
-    }
-}
+//void AudioManager::StopSound(AudioType audioType) {
+//    auto it = m_soundBuffers.find(audioType);
+//    if (it != m_soundBuffers.end()) {
+//        m_sound.setBuffer(it->second);
+//        m_sound.stop();
+//    }
+//}

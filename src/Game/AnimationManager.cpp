@@ -14,6 +14,15 @@ void AnimationManager::OnUpdate(float timestep)
 		animation.second->OnUpdate(timestep);
 }
 
+void AnimationManager::Apply(const std::string& name, Sprite* sprite)
+{
+	SpriteAnimation* animation = GetAnimation(name);
+	if (!animation)
+		return;
+
+	animation->Apply(sprite);
+}
+
 SpriteAnimation* AnimationManager::CreateAnimation(const std::string& name)
 {
 	SpriteAnimation* animation = GetAnimation(name);

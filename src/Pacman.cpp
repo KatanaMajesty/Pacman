@@ -1,15 +1,17 @@
 #include <memory>
 #include <array>
+#include <format>
+#include "Audio/AudioManager.h"
 #include "Core/Window.h"
 #include "Core/Renderer.h"
 #include "Core/TextureLibrary.h"
-#include "Utility/Logger.h"
-#include "Audio/AudioManager.h"
-#include "Utility/Clock.h"
-#include "Utility/FileSystem.h"
 #include "Game/AnimationManager.h"
 #include "Game/TextureAtlas.h"
 #include "Game/Level.h"
+#include "Utility/Logger.h"
+#include "Utility/Clock.h"
+#include "Utility/FileSystem.h"
+#include "UI/UI.h"
 
 int main()
 {
@@ -19,44 +21,50 @@ int main()
 	Renderer renderer;
 	renderer.Init(&window);
 
+	if (!AudioManager::Init())
+	{
+		LOG("Failed to initialize Audio Manager");
+		return 1;
+	}
+
+	FileSystem& fs = FileSystem::Get();
 	TextureAtlas& atlas = TextureAtlas::Get();
-
 	Level level(&renderer);
-	level.Init((FileSystem::Get().GetAssetsPath() / "Maze.txt").string());
-	
-	Sprite sprite;
-	sprite.SetScale(4.0f);
-	sprite.SetPosition(Vec2(400.0f, 300.0f));
+	level.Init((fs.GetAssetsPath() / "Maze2.txt").string());
+	window.SetViewsize(level.GetMaze()->GetViewsize());
 
-	SpriteAnimation* animation = AnimationManager::Get().CreateAnimation("ANIM_YELLOW_SLIME");
-	animation->AddTexture(atlas.GetTexture(TextureType::TEXTURE_SLIME_YELLOW_IDLE));
-	animation->AddTexture(atlas.GetTexture(TextureType::TEXTURE_SLIME_YELLOW_JUMPING));
-	animation->Init(&sprite, 0.5f);
+	UI ui(&renderer);
+	ui.Init();
 
 	Clock clock;
 	clock.start();
-
-	AudioManager& audio = AudioManager::Get();
-	audio.PlaySound(AUDIO_COIN_COLLECT);
-	audio.PlaySound(AUDIO_PLAYER_DEATH);
 
 	float lastFrame = 0.0f;
 	while (!window.ShouldClose())
 	{
 		window.PollEvents();
-		//window.SetView(800.0f, 800.0f);
 
 		float elapsed = clock.elapsed();
 		float timestep = elapsed - lastFrame;
 		lastFrame = elapsed;
-		AnimationManager::Get().OnUpdate(timestep);
 
-		renderer.BeginFrame(FrameDesc());
-		
+		FrameDesc frameDesc;
+		frameDesc.clearcolor[0] = 0.0f;
+		frameDesc.clearcolor[1] = 0.0f;
+		frameDesc.clearcolor[2] = 0.0f;
+		frameDesc.clearcolor[3] = 1.0f;
+
+		renderer.BeginFrame(frameDesc);
+		renderer.SetViewport(Vec2(0.1f, 0.0f), Vec2(0.9f, 0.8f));
 		level.OnUpdate(timestep);
-		renderer.Draw(&sprite);
+
+		renderer.SetViewport(Vec2(0.1f, 0.8f), Vec2(0.9f, 1.0f));
+		ui.SetLevelInfo({ level.GetPlayer()->GetCollectedCoins(), level.GetOverallCoinsNumber(), level.GetPlayer()->GetHealth()});
+		ui.OnUpdate(timestep);
 
 		renderer.EndFrame();
 	}
 	clock.stop();
+
+	AudioManager::Deinit(); // Deinitialize the AudioManager
 }

@@ -3,34 +3,65 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <cstdlib>
 #include "TextureAtlas.h"
 #include "../Utility/Logger.h"
 
-Maze::Maze(const std::string& filepath, Renderer* renderer)
-    :m_renderer(renderer), m_mazeWidth(0), m_mazeHeight(0)
+Maze::Maze(EntityFactory* entityFactory, Renderer* renderer)
+    : m_entityFactory(entityFactory)
+    , m_renderer(renderer)
+    , m_width(0)
+    , m_height(0)
 {
+}
+
+bool Maze::Init(const std::string& filepath)
+{
+    m_grid.clear();
+    m_textureWidth = TextureAtlas::Get().GetTextureWidth();
+    m_textureHeight = TextureAtlas::Get().GetTextureHeight();
     ParseMazeImage(filepath);
+    return true;
+}
+
+Tile* Maze::GetTile(uint32_t x, uint32_t y){
+    return m_grid[x][y];
 }
 
 void Maze::Draw()
 {
-    for (uint16_t i = 0; i < m_mazeWidth; i++)
+    for (uint32_t x = 0; x < m_width; ++x)
     {
-        for (uint16_t j = 0; j < m_mazeHeight; j++)
+        for (uint32_t y = 0; y < m_height; ++y)
         {
-            Cell& cell = m_mazeGrid[static_cast<size_t>(i * m_mazeWidth + j)];
-
-            float widthStep = m_renderer->GetWindowDimensions().x / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);
-            float heightStep = m_renderer->GetWindowDimensions().y / static_cast<float>(MAX_MAZE_WIDTH_IN_TILES);
-            float step = std::min(widthStep, heightStep);
-
-            cell.GetSpriteToModify()->SetPosition(Vec2(static_cast<float>(j) * 32.0f, static_cast<float>(i) * 32.0f));
-            /*currMazeObj.SetScale(Vec2(widthStep / static_cast<float>(currMazeObj.GetTexture()->GetWidth()),
-                heightStep / static_cast<float>(currMazeObj.GetTexture()->GetHeight())));*/
-
-            m_renderer->Draw(cell.GetSprite());
+            Sprite* sprite = m_grid[x][y]->GetSprite();
+            sprite->SetPosition(Vec2(static_cast<float>(x * m_textureWidth), static_cast<float>(y * m_textureHeight)));
+            m_renderer->Draw(sprite);
         }
     }
+
+    //// TODO: remove temp
+    //for (auto [x, y] : m_path)
+    //{
+    //    const Tile* tile = this->At(x, y);
+    //    m_renderer->DebugDraw(tile->GetAABB().min, tile->GetAABB().max);
+    //}
+}
+
+Vec2 Maze::GetPosition(uint32_t x, uint32_t y) const
+{
+    return Vec2(static_cast<float>(x * m_textureWidth), static_cast<float>(y * m_textureHeight));
+}
+
+Vec2 Maze::GetCenterPosition() const
+{
+    return GetPosition(m_width / 2, m_height / 2);
+}
+
+float Maze::GetViewsize() const
+{
+    float viewsize = std::min(static_cast<float>(m_width) * m_textureWidth, static_cast<float>(m_height) * m_textureHeight);
+    return viewsize;
 }
 
 void Maze::ParseMazeImage(const std::string& filepath)
@@ -51,33 +82,27 @@ void Maze::ParseMazeImage(const std::string& filepath)
 
     std::string mazeString = oss.str();
 
-    m_mazeWidth = static_cast<uint16_t>(line.size());
-    m_mazeHeight = static_cast<uint16_t>(mazeString.size() / m_mazeWidth);
+    m_width = static_cast<uint32_t>(line.size());
+    m_height = static_cast<uint32_t>(mazeString.size()) / m_width;
 
-    TextureAtlas& atlas = TextureAtlas::Get();
-    for (size_t i = 0; i < mazeString.size(); ++i)
+    // Resize the grid
+    m_grid.resize(m_width);
+    for (auto& col : m_grid)
+        col.resize(m_height);
+
+    for (uint32_t x = 0; x < m_width; ++x)
     {
-        if (mazeString[i] == '0')
+        for (uint32_t y = 0; y < m_height; ++y)
         {
-            m_mazeGrid.emplace_back(new Sprite(), CellType::WALL);
-            m_mazeGrid[i].GetSpriteToModify()->SetTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_WALL1));
-        }
-        else if (mazeString[i] == '*')
-        {
-            m_mazeGrid.emplace_back(new Sprite(), CellType::FLOOR);
-            m_mazeGrid[i].GetSpriteToModify()->SetTexture(atlas.GetTexture(TextureType::TEXTURE_DUNGEON_TILE));
+            Vec2 pos = this->GetPosition(x, y);
+            size_t index = x + m_width * y;
+            bool isWall = mazeString[index] == '0';
+            uint32_t i = std::rand() % 3;
+            TextureType type = isWall ? TextureType(TEXTURE_DUNGEON_WALL1 + i) : TEXTURE_DUNGEON_TILE;
+            Tile* tile = m_entityFactory->RegisterEntity<Tile>(pos, BoundingBox(pos, static_cast<float>(m_textureWidth), static_cast<float>(m_textureHeight)), type, isWall);
+            m_grid[x][y] = tile;
         }
     }
 
     mazeImageFile.close();
-}
-
-Cell::Cell()
-    : m_sprite(nullptr), m_type(CellType::UNKNOWN)
-{
-}
-
-Cell::Cell(Sprite* sprite, CellType type)
-    : m_sprite(sprite), m_type(type)
-{
 }

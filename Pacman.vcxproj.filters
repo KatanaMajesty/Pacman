@@ -31,6 +31,12 @@
     <Filter Include="Src\Game">
       <UniqueIdentifier>{76236572-d87e-489b-ab5f-4a33d73ab496}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Audio">
+      <UniqueIdentifier>{70276518-9b91-41d2-953a-3c3bb6014a69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\UI">
+      <UniqueIdentifier>{d8a3ab8b-d139-481c-997b-b3b776110712}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\SFML\include\SFML\Audio\AlResource.hpp">
@@ -339,8 +345,32 @@
     <ClInclude Include="src\Game\AnimationManager.h">
       <Filter>Src\Game</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\Tile.h">
+      <Filter>Src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Slimes.h">
+      <Filter>Src\Game</Filter>
+    </ClInclude>
     <ClInclude Include="src\Audio\AudioManager.h">
-      <Filter>Src\Core</Filter>
+      <Filter>Src\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\TextManager.h">
+      <Filter>Src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\EventBus.h">
+      <Filter>Src\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\TextComponent.h">
+      <Filter>Src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Pathfinder.h">
+      <Filter>Src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\UI.h">
+      <Filter>Src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\RandomGenerator.h">
+      <Filter>Src\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -424,8 +454,32 @@
     <ClCompile Include="src\Utility\Math.cpp">
       <Filter>Src\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Coin.cpp">
+      <Filter>Src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Tile.cpp">
+      <Filter>Src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Slimes.cpp">
+      <Filter>Src\Game</Filter>
+    </ClCompile>
     <ClCompile Include="src\Audio\AudioManager.cpp">
-      <Filter>Src\Core</Filter>
+      <Filter>Src\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\TextManager.cpp">
+      <Filter>Src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\TextComponent.cpp">
+      <Filter>Src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Pathfinder.cpp">
+      <Filter>Src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\UI.cpp">
+      <Filter>Src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\RandomGenerator.cpp">
+      <Filter>Src\Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

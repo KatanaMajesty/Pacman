@@ -30,6 +30,11 @@ void Renderer::EndFrame()
 	rw->display();
 }
 
+void Renderer::SetViewport(const Vec2& topLeft, const Vec2& bottomRight)
+{
+	m_window->SetViewport(topLeft.x, topLeft.y, bottomRight.y, bottomRight.x);
+}
+
 static sf::PrimitiveType GetSFMLPrimitiveType(PrimitiveType type)
 {
 	switch (type)
@@ -51,6 +56,41 @@ void Renderer::Draw(const Sprite* sprite)
 {
 	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
 	rw->draw(sprite->m_sprite);
+}
+
+void Renderer::Draw(const TextComponent* text)
+{
+	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
+	const sf::Text& sftext = *reinterpret_cast<const sf::Text*>(text->GetHandle());
+	rw->draw(sftext);
+}
+
+#define KABANCHIKOM 1
+void Renderer::DebugDraw(const Vec2& min, const Vec2& max)
+{
+	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
+#if KABANCHIKOM == 1
+	Vertex vertices[5];
+	vertices[0].position = min;
+	vertices[1].position = Vec2(min.x, max.y);
+	vertices[2].position = max;
+	vertices[3].position = Vec2(max.x, min.y);
+	vertices[4].position = min;
+	rw->draw(vertices, 5, sf::LineStrip);
+#elif KABANCHIKOM == 2
+	Vertex vertices[2];
+	vertices[0].position = min;
+	vertices[1].position = max;
+	rw->draw(vertices, 2, sf::Points);
+#endif
+}
+
+void Renderer::DebugDraw(const Vec2& point)
+{
+	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
+	Vertex p;
+	p.position = point;
+	rw->draw(&p, 1, sf::Points);
 }
 
 Color ColorOf(const Vec3& rgb, float alpha)

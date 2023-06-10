@@ -17,6 +17,7 @@ public:
 	static AnimationManager& Get();
 
 	void OnUpdate(float timestep);
+	void Apply(const std::string& name, Sprite* sprite);
 	SpriteAnimation* CreateAnimation(const std::string& name);
 	SpriteAnimation* GetAnimation(const std::string& name);
 
