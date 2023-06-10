@@ -53,6 +53,10 @@ void UI::OnUpdate(float timestep)
         m_renderer->Draw(m_youWonText);
         return;
     }
+    else if(m_levelInfo.uPlayerHealth == 0){
+        //m_renderer->Draw(m_youWonText);
+        return;
+    }
 
     m_scoreText->SetString("Score: {}", m_levelInfo.uCollectedCoins);
     m_renderer->Draw(m_scoreText);

@@ -40,7 +40,7 @@ bool AudioManager::Init()
     s_instance = new AudioManager();
     s_instance->LoadSound(AUDIO_AMBIENCE, "ambience.wav");
     s_instance->LoadSound(AUDIO_COIN_COLLECT, "coin_collect.wav");
-    s_instance->LoadSound(AUDIO_ENEMY_DEATH, "enemy_death.wav");
+    s_instance->LoadSound(AUDIO_ENEMY_DAMAGE, "enemy_death.wav");
     s_instance->LoadSound(AUDIO_FIGHT, "fight.wav");
     s_instance->LoadSound(AUDIO_LEVEL_COMPLATED, "level_complated.wav");
     s_instance->LoadSound(AUDIO_LEVEL_FAILED, "level_failed.wav");

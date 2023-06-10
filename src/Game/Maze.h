@@ -4,6 +4,7 @@
 #include "../Core/Renderer.h"
 #include "../Core/Texture.h"
 #include "Tile.h"
+#include "Pathfinder.h"
 
 class Maze
 {
@@ -28,6 +29,7 @@ private:
     EntityFactory* m_entityFactory;
     Renderer* m_renderer;
     std::vector<std::vector<Tile*>> m_grid;
+    std::vector<Pathfinder::PositionType> m_path;
     uint32_t m_width;
     uint32_t m_height;
     uint32_t m_textureWidth;

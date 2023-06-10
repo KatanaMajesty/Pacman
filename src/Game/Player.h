@@ -27,6 +27,7 @@ public:
     void SetDirection(Direction direction);
     uint32_t GetCollectedCoins() const { return m_collectedCoins; }
     uint32_t GetHealth() const { return m_health; }
+    void DealDamage() { if (GetHealth() > 0) --m_health; }
 
 private:
     Vec2 m_playerPos;

@@ -25,7 +25,7 @@ bool Level::Init(const std::string& filepath)
     Player* player = m_entityFactory->RegisterEntity<Player>(playerPos, BoundingBox(playerPos, 16.0f, 16.0f));
     m_playerController.reset(new PlayerController(player));
 
-    Vec2 SlimePos = m_maze->GetCenterPosition();
+    Vec2 SlimePos = { 32,32 };
     Slime * slime = m_entityFactory->RegisterEntity<Slime>(SlimePos, BoundingBox(SlimePos, 16.0f, 16.0f));
 
     uint32_t w = m_maze->GetWidth();
@@ -45,7 +45,7 @@ bool Level::Init(const std::string& filepath)
 
     //EventBus::Get().subscribe(this, &Level::OnWindowResize);
 
-    AudioManager::Get().PlaySound(AUDIO_DUBSTEP, 1.5f);
+    AudioManager::Get().PlaySound(AUDIO_DUBSTEP, 1.5f, 5.0f);
     return true;
 }
 
@@ -86,6 +86,24 @@ void Level::OnUpdate(float timestep)
         }
         m_renderer->Draw(e->GetSprite());
     }
+
+    for (Entity* slime : m_entityFactory->GetEntities<ENTITY_ENEMY>()   )
+    {
+        slime->OnUpdate(timestep);
+        if (player->Collide(slime))
+        {
+            slime->OnEntityCollision(player);
+            player->OnEntityCollision(slime);
+
+            // TODO: Add check if health is 0
+            if (player->GetHealth() == 0)
+            {
+                // Do smth
+            }
+        }
+        m_renderer->Draw(slime->GetSprite());
+    }
+
 
     Slime* slime = (Slime*)m_entityFactory->GetEntities<ENTITY_ENEMY>().front();
     slime->OnUpdate(timestep);
