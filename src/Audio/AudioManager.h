@@ -11,7 +11,7 @@ enum AudioType // Changed to enum class for stronger typing
 {
     AUDIO_AMBIENCE,
     AUDIO_COIN_COLLECT,
-    AUDIO_ENEMY_DEATH,
+    AUDIO_ENEMY_DAMAGE,
     AUDIO_FIGHT,
     AUDIO_LEVEL_COMPLATED,
     AUDIO_LEVEL_FAILED,

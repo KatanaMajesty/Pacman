@@ -42,7 +42,8 @@ struct WindowResizedEvent
 	Window* window;
 	uint32_t width;
 	uint32_t height;
+	float viewsize;
 
-	WindowResizedEvent(Window* window, uint32_t width, uint32_t height)
-		: window(window), width(width), height(height) {}
+	WindowResizedEvent(Window* windowHandle, uint32_t uWidth, uint32_t uHeight, float fViewsize)
+		: window(windowHandle), width(uWidth), height(uHeight), viewsize(fViewsize) {}
 };

@@ -11,8 +11,7 @@
 #include "Utility/Logger.h"
 #include "Utility/Clock.h"
 #include "Utility/FileSystem.h"
-#include "Utility/EventBus.h"
-#include "UI/TextManager.h"
+#include "UI/UI.h"
 
 int main()
 {
@@ -34,23 +33,11 @@ int main()
 	level.Init((fs.GetAssetsPath() / "Maze2.txt").string());
 	window.SetViewsize(level.GetMaze()->GetViewsize());
 
+	UI ui(&renderer);
+	ui.Init();
+
 	Clock clock;
 	clock.start();
-
-	TextureLibrary& library = TextureLibrary::Get();
-	std::string filepath = (fs.GetAssetsPath() / "textbox.png").string();
-	Sprite ui;
-	Texture* t = library.CreateTexture(filepath);
-	float vs = window.GetViewsize();
-	float scaleX = vs / t->GetWidth();
-	float scaleY = vs / t->GetHeight();
-	ui.SetTexture(t);
-	ui.SetScale(scaleX, scaleY);
-
-	TextManager& textManager = TextManager::Get();
-	TextComponent* text = textManager.CreateText(32, Vec2(0.0f, 0.0f), DEFAULT_FONT);
-	text->SetString("Score {}", 0);
-	text->SetScale(scaleX / 4.0f, scaleY / 4.0f);
 
 	float lastFrame = 0.0f;
 	while (!window.ShouldClose())
@@ -73,10 +60,9 @@ int main()
 		level.OnUpdate(timestep);
 
 		renderer.SetViewport(Vec2(0.1f, 0.8f), Vec2(0.9f, 1.0f));
-		renderer.Draw(&ui);
+		ui.SetLevelInfo({ level.GetPlayer()->GetCollectedCoins(), level.GetOverallCoinsNumber(), level.GetPlayer()->GetHealth()});
+		ui.OnUpdate(timestep);
 
-		text->SetString("Score: {}", level.GetPlayer()->GetCollectedCoins());
-		renderer.Draw(text);
 		renderer.EndFrame();
 	}
 	clock.stop();

@@ -3,7 +3,6 @@
 #include <memory>
 #include <vector>
 #include "../Core/Renderer.h"
-#include "../Utility/EventBus.h"
 #include "Entity.h"
 #include "Maze.h"
 #include "Player.h"
@@ -18,10 +17,12 @@ public:
     void OnUpdate(float timestep);
     inline Maze* GetMaze() { return m_maze.get(); }
     inline Player* GetPlayer() { return (Player*) m_entityFactory->GetEntities<ENTITY_PLAYER>().front(); }
+    inline uint32_t GetOverallCoinsNumber() const { return m_overallCoinsNumber; }
 
 private:
     Renderer* m_renderer;
     std::unique_ptr<Maze> m_maze;
     std::unique_ptr<EntityFactory> m_entityFactory = nullptr;
     std::unique_ptr<PlayerController> m_playerController;
+    uint32_t m_overallCoinsNumber;
 };
