@@ -9,6 +9,7 @@ class TextComponent
 public:
 	bool Init(const std::string& str, uint32_t size, const Vec2& pos, sf::Font* font);
 	bool Init(uint32_t size, const Vec2& pos, sf::Font* font);
+	void SetScale(float x, float y) { m_text.setScale(Vec2(x, y)); }
 	void SetPosition(const Vec2& pos) { m_text.setPosition(pos); }
 	void AddPosition(const Vec2& pos) { m_text.setPosition(m_text.getPosition() + pos); }
 	Vec2 GetPosition() const { return m_text.getPosition(); }

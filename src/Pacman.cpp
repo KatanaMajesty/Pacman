@@ -37,10 +37,6 @@ int main()
 	Clock clock;
 	clock.start();
 
-	TextManager& textManager = TextManager::Get();
-	TextComponent* text = textManager.CreateText(90, Vec2(100, 220), DEFAULT_FONT);
-	text->SetString("Score {}", 0);
-
 	TextureLibrary& library = TextureLibrary::Get();
 	std::string filepath = (fs.GetAssetsPath() / "textbox.png").string();
 	Sprite ui;
@@ -50,6 +46,11 @@ int main()
 	float scaleY = vs / t->GetHeight();
 	ui.SetTexture(t);
 	ui.SetScale(scaleX, scaleY);
+
+	TextManager& textManager = TextManager::Get();
+	TextComponent* text = textManager.CreateText(32, Vec2(0.0f, 0.0f), DEFAULT_FONT);
+	text->SetString("Score {}", 0);
+	text->SetScale(scaleX / 4.0f, scaleY / 4.0f);
 
 	float lastFrame = 0.0f;
 	while (!window.ShouldClose())
