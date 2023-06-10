@@ -2,7 +2,6 @@
 #include "../Game/Entity.h"
 #include "../Utility/Math.h"
 #include "../Game/Maze.h"
-#include "../Game/PathFinding.h"
 #include "../Game/AnimationManager.h"
 #include "vector"
 

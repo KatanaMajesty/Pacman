@@ -62,6 +62,7 @@ void Player::OnWeaponPickup()
 
 void Player::OnEnemyInteract()
 {
+
 }
 
 void Player::OnTileCollision()
