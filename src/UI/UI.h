@@ -27,7 +27,7 @@ private:
     Renderer* m_renderer;
     std::unique_ptr<Sprite> m_sprite;
     TextComponent* m_scoreText;
-    TextComponent* m_healthText;
+    std::unique_ptr<Sprite> m_heartSprite;
     TextComponent* m_youWonText;
     LevelInfo m_levelInfo;
 };
