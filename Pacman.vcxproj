@@ -45,6 +45,7 @@
     <ClInclude Include="src\Utility\FileSystem.h" />
     <ClInclude Include="src\Utility\Logger.h" />
     <ClInclude Include="src\Utility\Math.h" />
+    <ClInclude Include="src\UI\UI.h" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\Export.hpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="src\Utility\Clock.cpp" />
     <ClCompile Include="src\Utility\FileSystem.cpp" />
     <ClCompile Include="src\Utility\Math.cpp" />
+    <ClCompile Include="src\UI\UI.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
