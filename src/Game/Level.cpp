@@ -4,6 +4,7 @@
 #include "../Audio/AudioManager.h"
 #include "Coin.h"
 #include "Tile.h"
+#include "../Game/Slimes.h"
 
 Level::Level(Renderer* renderer)
     : m_renderer(renderer)
@@ -16,6 +17,8 @@ bool Level::Init(const std::string& filepath)
     Vec2 playerPos = Vec2(400.0f, 300.0f);
     Player* player = m_entityFactory->RegisterEntity<Player>(Vec2(400.0f, 300.0f), BoundingBox(playerPos, 16.0f, 16.0f));
     m_playerController.reset(new PlayerController(player));
+    FireSlime* Slime = m_entityFactory->RegisterEntity<FireSlime>(Vec2(200.0f, 300.0f), BoundingBox(playerPos, 16.0f, 16.0f));
+
 
     Vec2 coinPos = Vec2(600.0f, 200.0f);
     m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
@@ -77,4 +80,7 @@ void Level::OnUpdate(float timestep)
         }
         m_renderer->Draw(e->GetSprite());
     }
+
+    FireSlime* Slime = (FireSlime*)m_entityFactory->GetEntities<ENTITY_ENEMY>().front();
+    Slime->OnUpdate(timestep);
 }

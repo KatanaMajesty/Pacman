@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Game\PathFinding.h" />
     <ClInclude Include="src\Utility\EventBus.h" />
     <ClInclude Include="src\Audio\AudioManager.h" />
     <ClInclude Include="src\Core\Renderer.h" />
@@ -151,6 +152,7 @@
     <ClCompile Include="src\Game\Entity.cpp" />
     <ClCompile Include="src\Game\Level.cpp" />
     <ClCompile Include="src\Game\Maze.cpp" />
+    <ClCompile Include="src\Game\PathFinding.cpp" />
     <ClCompile Include="src\Game\Slimes.cpp" />
     <ClCompile Include="src\Game\TextureAtlas.cpp" />
     <ClCompile Include="src\Game\Player.cpp" />

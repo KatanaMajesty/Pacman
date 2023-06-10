@@ -18,6 +18,7 @@ public:
     inline uint32_t GetHeight() const { return m_height; }
     Vec2 GetPosition(uint32_t x, uint32_t y) const;
     float GetViewsize() const;
+    inline Tile* GetTile(uint32_t x, uint32_t y)const;
 
 private:
     void ParseMazeImage(const std::string& filepath);
