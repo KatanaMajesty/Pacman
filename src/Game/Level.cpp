@@ -25,9 +25,11 @@ bool Level::Init(const std::string& filepath)
     Player* player = m_entityFactory->RegisterEntity<Player>(playerPos, BoundingBox(playerPos, 16.0f, 16.0f));
     m_playerController.reset(new PlayerController(player));
 
-    Vec2 SlimePos = { 32,32 };
-    Slime * slime = m_entityFactory->RegisterEntity<Slime>(SlimePos, BoundingBox(SlimePos, 16.0f, 16.0f));
-    slime->SetPath(m_maze->GetPositions());
+    Vec2 slimePos = m_maze->GetPosition(1, 1);
+    m_entityFactory->RegisterEntity<Slime>(slimePos, BoundingBox(slimePos, 16.0f, 16.0f));
+
+    slimePos = m_maze->GetPosition(m_maze->GetWidth() - 2, m_maze->GetHeight() - 2);
+    m_entityFactory->RegisterEntity<Slime>(slimePos, BoundingBox(slimePos, 16.0f, 16.0f));
 
     uint32_t w = m_maze->GetWidth();
     uint32_t h = m_maze->GetHeight();
@@ -41,7 +43,6 @@ bool Level::Init(const std::string& filepath)
             m_entityFactory->RegisterEntity<Coin>(pos, BoundingBox(pos, 16.0f, 16.0f));
             ++m_overallCoinsNumber;
         }
-
     }
 
     //EventBus::Get().subscribe(this, &Level::OnWindowResize);
@@ -88,26 +89,42 @@ void Level::OnUpdate(float timestep)
         m_renderer->Draw(e->GetSprite());
     }
 
-    for (Entity* slime : m_entityFactory->GetEntities<ENTITY_ENEMY>()   )
+    for (Entity* e : m_entityFactory->GetEntities<ENTITY_ENEMY>())
     {
+        Slime* slime = (Slime*)e;
         slime->OnUpdate(timestep);
+        if (slime->IsArrived())
+        {            
+            Vec2 slimepos = slime->GetPosition();
+            uint32_t rx = static_cast<uint32_t>(slimepos.x / m_maze->GetTextureWidth());
+            uint32_t ry = static_cast<uint32_t>(slimepos.y / m_maze->GetTextureHeight());
+
+            Vec2 playerpos = player->GetCenterPos();
+            uint32_t gx = static_cast<uint32_t>(playerpos.x / m_maze->GetTextureWidth());
+            uint32_t gy = static_cast<uint32_t>(playerpos.y / m_maze->GetTextureHeight());
+            m_pathfinder.Init(m_maze->GetGrid(), rx, ry, gx, gy);
+
+            auto& r = m_pathfinder.GetPath();
+            std::vector<Vec2> path;
+            path.reserve(r.size());
+            for (auto [x, y] : r)
+                path.push_back(m_maze->GetPosition(x, y));
+
+            slime->SetPath(path);
+        }
+
         if (player->Collide(slime))
         {
             slime->OnEntityCollision(player);
             player->OnEntityCollision(slime);
+            player->SetPosition(m_maze->GetCenterPosition());
 
-            // TODO: Add check if health is 0
             if (player->GetHealth() == 0)
             {
-                // Do smth
+                // End the game
+                //m_isOver = true;
             }
         }
         m_renderer->Draw(slime->GetSprite());
     }
-
-
-    Slime* slime = (Slime*)m_entityFactory->GetEntities<ENTITY_ENEMY>().front();
-    slime->OnUpdate(timestep);
-    m_renderer->Draw(slime->GetSprite());
-
 }

@@ -7,6 +7,7 @@ bool Pathfinder::Init(const TileContainer& container, uint32_t xpos, uint32_t yp
 {
 	m_pathList.clear();
 	m_closedList.clear();
+	m_path.clear();
 
 	using INT_PAIR = std::pair<int32_t, int32_t>;
 	static constexpr INT_PAIR deltas[] = {

@@ -15,6 +15,11 @@ Player::Player(const Vec2& pos, const BoundingBox& boundingBox)
 	m_sprites[DIRECTION_LEFT].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_LEFT));
 	m_sprites[DIRECTION_DOWN].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_FRONT));
 	m_sprites[DIRECTION_RIGHT].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_RIGHT));
+
+	m_damageSprites[DIRECTION_UP].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_IMMUNE_BACK));
+	m_damageSprites[DIRECTION_LEFT].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_IMMUNE_LEFT));
+	m_damageSprites[DIRECTION_DOWN].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_IMMUNE_FRONT));
+	m_damageSprites[DIRECTION_RIGHT].SetTexture(textureAtlas.GetTexture(TextureType::TEXTURE_PLAYER_IMMUNE_RIGHT));
 	this->SetDirection(DIRECTION_DOWN);
 }
 
@@ -32,6 +37,15 @@ void Player::OnUpdate(float timestep)
 
 	this->SetAABB(m_playerPos, w);
 	this->CanMove() = true;
+
+	if (m_timeSinceDamageDealt > 4.0f)
+	{
+		m_activeSprite = &m_sprites[m_direction];
+	}
+	else
+	{
+		m_activeSprite = &m_damageSprites[m_direction];
+	}
 	// Do player logic
 }
 
@@ -62,6 +76,9 @@ void Player::OnWeaponPickup()
 
 void Player::OnEnemyInteract()
 {
+	// Hardcoded 4 seconds of damage resistance
+	m_timeSinceDamageDealt = 0.0f;
+
 	// Damage is dealt in Slime::OnEntityCollision
 	/*if (m_health == 0) {
 		return;
