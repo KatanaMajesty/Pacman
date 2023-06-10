@@ -10,5 +10,5 @@ public:
 
 	Pathfinder() = default;
 
-	bool Init()
+	bool Init();
 };
