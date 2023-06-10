@@ -8,9 +8,22 @@
 #include "Tile.h"
 #include "../Utility/Logger.h"
 #include "../Utility/RandomGenerator.h"
+#include "../Utility/EventBus.h"
+
+struct EventGameIsOver
+    : public Event
+{
+    bool gameIsOver;
+
+    EventGameIsOver()
+        : gameIsOver(false) {}
+
+    EventGameIsOver(bool gameStatus)
+        : gameIsOver(gameStatus) {}
+};
 
 Level::Level(Renderer* renderer)
-    : m_renderer(renderer), m_overallCoinsNumber(30)
+    : m_renderer(renderer), m_overallCoinsNumber(30), m_gameIsOver(false)
 {
 }
 
@@ -52,6 +65,11 @@ void Level::OnUpdate(float timestep)
 {
     AnimationManager::Get().OnUpdate(timestep);
     m_maze->Draw();
+
+    if (m_gameIsOver)
+    {
+        return;
+    }
 
     Player* player = (Player*) m_entityFactory->GetEntities<ENTITY_PLAYER>().front();
     player->OnUpdate(timestep);
@@ -107,4 +125,6 @@ void Level::OnUpdate(float timestep)
     Slime* slime = (Slime*)m_entityFactory->GetEntities<ENTITY_ENEMY>().front();
     slime->OnUpdate(timestep);
     m_renderer->Draw(slime->GetSprite());
+
+    m_gameIsOver = player->GetHealth() == 0 || player->GetCollectedCoins() == m_overallCoinsNumber;
 }
