@@ -36,7 +36,7 @@ bool Level::Init(const std::string& filepath)
 
     //EventBus::Get().subscribe(this, &Level::OnWindowResize);
 
-    AudioManager::Get().PlaySound(AUDIO_AMBIENCE);
+    AudioManager::Get().PlaySound(AUDIO_DUBSTEP);
     return true;
 }
 

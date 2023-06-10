@@ -16,6 +16,7 @@ enum AudioType // Changed to enum class for stronger typing
     AUDIO_LEVEL_COMPLATED,
     AUDIO_LEVEL_FAILED,
     AUDIO_PLAYER_DEATH,
+    AUDIO_DUBSTEP,
     NUM_AUDIOS
 };
 

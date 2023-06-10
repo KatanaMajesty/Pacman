@@ -45,6 +45,7 @@ bool AudioManager::Init()
     s_instance->LoadSound(AUDIO_LEVEL_COMPLATED, "level_complated.wav");
     s_instance->LoadSound(AUDIO_LEVEL_FAILED, "level_failed.wav");
     s_instance->LoadSound(AUDIO_PLAYER_DEATH, "player_death.wav");
+    s_instance->LoadSound(AUDIO_DUBSTEP, "far_cry_dubstep.wav");
     return true;
 }
 
