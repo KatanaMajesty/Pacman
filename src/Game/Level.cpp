@@ -9,7 +9,7 @@
 #include "../Game/Slimes.h"
 
 Level::Level(Renderer* renderer)
-    : m_renderer(renderer)
+    : m_renderer(renderer), m_overallCoinsNumber(0)
 {
 }
 
@@ -35,7 +35,11 @@ bool Level::Init(const std::string& filepath)
         uint32_t y = std::rand() % h;
         Vec2 pos = m_maze->GetPosition(x, y);
         if (!m_maze->At(x, y)->IsCollider())
+        {
             m_entityFactory->RegisterEntity<Coin>(pos, BoundingBox(pos, 16.0f, 16.0f));
+            ++m_overallCoinsNumber;
+        }
+
     }
 
     //EventBus::Get().subscribe(this, &Level::OnWindowResize);
