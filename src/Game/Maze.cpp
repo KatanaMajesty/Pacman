@@ -21,7 +21,16 @@ bool Maze::Init(const std::string& filepath)
     m_textureWidth = TextureAtlas::Get().GetTextureWidth();
     m_textureHeight = TextureAtlas::Get().GetTextureHeight();
     ParseMazeImage(filepath);
+
+    // TODO: TEMP remove
+    Pathfinder pathfinder;
+    pathfinder.Init(m_grid, 1, 1, GetWidth() - 2, GetHeight() - 2);
+    m_path = pathfinder.GetPath();
     return true;
+}
+
+Tile* Maze::GetTile(uint32_t x, uint32_t y){
+    return m_grid[x][y];
 }
 
 void Maze::Draw()
@@ -34,6 +43,13 @@ void Maze::Draw()
             sprite->SetPosition(Vec2(x * m_textureWidth, y * m_textureHeight));
             m_renderer->Draw(sprite);
         }
+    }
+
+    // TODO: remove temp
+    for (auto [x, y] : m_path)
+    {
+        const Tile* tile = this->At(x, y);
+        m_renderer->DebugDraw(tile->GetAABB().min, tile->GetAABB().max);
     }
 }
 

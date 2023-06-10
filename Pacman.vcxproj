@@ -34,7 +34,6 @@
     <ClInclude Include="src\Game\Entity.h" />
     <ClInclude Include="src\Game\Level.h" />
     <ClInclude Include="src\Game\Maze.h" />
-    <ClInclude Include="src\Game\PathFinding.h" />
     <ClInclude Include="src\Game\Slimes.h" />
     <ClInclude Include="src\Game\TextureAtlas.h" />
     <ClInclude Include="src\Game\Player.h" />
@@ -45,6 +44,7 @@
     <ClInclude Include="src\Utility\FileSystem.h" />
     <ClInclude Include="src\Utility\Logger.h" />
     <ClInclude Include="src\Utility\Math.h" />
+    <ClInclude Include="src\UI\UI.h" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\Export.hpp" />
@@ -155,7 +155,6 @@
     <ClCompile Include="src\Game\Level.cpp" />
     <ClCompile Include="src\Game\Maze.cpp" />
     <ClCompile Include="src\Game\Pathfinder.cpp" />
-    <ClCompile Include="src\Game\PathFinding.cpp" />
     <ClCompile Include="src\Game\Slimes.cpp" />
     <ClCompile Include="src\Game\TextureAtlas.cpp" />
     <ClCompile Include="src\Game\Player.cpp" />
@@ -167,6 +166,7 @@
     <ClCompile Include="src\Utility\Clock.cpp" />
     <ClCompile Include="src\Utility\FileSystem.cpp" />
     <ClCompile Include="src\Utility\Math.cpp" />
+    <ClCompile Include="src\UI\UI.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

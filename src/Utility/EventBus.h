@@ -61,7 +61,7 @@ public:
 	inline static EventBus& Get() { static EventBus instance; return instance; }
 
 	template<typename EventType>
-	void publish(EventType&& e)
+	void Publish(EventType&& e)
 	{
 		auto entry = m_Subscriptions.find(typeid(EventType));
 		if (entry != m_Subscriptions.end())
@@ -75,7 +75,7 @@ public:
 	}
 
 	template<typename Receiver, typename EventType>
-	void subscribe(Receiver* receiver, void(Receiver::* handlerFn)(const EventType&))
+	void Subscribe(Receiver* receiver, void(Receiver::* handlerFn)(const EventType&))
 	{
 		HandlerList& handlers = m_Subscriptions[typeid(EventType)];
 		handlers.emplace_back(
@@ -84,7 +84,7 @@ public:
 	}
 
 	template<typename Receiver, typename EventType>
-	void unsubscribe(Receiver* receiver, void(Receiver::* handlerFn)(const EventType&))
+	void Unsubscribe(Receiver* receiver, void(Receiver::* handlerFn)(const EventType&))
 	{
 		auto entry = m_Subscriptions.find(typeid(EventType));
 		if (entry != m_Subscriptions.end())
@@ -104,7 +104,7 @@ public:
 	}
 
 	template<typename Receiver>
-	void unsubscribeAll(Receiver* receiver)
+	void UnsubscribeAll(Receiver* receiver)
 	{
 		for (auto& [_, handlers] : m_Subscriptions)
 		{

@@ -62,6 +62,11 @@ void Player::OnWeaponPickup()
 
 void Player::OnEnemyInteract()
 {
+	// Damage is dealt in Slime::OnEntityCollision
+	/*if (m_health == 0) {
+		return;
+	}
+	m_health--;*/
 }
 
 void Player::OnTileCollision()

@@ -33,9 +33,11 @@ public:
 	void Draw(const Sprite* sprite);
 	void Draw(const TextComponent* text);
 	void DebugDraw(const Vec2& min, const Vec2& max);
+	void DebugDraw(const Vec2& point);
 
 	inline uint32_t GetWindowWidth() const { return m_window->GetWidth(); }
 	inline uint32_t GetWindowHeight() const { return m_window->GetHeight(); }
+	inline float GetWindowViewsize() const { return m_window->GetViewsize(); }
 
 private:
 	Window* m_window = nullptr;

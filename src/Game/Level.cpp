@@ -6,9 +6,10 @@
 #include "AnimationManager.h"
 #include "Coin.h"
 #include "Tile.h"
+#include "../Game/Slimes.h"
 
 Level::Level(Renderer* renderer)
-    : m_renderer(renderer)
+    : m_renderer(renderer), m_overallCoinsNumber(0)
 {
 }
 
@@ -23,6 +24,9 @@ bool Level::Init(const std::string& filepath)
     Player* player = m_entityFactory->RegisterEntity<Player>(playerPos, BoundingBox(playerPos, 16.0f, 16.0f));
     m_playerController.reset(new PlayerController(player));
 
+    Vec2 SlimePos = { 32,32 };
+    Slime * slime = m_entityFactory->RegisterEntity<Slime>(SlimePos, BoundingBox(SlimePos, 16.0f, 16.0f));
+
     uint32_t w = m_maze->GetWidth();
     uint32_t h = m_maze->GetHeight();
     for (uint32_t i = 0; i < 30; ++i)
@@ -31,12 +35,16 @@ bool Level::Init(const std::string& filepath)
         uint32_t y = std::rand() % h;
         Vec2 pos = m_maze->GetPosition(x, y);
         if (!m_maze->At(x, y)->IsCollider())
+        {
             m_entityFactory->RegisterEntity<Coin>(pos, BoundingBox(pos, 16.0f, 16.0f));
+            ++m_overallCoinsNumber;
+        }
+
     }
 
     //EventBus::Get().subscribe(this, &Level::OnWindowResize);
 
-    AudioManager::Get().PlaySound(AUDIO_DUBSTEP, 1.5f);
+    AudioManager::Get().PlaySound(AUDIO_DUBSTEP, 1.5f, 5.0f);
     return true;
 }
 
@@ -77,4 +85,27 @@ void Level::OnUpdate(float timestep)
         }
         m_renderer->Draw(e->GetSprite());
     }
+
+    for (Entity* slime : m_entityFactory->GetEntities<ENTITY_ENEMY>()   )
+    {
+        slime->OnUpdate(timestep);
+        if (player->Collide(slime))
+        {
+            slime->OnEntityCollision(player);
+            player->OnEntityCollision(slime);
+
+            // TODO: Add check if health is 0
+            if (player->GetHealth() == 0)
+            {
+                // Do smth
+            }
+        }
+        m_renderer->Draw(slime->GetSprite());
+    }
+
+
+    Slime* slime = (Slime*)m_entityFactory->GetEntities<ENTITY_ENEMY>().front();
+    slime->OnUpdate(timestep);
+    m_renderer->Draw(slime->GetSprite());
+
 }
