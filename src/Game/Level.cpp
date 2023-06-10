@@ -91,8 +91,14 @@ void Level::OnUpdate(float timestep)
         slime->OnUpdate(timestep);
         if (player->Collide(slime))
         {
+            slime->OnEntityCollision(player);
             player->OnEntityCollision(slime);
-            slime->OnEntityCollision(player); // Actually coin does nothing here
+
+            // TODO: Add check if health is 0
+            if (player->GetHealth() == 0)
+            {
+                // Do smth
+            }
         }
         m_renderer->Draw(slime->GetSprite());
     }
