@@ -70,5 +70,5 @@ inline Vec2 VecFromDirection(Direction direction)
 static uint32_t Manhattan(const Vec2& lhs, const Vec2& rhs)
 {
 	Vec2 delta{ abs(lhs.x - rhs.x), abs(lhs.y - rhs.y)};
-	return delta.x + delta.y;
+	return static_cast<uint32_t>(delta.x + delta.y);
 }

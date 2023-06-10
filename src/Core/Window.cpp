@@ -60,8 +60,8 @@ void Window::PollEvents()
 		// catch the resize events
 		if (event.type == sf::Event::Resized)
 		{
-			m_width = static_cast<float>(event.size.width);
-			m_height = static_cast<float>(event.size.height);
+			m_width = static_cast<uint32_t>(event.size.width);
+			m_height = static_cast<uint32_t>(event.size.height);
 			EventBus::Get().Publish(WindowResizedEvent(this, m_width, m_height, m_viewsize));
 
 			float zoom = m_viewsize / std::min(m_width, m_height);

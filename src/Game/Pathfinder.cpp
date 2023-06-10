@@ -105,5 +105,5 @@ float Pathfinder::Heuristic(uint32_t x, uint32_t y, uint32_t goalx, uint32_t goa
 	// Convert to int from uint to avoid crit errors
 	uint32_t dx = std::abs((int32_t)x - (int32_t)goalx);
 	uint32_t dy = std::abs((int32_t)y - (int32_t)goaly);
-	return dx + dy;
+	return static_cast<float>(dx + dy);
 }
