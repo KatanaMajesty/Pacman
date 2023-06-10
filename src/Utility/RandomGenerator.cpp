@@ -15,7 +15,7 @@ void RandomGenerator::SetSeed(uint32_t seed)
     m_randGenerator = gen;
 }
 
-size_t RandomGenerator::GenerateNumber(uint32_t from, uint32_t to)
+uint32_t RandomGenerator::GenerateNumber(uint32_t from, uint32_t to)
 {
     std::uniform_int_distribution<uint32_t> randDist(from, to);
     return randDist(m_randGenerator);

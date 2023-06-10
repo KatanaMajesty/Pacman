@@ -31,7 +31,7 @@ protected:
     SpriteAnimation* m_animation;
     Sprite m_sprite;
     float m_attackInterval = 4.0f;
-    float m_timeSinceLastAttack = 0.0f;
+    //float m_timeSinceLastAttack = 0.0f;
     float m_moveTime = 0.0f;
     float m_tilesPerSec = 4.0f;
 }; 

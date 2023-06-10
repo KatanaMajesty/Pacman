@@ -34,7 +34,11 @@ static constexpr std::array g_atlasPositions = {
     std::pair<uint32_t, uint32_t>{6, 0}, // skull
     std::pair<uint32_t, uint32_t>{6, 1}, // flor2
     std::pair<uint32_t, uint32_t>{6, 2}, // flor3
-    std::pair<uint32_t, uint32_t>{6, 3}  // flor4
+    std::pair<uint32_t, uint32_t>{6, 3},  // flor4
+    std::pair<uint32_t, uint32_t>{7, 0}, // pimmune
+    std::pair<uint32_t, uint32_t>{7, 1}, // pimmune
+    std::pair<uint32_t, uint32_t>{7, 2}, // pimmune
+    std::pair<uint32_t, uint32_t>{7, 3}, // pimmune
 };
 
 TextureAtlas::TextureAtlas()

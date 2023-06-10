@@ -11,7 +11,7 @@ public:
 
     static void SetSeed(uint32_t seed = 0);
 
-    static size_t GenerateNumber(uint32_t from, uint32_t to);
+    static uint32_t GenerateNumber(uint32_t from, uint32_t to);
 
 private:
     static inline std::random_device m_randDevice;

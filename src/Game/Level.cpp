@@ -25,11 +25,39 @@ bool Level::Init(const std::string& filepath)
     Player* player = m_entityFactory->RegisterEntity<Player>(playerPos, BoundingBox(playerPos, 16.0f, 16.0f));
     m_playerController.reset(new PlayerController(player));
 
-    Vec2 slimePos = m_maze->GetPosition(1, 1);
-    m_entityFactory->RegisterEntity<Slime>(slimePos, BoundingBox(slimePos, 16.0f, 16.0f));
+    Vec2 topLeft = m_maze->GetPosition(1, 1);
+    Vec2 bottomRight = m_maze->GetPosition(m_maze->GetWidth() - 2, m_maze->GetHeight() - 2);
 
-    slimePos = m_maze->GetPosition(m_maze->GetWidth() - 2, m_maze->GetHeight() - 2);
-    m_entityFactory->RegisterEntity<Slime>(slimePos, BoundingBox(slimePos, 16.0f, 16.0f));
+    Vec2 slimes[4];
+    slimes[0] = topLeft;
+    slimes[1] = Vec2(topLeft.x, bottomRight.y);
+    slimes[2] = bottomRight;
+    slimes[3] = Vec2(bottomRight.x, topLeft.y);
+    for (uint32_t i = 0; i < 4; ++i)
+    {
+        Slime* slime = m_entityFactory->RegisterEntity<Slime>(slimes[i], BoundingBox(slimes[i], 16.0f, 16.0f));
+        uint32_t rx = static_cast<uint32_t>(slimes[i].x / m_maze->GetTextureWidth());
+        uint32_t ry = static_cast<uint32_t>(slimes[i].y / m_maze->GetTextureHeight());
+        uint32_t gx = RandomGenerator::GenerateNumber(0, m_maze->GetWidth() - 1);
+        uint32_t gy = RandomGenerator::GenerateNumber(0, m_maze->GetHeight() - 1);
+        while (m_maze->At(gx, gy)->IsCollider())
+        {
+            gx = RandomGenerator::GenerateNumber(0, m_maze->GetWidth() - 1);
+            gy = RandomGenerator::GenerateNumber(0, m_maze->GetHeight() - 1);
+        }
+        m_pathfinder.Init(m_maze->GetGrid(), rx, ry, gx, gy);
+
+        auto& r = m_pathfinder.GetPath();
+        std::vector<Vec2> path;
+        path.reserve(r.size());
+        for (auto [x, y] : r)
+            path.push_back(m_maze->GetPosition(x, y));
+
+        slime->SetPath(path);
+        uint32_t rf = RandomGenerator::GenerateNumber(0, 5);
+        float factor = rf / 10.0f;
+        slime->SetTilesPerSec(4.0f * (1.0f + factor));
+    }
 
     uint32_t w = m_maze->GetWidth();
     uint32_t h = m_maze->GetHeight();
@@ -115,10 +143,12 @@ void Level::OnUpdate(float timestep)
 
         if (player->Collide(slime))
         {
+            if (!player->IsImmune())
+                player->SetPosition(m_maze->GetCenterPosition());
+
             slime->OnEntityCollision(player);
             player->OnEntityCollision(slime);
-            player->SetPosition(m_maze->GetCenterPosition());
-
+            
             if (player->GetHealth() == 0)
             {
                 // End the game

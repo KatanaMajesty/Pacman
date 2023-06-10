@@ -35,7 +35,7 @@ void Maze::Draw()
         for (uint32_t y = 0; y < m_height; ++y)
         {
             Sprite* sprite = m_grid[x][y]->GetSprite();
-            sprite->SetPosition(Vec2(x * m_textureWidth, y * m_textureHeight));
+            sprite->SetPosition(Vec2(static_cast<float>(x * m_textureWidth), static_cast<float>(y * m_textureHeight)));
             m_renderer->Draw(sprite);
         }
     }
@@ -50,7 +50,7 @@ void Maze::Draw()
 
 Vec2 Maze::GetPosition(uint32_t x, uint32_t y) const
 {
-    return Vec2(x * m_textureWidth, y * m_textureHeight);
+    return Vec2(static_cast<float>(x * m_textureWidth), static_cast<float>(y * m_textureHeight));
 }
 
 Vec2 Maze::GetCenterPosition() const
@@ -99,7 +99,7 @@ void Maze::ParseMazeImage(const std::string& filepath)
             bool isWall = mazeString[index] == '0';
             uint32_t i = std::rand() % 3;
             TextureType type = isWall ? TextureType(TEXTURE_DUNGEON_WALL1 + i) : TEXTURE_DUNGEON_TILE;
-            Tile* tile = m_entityFactory->RegisterEntity<Tile>(pos, BoundingBox(pos, m_textureWidth, m_textureHeight), type, isWall);
+            Tile* tile = m_entityFactory->RegisterEntity<Tile>(pos, BoundingBox(pos, static_cast<float>(m_textureWidth), static_cast<float>(m_textureHeight)), type, isWall);
             m_grid[x][y] = tile;
         }
     }

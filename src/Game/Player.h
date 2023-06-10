@@ -29,6 +29,7 @@ public:
     uint32_t GetCollectedCoins() const { return m_collectedCoins; }
     uint32_t GetHealth() const { return m_health; }
     void DealDamage() { if (GetHealth() > 0) --m_health; }
+    bool IsImmune() const { return m_timeSinceDamageDealt < 4.0f; }
     const Vec2& GetCenterPos() const { return m_playerPos; }
 
 private:

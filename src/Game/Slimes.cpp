@@ -26,7 +26,7 @@ Slime::Slime(const Vec2& pos, const BoundingBox& boundingBox)
 void Slime::OnUpdate(float timestep)
 {
 	AnimationManager::Get().Apply("anim_slime", &m_sprite);
-	m_timeSinceLastAttack += timestep;
+	//m_timeSinceLastAttack += timestep;
 
 	if (!m_path.empty())
 	{
@@ -74,11 +74,10 @@ void Slime::OnEntityCollision(Entity* entity) {
 	if (entity->GetType() == ENTITY_PLAYER)
 	{
 		Player* player = (Player*)entity;
-		if (m_timeSinceLastAttack > m_attackInterval)
+		if (!player->IsImmune())
 		{
 			AudioManager::Get().PlaySound(AudioType::AUDIO_ENEMY_DAMAGE);
 			player->DealDamage();
-			m_timeSinceLastAttack = 0.0f;
 		}
 	}
 };
