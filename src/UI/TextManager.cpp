@@ -1,13 +1,11 @@
 #include "TextManager.h"
 
+#include "../Utility/FileSystem.h"
+#include "../Utility/Logger.h"
+
 TextManager::TextManager()
 {
-    // Initialize the font and text objects
-    static std::string filepath = (FileSystem::Get().GetAssetsPath() / "Font.ttf").string();
-    m_font.loadFromFile(filepath);
-    m_text.setFont(m_font);
-    m_text.setFillColor(Color::White);
-    m_text.setCharacterSize(90);
+    LoadFont(TextFont::DEFAULT_FONT, "Font.ttf");
 }
 
 TextManager& TextManager::Get()
@@ -16,25 +14,51 @@ TextManager& TextManager::Get()
     return instance;
 }
 
-void TextManager::PrintText(std::string textToPrint, const Vec2& pos)
+bool TextManager::LoadFont(TextFont font, const std::string& filename)
 {
-    m_text.setString(textToPrint);
-    m_text.setPosition(pos);
+    FileSystem& fs = FileSystem::Get();
+    std::string filepath = (fs.GetAssetsPath() / filename).string();
+   
+    sf::Font* f = GetFont(font);
+    if (f)
+        return true;
+
+    f = new sf::Font();
+    if (!f->loadFromFile(filepath))
+    {
+        LOG("Failed to load a font {}", filepath);
+        delete f;
+        return false;
+    }
+
+    m_fonts[font] = std::unique_ptr<sf::Font>(f);
+    return true;
 }
 
-
-void TextManager::SetFont(const std::string& fontPath)
+TextComponent* TextManager::CreateText(const std::string& str, uint32_t fontsize, const Vec2& pos, TextFont font)
 {
-    m_font.loadFromFile(fontPath);
-    m_text.setFont(m_font);
+    sf::Font* sfFont = GetFont(font);
+    if (!sfFont)
+        return nullptr;
+
+    TextComponent* text = new TextComponent();
+    if (!text->Init(str, fontsize, pos, sfFont))
+    {
+        LOG("Failed to init text component");
+        delete text;
+        return nullptr;
+    }
+
+    return m_textComponents.emplace_back(std::unique_ptr<TextComponent>(text)).get();
 }
 
-void TextManager::SetCharacterSize(unsigned int characterSize)
+TextComponent* TextManager::CreateText(uint32_t fontsize, const Vec2& pos, TextFont font)
 {
-    m_text.setCharacterSize(characterSize);
+    return this->CreateText("???", fontsize, pos, font);
 }
 
-void TextManager::SetColor(const sf::Color& color)
+sf::Font* TextManager::GetFont(TextFont font)
 {
-    m_text.setFillColor(color);
+    auto it = m_fonts.find(font);
+    return it == m_fonts.end() ? nullptr : it->second.get();
 }

@@ -17,7 +17,7 @@ public:
     bool Init(const std::string& filepath);
     void OnUpdate(float timestep);
     inline Maze* GetMaze() { return m_maze.get(); }
-    int coinAmount = 0;
+    inline Player* GetPlayer() { return (Player*) m_entityFactory->GetEntities<ENTITY_PLAYER>().front(); }
 
 private:
     Renderer* m_renderer;

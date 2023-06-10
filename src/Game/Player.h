@@ -25,6 +25,7 @@ public:
     void OnEnemyInteract();
     void OnTileCollision();
     void SetDirection(Direction direction);
+    uint32_t GetCollectedCoins() const { return m_collectedCoins; }
 
 private:
     Vec2 m_playerPos;

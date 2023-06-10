@@ -58,8 +58,15 @@ void Renderer::Draw(const Sprite* sprite)
 	rw->draw(sprite->m_sprite);
 }
 
+void Renderer::Draw(const TextComponent* text)
+{
+	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
+	const sf::Text& sftext = *reinterpret_cast<const sf::Text*>(text->GetHandle());
+	rw->draw(sftext);
+}
+
 #define KABANCHIKOM 0
-void Renderer::Draw(const Vec2& min, const Vec2& max)
+void Renderer::DebugDraw(const Vec2& min, const Vec2& max)
 {
 	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
 #if KABANCHIKOM == 1
@@ -76,12 +83,6 @@ void Renderer::Draw(const Vec2& min, const Vec2& max)
 	vertices[1].position = max;
 	rw->draw(vertices, 2, sf::Points);
 #endif
-}
-
-void Renderer::Draw(const TextManager* text)
-{
-	sf::RenderWindow* rw = reinterpret_cast<sf::RenderWindow*>(m_window->GetHandle());
-	rw->draw(text->m_text);
 }
 
 Color ColorOf(const Vec3& rgb, float alpha)

@@ -363,6 +363,9 @@
     <ClInclude Include="src\Utility\EventBus.h">
       <Filter>Src\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="src\UI\TextComponent.h">
+      <Filter>Src\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\SFML\include\SFML\Audio\SoundFileFactory.inl">
@@ -461,6 +464,9 @@
       <Filter>Src\Audio</Filter>
     </ClCompile>
     <ClCompile Include="src\UI\TextManager.cpp">
+      <Filter>Src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\TextComponent.cpp">
       <Filter>Src\UI</Filter>
     </ClCompile>
   </ItemGroup>

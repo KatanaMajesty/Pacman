@@ -1,5 +1,6 @@
 #include <memory>
 #include <array>
+#include <format>
 #include "Audio/AudioManager.h"
 #include "Core/Window.h"
 #include "Core/Renderer.h"
@@ -36,7 +37,9 @@ int main()
 	Clock clock;
 	clock.start();
 
-	TextManager& text = TextManager::Get();
+	TextManager& textManager = TextManager::Get();
+	TextComponent* text = textManager.CreateText(90, Vec2(100, 220), DEFAULT_FONT);
+	text->SetString("Score {}", 0);
 
 	TextureLibrary& library = TextureLibrary::Get();
 	std::string filepath = (fs.GetAssetsPath() / "textbox.png").string();
@@ -63,22 +66,16 @@ int main()
 		frameDesc.clearcolor[1] = 0.0f;
 		frameDesc.clearcolor[2] = 0.0f;
 		frameDesc.clearcolor[3] = 1.0f;
-		renderer.BeginFrame(frameDesc);
 
+		renderer.BeginFrame(frameDesc);
 		renderer.SetViewport(Vec2(0.1f, 0.0f), Vec2(0.9f, 0.8f));
 		level.OnUpdate(timestep);
 
 		renderer.SetViewport(Vec2(0.1f, 0.8f), Vec2(0.9f, 1.0f));
 		renderer.Draw(&ui);
 
-		int coins = level.coinAmount;
-		std::string Score = "Score: ";
-		Score += std::to_string(coins);
-
-		text.PrintText(Score, { 100,220 });
-		//text.PrintInfo({ 30,60 });
-		renderer.Draw(&text);
-
+		text->SetString("Score: {}", level.GetPlayer()->GetCollectedCoins());
+		renderer.Draw(text);
 		renderer.EndFrame();
 	}
 	clock.stop();

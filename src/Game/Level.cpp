@@ -15,27 +15,14 @@ Level::Level(Renderer* renderer)
 bool Level::Init(const std::string& filepath)
 {
     m_entityFactory.reset(new EntityFactory());
-    Vec2 playerPos = Vec2(400.0f, 300.0f);
-    Player* player = m_entityFactory->RegisterEntity<Player>(Vec2(400.0f, 300.0f), BoundingBox(playerPos, 16.0f, 16.0f));
-    m_playerController.reset(new PlayerController(player));
-
-    //Vec2 coinPos = Vec2(600.0f, 200.0f);
-    //m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
-
-    //coinPos = Vec2(200.0f, 200.0f);
-    //m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
-    //coinPos = Vec2(250.0f, 200.0f);
-    //m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
-    //coinPos = Vec2(225.0f, 200.0f);
-    //m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
-    //coinPos = Vec2(275.0f, 200.0f);
-    //m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
-
-    //coinPos = Vec2(400.0f, 200.0f);
-    //m_entityFactory->RegisterEntity<Coin>(coinPos, BoundingBox(coinPos, 16.0f, 16.0f)); // TODO: Make this 32.0f (divide by two in AABB)
 
     m_maze.reset(new Maze(m_entityFactory.get(), m_renderer));
     m_maze->Init(filepath);
+
+    Vec2 playerPos = m_maze->GetCenterPosition();
+    Player* player = m_entityFactory->RegisterEntity<Player>(playerPos, BoundingBox(playerPos, 16.0f, 16.0f));
+    m_playerController.reset(new PlayerController(player));
+
     uint32_t w = m_maze->GetWidth();
     uint32_t h = m_maze->GetHeight();
     for (uint32_t i = 0; i < 30; ++i)
@@ -87,7 +74,6 @@ void Level::OnUpdate(float timestep)
             player->OnEntityCollision(e);
             e->OnEntityCollision(player); // Actually coin does nothing here
             m_entityFactory->DestroyEntity(e);
-            coinAmount++;
         }
         m_renderer->Draw(e->GetSprite());
     }

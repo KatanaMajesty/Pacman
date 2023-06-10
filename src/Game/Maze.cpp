@@ -42,6 +42,11 @@ Vec2 Maze::GetPosition(uint32_t x, uint32_t y) const
     return Vec2(x * m_textureWidth, y * m_textureHeight);
 }
 
+Vec2 Maze::GetCenterPosition() const
+{
+    return GetPosition(m_width / 2, m_height / 2);
+}
+
 float Maze::GetViewsize() const
 {
     float viewsize = std::min(static_cast<float>(m_width) * m_textureWidth, static_cast<float>(m_height) * m_textureHeight);

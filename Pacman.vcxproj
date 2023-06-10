@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\UI\TextComponent.h" />
     <ClInclude Include="src\Utility\EventBus.h" />
     <ClInclude Include="src\Audio\AudioManager.h" />
     <ClInclude Include="src\Core\Renderer.h" />
@@ -159,6 +160,7 @@
     <ClCompile Include="src\Game\PlayerController.cpp" />
     <ClCompile Include="src\Game\Tile.cpp" />
     <ClCompile Include="src\Pacman.cpp" />
+    <ClCompile Include="src\UI\TextComponent.cpp" />
     <ClCompile Include="src\UI\TextManager.cpp" />
     <ClCompile Include="src\Utility\Clock.cpp" />
     <ClCompile Include="src\Utility\FileSystem.cpp" />
