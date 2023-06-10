@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Utility\RandomGenerator.h" />
     <ClInclude Include="src\Game\Pathfinder.h" />
     <ClInclude Include="src\UI\TextComponent.h" />
     <ClInclude Include="src\Utility\EventBus.h" />
@@ -143,6 +144,7 @@
     <None Include="vendor\SFML\include\SFML\System\Vector3.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Utility\RandomGenerator.cpp" />
     <ClCompile Include="src\Audio\AudioManager.cpp" />
     <ClCompile Include="src\Core\Renderer.cpp" />
     <ClCompile Include="src\Core\Sprite.cpp" />

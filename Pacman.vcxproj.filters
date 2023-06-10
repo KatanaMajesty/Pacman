@@ -369,6 +369,12 @@
     <ClInclude Include="src\Game\Pathfinder.h">
       <Filter>Src\Game</Filter>
     </ClInclude>
+    <ClInclude Include="src\UI\UI.h">
+      <Filter>Src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\RandomGenerator.h">
+      <Filter>Src\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\SFML\include\SFML\Audio\SoundFileFactory.inl">
@@ -474,6 +480,12 @@
     </ClCompile>
     <ClCompile Include="src\Game\Pathfinder.cpp">
       <Filter>Src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\UI.cpp">
+      <Filter>Src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\RandomGenerator.cpp">
+      <Filter>Src\Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

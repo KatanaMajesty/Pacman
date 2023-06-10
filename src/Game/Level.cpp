@@ -1,12 +1,13 @@
 #include "Level.h"
 
 #include <cstdlib>
-#include "../Utility/Logger.h"
 #include "../Audio/AudioManager.h"
 #include "AnimationManager.h"
 #include "Coin.h"
+#include "Slimes.h"
 #include "Tile.h"
-#include "../Game/Slimes.h"
+#include "../Utility/Logger.h"
+#include "../Utility/RandomGenerator.h"
 
 Level::Level(Renderer* renderer)
     : m_renderer(renderer), m_overallCoinsNumber(0)
@@ -31,8 +32,8 @@ bool Level::Init(const std::string& filepath)
     uint32_t h = m_maze->GetHeight();
     for (uint32_t i = 0; i < 30; ++i)
     {
-        uint32_t x = std::rand() % w;
-        uint32_t y = std::rand() % h;
+        uint32_t x = RandomGenerator::GenerateNumber(0, w - 1);
+        uint32_t y = RandomGenerator::GenerateNumber(0, h - 1);
         Vec2 pos = m_maze->GetPosition(x, y);
         if (!m_maze->At(x, y)->IsCollider())
         {
