@@ -29,6 +29,10 @@ bool Maze::Init(const std::string& filepath)
     return true;
 }
 
+Tile* Maze::GetTile(uint32_t x, uint32_t y){
+    return m_grid[x][y];
+}
+
 void Maze::Draw()
 {
     for (uint32_t x = 0; x < m_width; ++x)

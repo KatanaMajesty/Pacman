@@ -21,6 +21,7 @@ public:
     Vec2 GetCenterPosition() const;
     const Tile* At(uint32_t x, uint32_t y) const { return m_grid.at(x).at(y); }
     float GetViewsize() const;
+    inline Tile* GetTile(uint32_t x, uint32_t y);
 
 private:
     void ParseMazeImage(const std::string& filepath);

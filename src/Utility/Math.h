@@ -66,3 +66,9 @@ inline Vec2 VecFromDirection(Direction direction)
 	default: return Vec2(0.0f, 0.0f);
 	}
 }
+
+static uint32_t Manhattan(const Vec2& lhs, const Vec2& rhs)
+{
+	Vec2 delta{ abs(lhs.x - rhs.x), abs(lhs.y - rhs.y)};
+	return delta.x + delta.y;
+}

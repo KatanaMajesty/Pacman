@@ -62,7 +62,7 @@ void Window::PollEvents()
 		{
 			m_width = static_cast<float>(event.size.width);
 			m_height = static_cast<float>(event.size.height);
-			EventBus::Get().publish(WindowResizedEvent(this, m_width, m_height));
+			EventBus::Get().Publish(WindowResizedEvent(this, m_width, m_height, m_viewsize));
 
 			float zoom = m_viewsize / std::min(m_width, m_height);
 			float scaledWidth = m_width * zoom;

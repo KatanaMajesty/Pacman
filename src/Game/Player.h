@@ -26,6 +26,7 @@ public:
     void OnTileCollision();
     void SetDirection(Direction direction);
     uint32_t GetCollectedCoins() const { return m_collectedCoins; }
+    uint32_t GetHealth() const { return m_health; }
 
 private:
     Vec2 m_playerPos;
@@ -33,6 +34,7 @@ private:
     float m_lastTimestep = 0.0f;
     float m_timeSinceAnimationTick = 0.0f;
     uint32_t m_collectedCoins = 0;
+    uint32_t m_health = 3;
     Sprite* m_activeSprite = nullptr;
     Sprite m_sprites[4]; // Sprite for each direction
     Direction m_direction;

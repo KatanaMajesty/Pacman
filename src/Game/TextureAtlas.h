@@ -19,6 +19,7 @@ enum TextureType // Changed to enum class for stronger typing
     TEXTURE_SLIME_YELLOW_JUMPING,
     TEXTURE_SLIME_PURPLE_IDLE,
     TEXTURE_SLIME_PURPLE_JUMPING,
+    TEXTURE_HEARTH,
     TEXTURE_WAND,
     TEXTURE_PLAYER_FRONT,
     TEXTURE_PLAYER_BACK,
@@ -28,6 +29,10 @@ enum TextureType // Changed to enum class for stronger typing
     TEXTURE_COIN2,
     TEXTURE_COIN3,
     TEXTURE_COIN4,
+    TEXTURE_SKULL,
+    TEXTURE_DUNGEON_TILE2,
+    TEXTURE_DUNGEON_TILE3,
+    TEXTURE_DUNGEON_TILE4,
     NUM_TEXTURES,
 };
 
