@@ -6,6 +6,7 @@
 #include "AnimationManager.h"
 #include "Coin.h"
 #include "Tile.h"
+#include "../Game/Slimes.h"
 
 Level::Level(Renderer* renderer)
     : m_renderer(renderer), m_overallCoinsNumber(0)
@@ -22,6 +23,9 @@ bool Level::Init(const std::string& filepath)
     Vec2 playerPos = m_maze->GetCenterPosition();
     Player* player = m_entityFactory->RegisterEntity<Player>(playerPos, BoundingBox(playerPos, 16.0f, 16.0f));
     m_playerController.reset(new PlayerController(player));
+
+    Vec2 SlimePos = m_maze->GetCenterPosition();
+    Slime * slime = m_entityFactory->RegisterEntity<Slime>(SlimePos, BoundingBox(SlimePos, 16.0f, 16.0f));
 
     uint32_t w = m_maze->GetWidth();
     uint32_t h = m_maze->GetHeight();
@@ -81,4 +85,9 @@ void Level::OnUpdate(float timestep)
         }
         m_renderer->Draw(e->GetSprite());
     }
+
+    Slime* slime = (Slime*)m_entityFactory->GetEntities<ENTITY_ENEMY>().front();
+    slime->OnUpdate(timestep);
+    m_renderer->Draw(slime->GetSprite());
+
 }
