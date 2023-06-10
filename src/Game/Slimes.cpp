@@ -45,7 +45,7 @@ void Slime::OnUpdate(float timestep){
 void Slime::OnEntityCollision(Entity* entity) {
 
 	if (entity->GetType() == ENTITY_PLAYER)
-		AudioManager::Get().PlaySound(AudioType::AUDIO_PLAYER_DEATH);
+		return;
 
 };
 
