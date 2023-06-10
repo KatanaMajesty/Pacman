@@ -26,6 +26,7 @@ bool Level::Init(const std::string& filepath)
 
     Vec2 SlimePos = { 32,32 };
     Slime * slime = m_entityFactory->RegisterEntity<Slime>(SlimePos, BoundingBox(SlimePos, 16.0f, 16.0f));
+    slime->SetPath(m_maze->GetPositions());
 
     uint32_t w = m_maze->GetWidth();
     uint32_t h = m_maze->GetHeight();

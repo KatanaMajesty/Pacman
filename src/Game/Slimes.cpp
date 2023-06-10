@@ -27,6 +27,37 @@ void Slime::OnUpdate(float timestep)
 {
 	AnimationManager::Get().Apply("anim_slime", &m_sprite);
 	m_timeSinceLastAttack += timestep;
+
+	if (!m_path.empty())
+	{
+
+		float time = 1.0f / m_tilesPerSec;
+		m_moveTime += timestep;
+		if (m_path.size() > 1)
+		{
+			Vec2 from = *m_path.begin();
+			Vec2 to = *(m_path.begin() + 1);
+			if (m_moveTime > time)
+			{
+				m_moveTime = 0.0f;
+				m_path.erase(m_path.begin());
+			}
+			else
+			{
+				Move(from, to, m_moveTime * m_tilesPerSec);
+			}
+		}
+	}
+}
+
+void Slime::Move(const Vec2& from, const Vec2& to, float t)
+{
+	Vec2 pos;
+	pos.x = std::lerp(from.x, to.x, t);
+	pos.y = std::lerp(from.y, to.y, t);
+	this->SetPosition(pos);
+	this->GetSprite()->SetPosition(pos);
+	m_boundingBox = BoundingBox(m_pos, 16.0f, 16.0f);
 }
 
 void Slime::OnEntityCollision(Entity* entity) {

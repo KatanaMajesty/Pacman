@@ -23,6 +23,9 @@ public:
     float GetViewsize() const;
     inline Tile* GetTile(uint32_t x, uint32_t y);
 
+    // TODO: remove
+    const auto& GetPositions() const { return m_positions; }
+
 private:
     void ParseMazeImage(const std::string& filepath);
 
@@ -30,6 +33,7 @@ private:
     Renderer* m_renderer;
     std::vector<std::vector<Tile*>> m_grid;
     std::vector<Pathfinder::PositionType> m_path;
+    std::vector<Vec2> m_positions;
     uint32_t m_width;
     uint32_t m_height;
     uint32_t m_textureWidth;
