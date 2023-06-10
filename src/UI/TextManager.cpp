@@ -3,11 +3,11 @@
 TextManager::TextManager()
 {
     // Initialize the font and text objects
-    static std::string filepath = (FileSystem::Get().GetAssetsPath() / "SensalOutlineFont.ttf").string();
+    static std::string filepath = (FileSystem::Get().GetAssetsPath() / "Font.ttf").string();
     m_font.loadFromFile(filepath);
     m_text.setFont(m_font);
     m_text.setFillColor(Color::White);
-    m_text.setCharacterSize(60);
+    m_text.setCharacterSize(90);
 }
 
 TextManager& TextManager::Get()
