@@ -87,6 +87,7 @@ void Level::OnUpdate(float timestep)
             player->OnEntityCollision(e);
             e->OnEntityCollision(player); // Actually coin does nothing here
             m_entityFactory->DestroyEntity(e);
+            coinAmount++;
         }
         m_renderer->Draw(e->GetSprite());
     }

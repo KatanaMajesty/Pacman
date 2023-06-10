@@ -12,6 +12,7 @@ public:
     void PrintText(std::string textToPrint, const Vec2& pos);
 protected:
     friend class Renderer;
+    friend class Level;
     sf::Font m_font;
     sf::Text m_text;
     void SetFont(const std::string& fontPath);

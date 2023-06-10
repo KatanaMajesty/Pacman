@@ -71,7 +71,12 @@ int main()
 		renderer.SetViewport(Vec2(0.1f, 0.8f), Vec2(0.9f, 1.0f));
 		renderer.Draw(&ui);
 
-		text.PrintText("bruh", { 0,0 });
+		int coins = level.coinAmount;
+		std::string Score = "Score: ";
+		Score += std::to_string(coins);
+
+		text.PrintText(Score, { 100,220 });
+		//text.PrintInfo({ 30,60 });
 		renderer.Draw(&text);
 
 		renderer.EndFrame();
