@@ -13,6 +13,8 @@ public:
 	void SetPosition(const Vec2& pos) { m_text.setPosition(pos); }
 	void AddPosition(const Vec2& pos) { m_text.setPosition(m_text.getPosition() + pos); }
 	Vec2 GetPosition() const { return m_text.getPosition(); }
+	inline float GetWidth() const { return m_text.getGlobalBounds().width; }
+	inline float GetHeight() const { return m_text.getGlobalBounds().height; }
 	uint32_t GetFontSize() const { return m_fontSize; }
 	const std::string& GetString() const { return m_string; }
 	const void* GetHandle() const { return &m_text; }

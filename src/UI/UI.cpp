@@ -27,16 +27,30 @@ bool UI::Init()
     m_sprite.get()->SetTexture(textBoxTexture);
     m_sprite.get()->SetScale(scaleX, scaleY);
 
+    // Setting score string
     TextManager& textManager = TextManager::Get();
     uint32_t fontsize = static_cast<uint32_t>(vs / 10.0f);
-    m_scoreText = textManager.CreateText(fontsize, Vec2(0.025f * vs, static_cast<float>(fontsize)), TextFont::DEFAULT_FONT);
-    m_scoreText->SetString("Score: {}", 0);
-    m_scoreText->SetScale(0.6f, 1.2f);
 
-    m_youWonText = textManager.CreateText(fontsize * 2, Vec2(0.025f * vs, static_cast<float>(2 * fontsize)), TextFont::DEFAULT_FONT);
-    m_youWonText->SetString("You Won!", 0);
-    m_youWonText->SetScale(0.6f, 1.2f);
+    m_coin.reset(new Coin(Vec2(0.025f * vs, static_cast<float>(fontsize)), BoundingBox()));
+    m_coin->GetSprite()->SetScale(scaleX / 4.0f, scaleY / 4.0f);
 
+    m_scoreText = textManager.CreateText(fontsize, Vec2(0.025f * vs + m_coin->GetSprite()->GetTexture()->GetWidth(), static_cast<float>(fontsize) / 2.0f), TextFont::DEFAULT_FONT);
+    m_scoreText->SetString("{}", 0);
+    m_scoreText->SetScale(scaleX / 8.0f, scaleY / 8.0f);
+
+    // Setting text for "You Won!"
+    m_youWonText = textManager.CreateText(fontsize * 2, Vec2(0.0f, 0.0f), TextFont::DEFAULT_FONT);
+    m_youWonText->SetString("You Won!");
+    m_youWonText->SetScale(scaleX / 8.0f, scaleY / 8.0f);
+    m_youWonText->SetPosition(Vec2(vs / 2.0f - m_youWonText->GetWidth() / 2.0f, vs / 2.0f - m_youWonText->GetHeight()));
+
+    // Setting text for "Game Over"
+    m_gameOverText = textManager.CreateText(fontsize * 2, Vec2(0.0f, 0.0f), TextFont::DEFAULT_FONT);
+    m_gameOverText->SetString("Game Over");
+    m_gameOverText->SetScale(scaleX / 8.0f, scaleY / 8.0f);
+    m_gameOverText->SetPosition(Vec2(vs / 2.0f - m_gameOverText->GetWidth() / 2.0f, vs / 2.0f - m_gameOverText->GetHeight()));
+
+    // Setting heart sprite
     m_heartSprite.get()->SetTexture(TextureAtlas::Get().GetTexture(TextureType::TEXTURE_HEART));
     m_heartSprite.get()->SetPosition(Vec2(0.025f * vs, static_cast<float>(3 * fontsize)));
     m_heartSprite.get()->SetScale(scaleX / 4.0f, scaleY / 4.0f);
@@ -54,11 +68,11 @@ void UI::OnUpdate(float timestep)
         return;
     }
     else if(m_levelInfo.uPlayerHealth == 0){
-        //m_renderer->Draw(m_youWonText);
+        m_renderer->Draw(m_gameOverText);
         return;
     }
 
-    m_scoreText->SetString("Score: {}", m_levelInfo.uCollectedCoins);
+    m_scoreText->SetString("{}", m_levelInfo.uCollectedCoins);
     m_renderer->Draw(m_scoreText);
 
     Sprite heart = *m_heartSprite.get();
@@ -68,4 +82,7 @@ void UI::OnUpdate(float timestep)
         heart.SetPosition(Vec2(firstHeartPosition.x + 1.5f * i * m_heartSprite.get()->GetTexture()->GetWidth(), firstHeartPosition.y));
         m_renderer->Draw(&heart);
     }
+
+    m_coin->OnUpdate(timestep);
+    m_renderer->Draw(m_coin->GetSprite());
 }

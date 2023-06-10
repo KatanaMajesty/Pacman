@@ -2,6 +2,7 @@
 #include <memory>
 
 #include "../Core/Renderer.h"
+#include "../Game/Coin.h"
 #include "TextComponent.h"
 
 struct LevelInfo
@@ -28,7 +29,10 @@ private:
     std::unique_ptr<Sprite> m_sprite;
     TextComponent* m_scoreText;
     std::unique_ptr<Sprite> m_heartSprite;
+    //std::unique_ptr<Sprite> m_coinSprite;
+    std::unique_ptr<Coin> m_coin;
     TextComponent* m_youWonText;
+    TextComponent* m_gameOverText;
     LevelInfo m_levelInfo;
 };
 
