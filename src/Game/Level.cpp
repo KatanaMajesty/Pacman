@@ -10,7 +10,7 @@
 #include "../Utility/RandomGenerator.h"
 
 Level::Level(Renderer* renderer)
-    : m_renderer(renderer), m_overallCoinsNumber(0)
+    : m_renderer(renderer), m_overallCoinsNumber(30)
 {
 }
 
@@ -31,7 +31,7 @@ bool Level::Init(const std::string& filepath)
 
     uint32_t w = m_maze->GetWidth();
     uint32_t h = m_maze->GetHeight();
-    for (uint32_t i = 0; i < 30; ++i)
+    for (uint32_t i = 0; i < m_overallCoinsNumber;)
     {
         uint32_t x = RandomGenerator::GenerateNumber(0, w - 1);
         uint32_t y = RandomGenerator::GenerateNumber(0, h - 1);
@@ -39,12 +39,10 @@ bool Level::Init(const std::string& filepath)
         if (!m_maze->At(x, y)->IsCollider())
         {
             m_entityFactory->RegisterEntity<Coin>(pos, BoundingBox(pos, 16.0f, 16.0f));
-            ++m_overallCoinsNumber;
+            ++i;
         }
 
     }
-
-    //EventBus::Get().subscribe(this, &Level::OnWindowResize);
 
     AudioManager::Get().PlaySound(AUDIO_DUBSTEP, 1.5f, 5.0f);
     return true;
@@ -109,5 +107,4 @@ void Level::OnUpdate(float timestep)
     Slime* slime = (Slime*)m_entityFactory->GetEntities<ENTITY_ENEMY>().front();
     slime->OnUpdate(timestep);
     m_renderer->Draw(slime->GetSprite());
-
 }

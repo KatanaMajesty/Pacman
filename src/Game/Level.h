@@ -18,6 +18,7 @@ public:
     inline Maze* GetMaze() { return m_maze.get(); }
     inline Player* GetPlayer() { return (Player*) m_entityFactory->GetEntities<ENTITY_PLAYER>().front(); }
     inline uint32_t GetOverallCoinsNumber() const { return m_overallCoinsNumber; }
+    inline void SetOverallCoinsNumber(uint32_t coinsNumber) { m_overallCoinsNumber = coinsNumber; }
 
 private:
     Renderer* m_renderer;

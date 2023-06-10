@@ -43,7 +43,6 @@ int main()
 	while (!window.ShouldClose())
 	{
 		window.PollEvents();
-		//window.SetView(800.0f, 800.0f);
 
 		float elapsed = clock.elapsed();
 		float timestep = elapsed - lastFrame;
