@@ -1,8 +1,5 @@
+#include <pch.h>
 #include "Player.h"
-
-#include "../Utility/Logger.h"
-#include "../Audio/AudioManager.h"
-#include "TextureAtlas.h"
 
 Player::Player(const Vec2& pos, const BoundingBox& boundingBox)
 	: Entity(pos, boundingBox)

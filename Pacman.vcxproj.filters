@@ -37,6 +37,9 @@
     <Filter Include="Src\UI">
       <UniqueIdentifier>{d8a3ab8b-d139-481c-997b-b3b776110712}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\PCH">
+      <UniqueIdentifier>{68a0c9e8-c77b-447d-b6f9-067179f86f58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\SFML\include\SFML\Audio\AlResource.hpp">
@@ -372,6 +375,9 @@
     <ClInclude Include="src\Utility\RandomGenerator.h">
       <Filter>Src\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="src\PCH\pch.h">
+      <Filter>Src\PCH</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\SFML\include\SFML\Audio\SoundFileFactory.inl">
@@ -480,6 +486,9 @@
     </ClCompile>
     <ClCompile Include="src\Utility\RandomGenerator.cpp">
       <Filter>Src\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PCH\pch.cpp">
+      <Filter>Src\PCH</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

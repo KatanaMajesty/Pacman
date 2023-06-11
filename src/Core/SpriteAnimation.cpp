@@ -1,6 +1,4 @@
-#include "SpriteAnimation.h"
-
-#include "../Utility/Logger.h"
+#include <pch.h>
 
 bool SpriteAnimation::Init(float interval)
 {

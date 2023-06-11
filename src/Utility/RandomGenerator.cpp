@@ -1,4 +1,4 @@
-#include "RandomGenerator.h"
+#include <pch.h>
 
 void RandomGenerator::SetSeed(uint32_t seed)
 {

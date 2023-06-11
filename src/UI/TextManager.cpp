@@ -1,7 +1,4 @@
-#include "TextManager.h"
-
-#include "../Utility/FileSystem.h"
-#include "../Utility/Logger.h"
+#include <pch.h>
 
 TextManager::TextManager()
 {

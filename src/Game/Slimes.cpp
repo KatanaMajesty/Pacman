@@ -1,7 +1,6 @@
+#include <pch.h>
 #include "Slimes.h"
 
-#include "AnimationManager.h"
-#include "TextureAtlas.h"
 #include "Player.h"
 
 Slime::Slime(const Vec2& pos, const BoundingBox& boundingBox)

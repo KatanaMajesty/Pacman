@@ -1,6 +1,5 @@
+#include <pch.h>
 #include "Tile.h"
-
-#include "TextureAtlas.h"
 
 Tile::Tile(const Vec2& pos, const BoundingBox& boundingBox, TextureType type, bool isCollider)
 	: Entity(pos, boundingBox)

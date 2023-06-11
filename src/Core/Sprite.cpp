@@ -1,4 +1,4 @@
-#include "Sprite.h"
+#include <pch.h>
 
 void Sprite::SetTexture(Texture* texture)
 {

@@ -1,13 +1,9 @@
+#include <pch.h>
 #include "Level.h"
 
-#include <cstdlib>
-#include "../Audio/AudioManager.h"
-#include "AnimationManager.h"
 #include "Coin.h"
 #include "Slimes.h"
 #include "Tile.h"
-#include "../Utility/Logger.h"
-#include "../Utility/RandomGenerator.h"
 
 Level::Level(Renderer* renderer)
     : m_renderer(renderer), m_overallCoinsNumber(10), m_gameIsOver(false)

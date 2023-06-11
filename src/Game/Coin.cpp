@@ -1,8 +1,5 @@
+#include <pch.h>
 #include "Coin.h"
-
-#include "../Audio/AudioManager.h"
-#include "TextureAtlas.h"
-#include "AnimationManager.h"
 
 Coin::Coin(const Vec2& pos, const BoundingBox& boundingBox)
 	: Entity(pos, boundingBox)

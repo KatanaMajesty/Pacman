@@ -1,6 +1,4 @@
-#include "Window.h"
-
-#include "../Utility/Logger.h"
+#include <pch.h>
 
 Window::Window(uint32_t width, uint32_t height, const std::string& title)
 	: m_width(width)

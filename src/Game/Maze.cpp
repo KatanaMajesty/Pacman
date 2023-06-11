@@ -1,11 +1,5 @@
+#include <pch.h>
 #include "Maze.h"
-
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <cstdlib>
-#include "TextureAtlas.h"
-#include "../Utility/Logger.h"
 
 Maze::Maze(EntityFactory* entityFactory, Renderer* renderer)
     : m_entityFactory(entityFactory)

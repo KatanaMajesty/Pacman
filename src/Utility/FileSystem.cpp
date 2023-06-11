@@ -1,7 +1,6 @@
 #include "FileSystem.h"
 
-#include <filesystem>
-#include <Windows.h>	
+#include <Windows.h>
 
 FileSystem::FileSystem()
 {

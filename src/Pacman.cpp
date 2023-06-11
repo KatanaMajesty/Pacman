@@ -1,20 +1,10 @@
-#include <memory>
-#include <array>
-#include <format>
-#include "Audio/AudioManager.h"
-#include "Core/Window.h"
-#include "Core/Renderer.h"
-#include "Core/TextureLibrary.h"
-#include "Game/AnimationManager.h"
-#include "Game/TextureAtlas.h"
+#include <pch.h>
 #include "Game/Level.h"
-#include "Utility/Logger.h"
-#include "Utility/Clock.h"
-#include "Utility/FileSystem.h"
-#include "UI/UI.h"
 
 int main()
 {
+	RandomGenerator::SetSeed(0);
+
 	Window window(800, 600, "Hello, Window");
 	window.Open();
 

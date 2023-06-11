@@ -1,4 +1,4 @@
-#include "Math.h"
+#include <pch.h>
 
 bool BoundingBox::Collide(const BoundingBox& other) const
 {

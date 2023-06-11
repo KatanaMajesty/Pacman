@@ -1,8 +1,4 @@
-#include "UI.h"
-
-#include "TextManager.h"
-#include "../Core/TextureLibrary.h"
-#include "../Game/TextureAtlas.h"
+#include <pch.h>
 
 UI::UI(Renderer* renderer)
     : m_renderer(renderer)

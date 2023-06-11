@@ -1,6 +1,5 @@
+#include <pch.h>
 #include "Entity.h"
-
-#include <algorithm>
 
 Entity::Entity(const Vec2& pos, const BoundingBox& boundingBox)
     : m_boundingBox(boundingBox)
