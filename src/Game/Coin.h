@@ -12,7 +12,7 @@ public:
 
 	virtual void OnUpdate(float timestep) override;
 	virtual void OnEntityCollision(Entity* entity) override;
-	virtual EntityType GetType() const { return ENTITY_COIN; }
+	virtual EntityType GetType() const { return EntityType::ENTITY_COIN; }
 	virtual Sprite* GetSprite() { return &m_sprite; }
 
 private:

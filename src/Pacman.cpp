@@ -1,4 +1,4 @@
-#include <pch.h>
+#include "pch.h"
 #include "Game/Level.h"
 
 int main()
@@ -27,16 +27,11 @@ int main()
 	ui.Init();
 
 	Clock clock;
-	clock.start();
-
-	float lastFrame = 0.0f;
 	while (!window.ShouldClose())
 	{
 		window.PollEvents();
 
-		float elapsed = clock.elapsed();
-		float timestep = elapsed - lastFrame;
-		lastFrame = elapsed;
+		float timestep = clock.Mark();
 
 		FrameDesc frameDesc;
 		frameDesc.clearcolor[0] = 0.0f;
@@ -54,7 +49,6 @@ int main()
 
 		renderer.EndFrame();
 	}
-	clock.stop();
 
 	AudioManager::Deinit(); // Deinitialize the AudioManager
 }

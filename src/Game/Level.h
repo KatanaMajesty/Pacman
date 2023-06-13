@@ -16,7 +16,7 @@ public:
     bool Init(const std::string& filepath);
     void OnUpdate(float timestep);
     inline Maze* GetMaze() { return m_maze.get(); }
-    inline Player* GetPlayer() { return (Player*) m_entityFactory->GetEntities<ENTITY_PLAYER>().front(); }
+    inline Player* GetPlayer() { return (Player*) m_entityFactory->GetEntities<EntityType::ENTITY_PLAYER>().front(); }
     inline uint32_t GetOverallCoinsNumber() const { return m_overallCoinsNumber; }
     inline void SetOverallCoinsNumber(uint32_t coinsNumber) { m_overallCoinsNumber = coinsNumber; }
     inline bool GameIsOver() const { return m_gameIsOver; }

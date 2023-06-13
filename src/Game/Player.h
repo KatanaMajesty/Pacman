@@ -18,7 +18,7 @@ public:
     virtual void OnUpdate(float timestep) override;
     
     virtual void OnEntityCollision(Entity* entity) override;
-    virtual EntityType GetType() const { return ENTITY_PLAYER; }
+    virtual EntityType GetType() const { return EntityType::ENTITY_PLAYER; }
     virtual Sprite* GetSprite() override { return m_activeSprite; }
     void OnCoinPickup();
     void OnWeaponPickup();

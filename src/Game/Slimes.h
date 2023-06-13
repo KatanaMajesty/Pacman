@@ -14,7 +14,7 @@ public:
     Slime(const Vec2& pos, const BoundingBox& boundingBox);
 
     virtual void OnUpdate(float timestep);
-    virtual EntityType GetType()const { return ENTITY_ENEMY; }
+    virtual EntityType GetType()const { return EntityType::ENTITY_ENEMY; }
     virtual Sprite* GetSprite() override { return &m_sprite; }
     virtual void OnEntityCollision(Entity* entity);
     bool IsArrived()const { return m_arrived; }

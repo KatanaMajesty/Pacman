@@ -1,4 +1,4 @@
-#include <pch.h>
+#include "pch.h"
 #include "Slimes.h"
 
 #include "Player.h"
@@ -70,7 +70,7 @@ void Slime::Move(const Vec2& from, const Vec2& to, float t)
 
 void Slime::OnEntityCollision(Entity* entity) {
 
-	if (entity->GetType() == ENTITY_PLAYER)
+	if (entity->GetType() == EntityType::ENTITY_PLAYER)
 	{
 		Player* player = (Player*)entity;
 		if (!player->IsImmune())

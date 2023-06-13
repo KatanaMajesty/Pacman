@@ -1,4 +1,4 @@
-#include <pch.h>
+#include "pch.h"
 #include "Level.h"
 
 #include "Coin.h"
@@ -69,9 +69,7 @@ bool Level::Init(const std::string& filepath)
         }
     }
 
-    //EventBus::Get().subscribe(this, &Level::OnWindowResize);
-
-    AudioManager::Get().PlaySound(AUDIO_DUBSTEP, 1.5f, 5.0f);
+    AudioManager::Get().PlaySound(AudioType::AUDIO_DUBSTEP, 1.5f, 5.0f);
     return true;
 }
 
@@ -85,11 +83,11 @@ void Level::OnUpdate(float timestep)
         return;
     }
 
-    Player* player = (Player*) m_entityFactory->GetEntities<ENTITY_PLAYER>().front();
+    Player* player = (Player*) m_entityFactory->GetEntities<EntityType::ENTITY_PLAYER>().front();
     player->OnUpdate(timestep);
 
     // Player-Tile collisions and Tile drawing
-    for (Entity* entity : m_entityFactory->GetEntities<ENTITY_TILE>())
+    for (Entity* entity : m_entityFactory->GetEntities<EntityType::ENTITY_TILE>())
     {
         Tile* tile = (Tile*)entity;
         // tile->OnUpdate(timestep);
@@ -106,7 +104,7 @@ void Level::OnUpdate(float timestep)
         m_playerController->OnUpdate(timestep);
 
     // Player-Coin collisions and coin drawing
-    for (Entity* e : m_entityFactory->GetEntities<ENTITY_COIN>())
+    for (Entity* e : m_entityFactory->GetEntities<EntityType::ENTITY_COIN>())
     {
         e->OnUpdate(timestep);
         if (player->Collide(e))
@@ -118,7 +116,7 @@ void Level::OnUpdate(float timestep)
         m_renderer->Draw(e->GetSprite());
     }
 
-    for (Entity* e : m_entityFactory->GetEntities<ENTITY_ENEMY>())
+    for (Entity* e : m_entityFactory->GetEntities<EntityType::ENTITY_ENEMY>())
     {
         Slime* slime = (Slime*)e;
         slime->OnUpdate(timestep);

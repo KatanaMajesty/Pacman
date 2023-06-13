@@ -6,7 +6,7 @@
 #include "../UI/TextComponent.h"
 
 // Primitive types, that are used in the project
-enum PrimitiveType
+enum class PrimitiveType
 {
 	POINTS,
 	LINES,

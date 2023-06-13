@@ -6,7 +6,7 @@
 #include "../Utility/Logger.h"
 #include "../Core/Sprite.h"
 
-enum EntityType
+enum class EntityType
 {
 	ENTITY_UNKNOWN,
 	ENTITY_PLAYER,
@@ -24,7 +24,7 @@ public:
 
 	virtual void OnUpdate(float timestep) = 0;
 	virtual void OnEntityCollision(Entity* entity) = 0;
-	virtual EntityType GetType() const { return ENTITY_UNKNOWN; }
+	virtual EntityType GetType() const { return EntityType::ENTITY_UNKNOWN; }
 	virtual Sprite* GetSprite() = 0;
 	void AddPosition(const Vec2& offset) { m_pos += offset; }
 	void SetPosition(const Vec2& pos) { m_pos = pos; }

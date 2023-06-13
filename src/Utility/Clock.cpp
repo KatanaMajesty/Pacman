@@ -1,25 +1,21 @@
-#include <pch.h>
+#include "pch.h"
 
 using namespace std::chrono;
 
-void Clock::start()
+Clock::Clock() noexcept
 {
-	m_startPoint = system_clock::now();
-	m_started = true;
+	m_last = steady_clock::now();
 }
 
-void Clock::stop()
+float Clock::Mark() noexcept
 {
-	m_started = false;
-	m_startPoint = {};
+	const auto old = m_last;
+	m_last = steady_clock::now();
+	const duration<float> frameTime = m_last - old;
+	return frameTime.count();
 }
 
-float Clock::elapsed() const
+float Clock::Peek() noexcept
 {
-	if (!m_started)
-		return 0.0f;
-
-	system_clock::time_point currentTime = system_clock::now();
-	duration<float> elapsed = duration_cast<duration<float>>(currentTime - m_startPoint);
-	return elapsed.count();
+	return duration<float>(steady_clock::now() - m_last).count();
 }

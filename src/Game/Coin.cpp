@@ -1,4 +1,4 @@
-#include <pch.h>
+#include "pch.h"
 #include "Coin.h"
 
 Coin::Coin(const Vec2& pos, const BoundingBox& boundingBox)
@@ -24,6 +24,6 @@ void Coin::OnUpdate(float timestep)
 
 void Coin::OnEntityCollision(Entity* entity)
 {
-	if (entity->GetType() == ENTITY_PLAYER)
+	if (entity->GetType() == EntityType::ENTITY_PLAYER)
 		AudioManager::Get().PlaySound(AudioType::AUDIO_COIN_COLLECT);
 }

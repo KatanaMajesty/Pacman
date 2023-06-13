@@ -1,4 +1,4 @@
-#include <pch.h>
+#include "pch.h"
 #include "Entity.h"
 
 Entity::Entity(const Vec2& pos, const BoundingBox& boundingBox)
@@ -25,7 +25,7 @@ EntityFactory::~EntityFactory()
 void EntityFactory::DestroyEntity(Entity* entity)
 {
 	EntityType type = entity->GetType();
-	if (type == ENTITY_UNKNOWN)
+	if (type == EntityType::ENTITY_UNKNOWN)
 		return;
 
 	auto& typeVec = m_entities[type];
