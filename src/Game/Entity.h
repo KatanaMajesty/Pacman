@@ -24,14 +24,18 @@ public:
 
 	virtual void OnUpdate(float timestep) = 0;
 	virtual void OnEntityCollision(Entity* entity) = 0;
+
 	virtual EntityType GetType() const { return EntityType::ENTITY_UNKNOWN; }
 	virtual Sprite* GetSprite() = 0;
-	void AddPosition(const Vec2& offset) { m_pos += offset; }
-	void SetPosition(const Vec2& pos) { m_pos = pos; }
-	void SetAABB(const Vec2& pos, float radius) { m_boundingBox = BoundingBox(pos, radius); }
-	bool Collide(const Entity* otherEntity) const;
 	const Vec2& GetPosition() const { return m_pos; }
 	const BoundingBox& GetAABB() const { return m_boundingBox; }
+
+	void SetPosition(const Vec2& pos) { m_pos = pos; }
+	void AddPosition(const Vec2& offset) { m_pos += offset; }
+	void SetAABB(const Vec2& pos, float radius) { m_boundingBox = BoundingBox(pos, radius); }
+	
+	bool Collide(const Entity* otherEntity) const;
+	Direction GetCollisionDirection(const Entity* otherEntity) const;
 
 	// CanMove function returns true if the entity can move
 	// The function is reset every frame for some entities, like player or enemy

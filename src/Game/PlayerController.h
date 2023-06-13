@@ -9,7 +9,6 @@ class PlayerController
 public:
     PlayerController(Player* player);
 
-    void OnUpdate(float timestep);
     void OnMoveUp(float timestep);
     void OnMoveDown(float timestep);
     void OnMoveLeft(float timestep);

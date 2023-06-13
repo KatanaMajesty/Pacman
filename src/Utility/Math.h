@@ -8,6 +8,14 @@ using Vec2 = sf::Vector2f;
 using Vec3 = sf::Vector3f;
 using Color = sf::Color;
 
+enum class Direction
+{
+	DIRECTION_UP, // W
+	DIRECTION_LEFT, // A
+	DIRECTION_DOWN, // S
+	DIRECTION_RIGHT, // D
+};
+
 struct BoundingBox
 {
 	BoundingBox() = default;
@@ -16,11 +24,9 @@ struct BoundingBox
 		, max(max) 
 	{
 	};
-	BoundingBox(const Vec2& pos, float width, float height)
-		/*: min(pos - Vec2(width / 2.0f, height / 2.0f))
-		, max(pos + Vec2(width / 2.0f, height / 2.0f))*/
-		: min(Vec2(pos.x, pos.y))
-		, max(Vec2(pos.x + width, pos.y + height))
+	BoundingBox(const Vec2& min, float width, float height)
+		: min(min)
+		, max(min + Vec2(width, height))
 	{
 	}
 	BoundingBox(const Vec2& pos, float radius)
@@ -31,26 +37,20 @@ struct BoundingBox
 
 	bool Collide(const BoundingBox& Bounds) const;
 
+	Direction GetCollisionDirection(const BoundingBox& other) const;
+
 	Vec2 max;
 	Vec2 min;
-};
-
-enum Direction
-{
-	DIRECTION_UP, // W
-	DIRECTION_LEFT, // A
-	DIRECTION_DOWN, // S
-	DIRECTION_RIGHT, // D
 };
 
 inline constexpr Direction GetOppositeDirection(Direction direction)
 {
 	switch (direction)
 	{
-	case DIRECTION_UP: return DIRECTION_DOWN;
-	case DIRECTION_LEFT: return DIRECTION_RIGHT;
-	case DIRECTION_DOWN: return DIRECTION_UP;
-	case DIRECTION_RIGHT: return DIRECTION_LEFT;
+	case Direction::DIRECTION_UP: return Direction::DIRECTION_DOWN;
+	case Direction::DIRECTION_LEFT: return Direction::DIRECTION_RIGHT;
+	case Direction::DIRECTION_DOWN: return Direction::DIRECTION_UP;
+	case Direction::DIRECTION_RIGHT: return Direction::DIRECTION_LEFT;
 	default: return (Direction)-1;
 	}
 }
@@ -59,10 +59,10 @@ inline Vec2 VecFromDirection(Direction direction)
 {
 	switch (direction)
 	{
-	case DIRECTION_UP: return Vec2(0.0f, -1.0f);
-	case DIRECTION_LEFT: return Vec2(-1.0f, 0.0f);
-	case DIRECTION_DOWN: return Vec2(0.0f, 1.0f);
-	case DIRECTION_RIGHT: return Vec2(1.0f, 0.0f);
+	case Direction::DIRECTION_UP: return Vec2(0.0f, -1.0f);
+	case Direction::DIRECTION_LEFT: return Vec2(-1.0f, 0.0f);
+	case Direction::DIRECTION_DOWN: return Vec2(0.0f, 1.0f);
+	case Direction::DIRECTION_RIGHT: return Vec2(1.0f, 0.0f);
 	default: return Vec2(0.0f, 0.0f);
 	}
 }

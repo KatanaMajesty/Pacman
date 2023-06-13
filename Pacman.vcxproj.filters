@@ -294,9 +294,6 @@
     <ClInclude Include="vendor\SFML\include\SFML\Window.hpp">
       <Filter>Vendor\SFML</Filter>
     </ClInclude>
-    <ClInclude Include="src\Utility\Clock.h">
-      <Filter>Src\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="src\Utility\FileSystem.h">
       <Filter>Src\Utility</Filter>
     </ClInclude>
@@ -378,6 +375,15 @@
     <ClInclude Include="src\PCH\pch.h">
       <Filter>Src\PCH</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\App.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Keyboard.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Timer.h">
+      <Filter>Src\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\SFML\include\SFML\Audio\SoundFileFactory.inl">
@@ -409,9 +415,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Utility\Clock.cpp">
-      <Filter>Src\Utility</Filter>
-    </ClCompile>
     <ClCompile Include="src\Utility\FileSystem.cpp">
       <Filter>Src\Utility</Filter>
     </ClCompile>
@@ -489,6 +492,15 @@
     </ClCompile>
     <ClCompile Include="src\PCH\pch.cpp">
       <Filter>Src\PCH</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\App.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Keyboard.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\Timer.cpp">
+      <Filter>Src\Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

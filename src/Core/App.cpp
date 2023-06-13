@@ -33,8 +33,10 @@ int App::Go()
 	while (!m_wnd.ShouldClose())
 	{
 		m_wnd.PollEvents();
+		m_wnd.PollInput();
 		const float timestep = timer.Mark();
 		DoFrame(timestep);
+		HandleInput(timestep);
 	}
 	return 0;
 }
@@ -56,4 +58,47 @@ void App::DoFrame(float timestep)
 	m_ui.OnUpdate(timestep);
 
 	m_renderer.EndFrame();
+}
+
+void App::HandleInput(float timestep)
+{
+	while (const auto key = m_wnd.m_keyboard.ReadKey())
+	{
+		if (!key->isPressed())
+		{
+			continue;
+		}
+
+		switch (key->GetCode())
+		{
+		case sf::Keyboard::Key::Escape:
+			break;
+		case sf::Keyboard::Key::W:
+			if (m_level.GetPlayer()->CanMove())
+			{
+				m_level.m_playerController->OnMoveUp(timestep);
+			}
+			break;
+		case sf::Keyboard::Key::A:
+			if (m_level.GetPlayer()->CanMove())
+			{
+				m_level.m_playerController->OnMoveLeft(timestep);
+			}
+			break;
+		case sf::Keyboard::Key::S:
+			if (m_level.GetPlayer()->CanMove())
+			{
+				m_level.m_playerController->OnMoveDown(timestep);
+			}
+			break;
+		case sf::Keyboard::Key::D:
+			if (m_level.GetPlayer()->CanMove())
+			{
+				m_level.m_playerController->OnMoveRight(timestep);
+			}
+			break;
+		default:
+			break;
+		}
+	}
 }

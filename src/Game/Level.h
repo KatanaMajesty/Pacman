@@ -19,15 +19,14 @@ public:
     inline Player* GetPlayer() { return (Player*) m_entityFactory->GetEntities<EntityType::ENTITY_PLAYER>().front(); }
     inline uint32_t GetOverallCoinsNumber() const { return m_overallCoinsNumber; }
     inline void SetOverallCoinsNumber(uint32_t coinsNumber) { m_overallCoinsNumber = coinsNumber; }
-    inline bool GameIsOver() const { return m_gameIsOver; }
 
+public:
+    std::unique_ptr<PlayerController> m_playerController;
 private:
     Renderer* m_renderer;
     Pathfinder m_pathfinder;
     bool m_isOver = false;
     std::unique_ptr<Maze> m_maze;
     std::unique_ptr<EntityFactory> m_entityFactory = nullptr;
-    std::unique_ptr<PlayerController> m_playerController;
     uint32_t m_overallCoinsNumber;
-    bool m_gameIsOver;
 };

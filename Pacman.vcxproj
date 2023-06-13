@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\Keyboard.h" />
     <ClInclude Include="src\Core\App.h" />
     <ClInclude Include="src\PCH\pch.h" />
     <ClInclude Include="src\Utility\RandomGenerator.h" />
@@ -145,6 +146,7 @@
     <None Include="vendor\SFML\include\SFML\System\Vector3.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\Keyboard.cpp" />
     <ClCompile Include="src\Core\App.cpp" />
     <ClCompile Include="src\PCH\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

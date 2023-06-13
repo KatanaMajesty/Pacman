@@ -5,6 +5,8 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 
+#include "Keyboard.h"
+
 class Window
 {
 public:
@@ -14,6 +16,7 @@ public:
 	bool Open();
 	bool Close();
 	void PollEvents();
+	void PollInput();
 	bool ShouldClose() const;
 	void SetViewport(float left, float top, float bottom, float right);
 	void SetViewsize(float viewsize);
@@ -25,6 +28,8 @@ public:
 
 	void* GetHandle() { return m_window.get(); }
 
+public:
+	Keyboard m_keyboard;
 private:
 	float m_viewsize = 0.0f;	
 	uint32_t m_width;

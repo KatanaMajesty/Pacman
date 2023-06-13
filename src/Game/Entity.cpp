@@ -12,6 +12,11 @@ bool Entity::Collide(const Entity* otherEntity) const
     return m_boundingBox.Collide(otherEntity->GetAABB());
 }
 
+Direction Entity::GetCollisionDirection(const Entity* otherEntity) const
+{
+	return m_boundingBox.GetCollisionDirection(otherEntity->GetAABB());
+}
+
 EntityFactory::~EntityFactory()
 {
 	// Clean up dynamically allocated entities

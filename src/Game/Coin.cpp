@@ -14,7 +14,6 @@ Coin::Coin(const Vec2& pos, const BoundingBox& boundingBox)
 	m_animation->Init(0.25f);
 	m_sprite.SetTexture(atlas.GetTexture(TEXTURE_COIN1));
 	m_sprite.SetPosition(m_pos);
-	m_boundingBox = BoundingBox(pos, 32.0f, 32.0f);
 }
 
 void Coin::OnUpdate(float timestep)

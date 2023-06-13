@@ -14,6 +14,7 @@ public:
     int Go();
 private:
     void DoFrame(float timestep);
+    void HandleInput(float timestep);
 private:
     Window m_wnd;
     Renderer m_renderer;

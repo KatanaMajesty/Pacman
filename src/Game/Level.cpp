@@ -6,7 +6,7 @@
 #include "Tile.h"
 
 Level::Level(Renderer* renderer)
-    : m_renderer(renderer), m_overallCoinsNumber(10), m_gameIsOver(false)
+    : m_renderer(renderer), m_overallCoinsNumber(5)
 {
 }
 
@@ -29,9 +29,10 @@ bool Level::Init(const std::string& filepath)
     slimes[1] = Vec2(topLeft.x, bottomRight.y);
     slimes[2] = bottomRight;
     slimes[3] = Vec2(bottomRight.x, topLeft.y);
+
     for (uint32_t i = 0; i < 4; ++i)
     {
-        Slime* slime = m_entityFactory->RegisterEntity<Slime>(slimes[i], BoundingBox(slimes[i], 16.0f, 16.0f));
+        Slime* slime = m_entityFactory->RegisterEntity<Slime>(slimes[i], BoundingBox(slimes[i] + Vec2(8.0f, 8.0f), 16.0f, 16.0f));
         uint32_t rx = static_cast<uint32_t>(slimes[i].x / m_maze->GetTextureWidth());
         uint32_t ry = static_cast<uint32_t>(slimes[i].y / m_maze->GetTextureHeight());
         uint32_t gx = RandomGenerator::GenerateNumber(0, m_maze->GetWidth() - 1);
@@ -64,7 +65,7 @@ bool Level::Init(const std::string& filepath)
         Vec2 pos = m_maze->GetPosition(x, y);
         if (!m_maze->At(x, y)->IsCollider())
         {
-            m_entityFactory->RegisterEntity<Coin>(pos, BoundingBox(pos, 16.0f, 16.0f));
+            m_entityFactory->RegisterEntity<Coin>(pos, BoundingBox(pos + Vec2(8.0f, 8.0f), 16.0f, 16.0f));
             ++i;
         }
     }
@@ -78,21 +79,22 @@ void Level::OnUpdate(float timestep)
     AnimationManager::Get().OnUpdate(timestep);
     m_maze->Draw();
 
-    if (m_gameIsOver)
+    if (m_isOver)
     {
         return;
     }
 
-    Player* player = (Player*) m_entityFactory->GetEntities<EntityType::ENTITY_PLAYER>().front();
+    Player* player = dynamic_cast<Player*>(m_entityFactory->GetEntities<EntityType::ENTITY_PLAYER>().front());
     player->OnUpdate(timestep);
 
-    // Player-Tile collisions and Tile drawing
+    // Player-Tile collisions
     for (Entity* entity : m_entityFactory->GetEntities<EntityType::ENTITY_TILE>())
     {
-        Tile* tile = (Tile*)entity;
+        Tile* tile = dynamic_cast<Tile*>(entity);
         // tile->OnUpdate(timestep);
         if (tile->IsCollider() && tile->Collide(player))
         {
+            player->SetCollisionDirection(tile->GetCollisionDirection(player));
             tile->OnEntityCollision(player);
             player->OnEntityCollision(tile);
             break;
@@ -100,25 +102,24 @@ void Level::OnUpdate(float timestep)
     }
     
     m_renderer->Draw(player->GetSprite());
-    if (player->CanMove()) // Only update player controller if the player can move
-        m_playerController->OnUpdate(timestep);
 
     // Player-Coin collisions and coin drawing
-    for (Entity* e : m_entityFactory->GetEntities<EntityType::ENTITY_COIN>())
+    for (Entity* entity : m_entityFactory->GetEntities<EntityType::ENTITY_COIN>())
     {
-        e->OnUpdate(timestep);
-        if (player->Collide(e))
+        Coin* coin = dynamic_cast<Coin*>(entity);
+        coin->OnUpdate(timestep);
+        if (player->Collide(coin))
         {
-            player->OnEntityCollision(e);
-            e->OnEntityCollision(player); // Actually coin does nothing here
-            m_entityFactory->DestroyEntity(e);
+            player->OnEntityCollision(coin);
+            coin->OnEntityCollision(player); // Actually coin does nothing here
+            m_entityFactory->DestroyEntity(coin);
         }
-        m_renderer->Draw(e->GetSprite());
+        m_renderer->Draw(coin->GetSprite());
     }
 
-    for (Entity* e : m_entityFactory->GetEntities<EntityType::ENTITY_ENEMY>())
+    for (Entity* entity : m_entityFactory->GetEntities<EntityType::ENTITY_ENEMY>())
     {
-        Slime* slime = (Slime*)e;
+        Slime* slime = dynamic_cast<Slime*>(entity);
         slime->OnUpdate(timestep);
         if (slime->IsArrived())
         {            
@@ -151,11 +152,9 @@ void Level::OnUpdate(float timestep)
             if (player->GetHealth() == 0)
             {
                 // End the game
-                //m_isOver = true;
+                m_isOver = true;
             }
         }
         m_renderer->Draw(slime->GetSprite());
     }
-
-    m_gameIsOver = player->GetHealth() == 0 || player->GetCollectedCoins() == m_overallCoinsNumber;
 }

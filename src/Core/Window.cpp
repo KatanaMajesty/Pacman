@@ -74,6 +74,27 @@ void Window::PollEvents()
 	}
 }
 
+void Window::PollInput()
+{
+	if (!m_window)
+		return;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		m_keyboard.OnKeyPressed(sf::Keyboard::W);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		m_keyboard.OnKeyPressed(sf::Keyboard::A);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		m_keyboard.OnKeyPressed(sf::Keyboard::S);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		m_keyboard.OnKeyPressed(sf::Keyboard::D);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		m_keyboard.OnKeyPressed(sf::Keyboard::Escape);
+}
+
 bool Window::ShouldClose() const
 {
 	if (!m_window)
