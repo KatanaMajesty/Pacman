@@ -5,8 +5,6 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 
-#include "../Utility/EventBus.h"
-
 class Window
 {
 public:

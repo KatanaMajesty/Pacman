@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\App.h" />
     <ClInclude Include="src\PCH\pch.h" />
     <ClInclude Include="src\Utility\RandomGenerator.h" />
     <ClInclude Include="src\Game\Pathfinder.h" />
@@ -42,7 +43,7 @@
     <ClInclude Include="src\Game\PlayerController.h" />
     <ClInclude Include="src\Game\Tile.h" />
     <ClInclude Include="src\UI\TextManager.h" />
-    <ClInclude Include="src\Utility\Clock.h" />
+    <ClInclude Include="src\Utility\Timer.h" />
     <ClInclude Include="src\Utility\FileSystem.h" />
     <ClInclude Include="src\Utility\Logger.h" />
     <ClInclude Include="src\Utility\Math.h" />
@@ -144,6 +145,7 @@
     <None Include="vendor\SFML\include\SFML\System\Vector3.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\App.cpp" />
     <ClCompile Include="src\PCH\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -170,7 +172,7 @@
     <ClCompile Include="src\Pacman.cpp" />
     <ClCompile Include="src\UI\TextComponent.cpp" />
     <ClCompile Include="src\UI\TextManager.cpp" />
-    <ClCompile Include="src\Utility\Clock.cpp" />
+    <ClCompile Include="src\Utility\Timer.cpp" />
     <ClCompile Include="src\Utility\FileSystem.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>

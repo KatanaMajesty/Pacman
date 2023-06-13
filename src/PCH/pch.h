@@ -22,6 +22,7 @@
 #include "../Audio/AudioManager.h"
 
 // Our Core
+#include "../Core/App.h"
 #include "../Core/Renderer.h"
 #include "../Core/SpriteAnimation.h"
 #include "../Core/TextureLibrary.h"
@@ -36,7 +37,7 @@
 #include "../UI/UI.h"
 
 // Our Utility
-#include "../Utility/Clock.h"
+#include "../Utility/Timer.h"
 #include "../Utility/FileSystem.h"
 #include "../Utility/Logger.h"
 #include "../Utility/Math.h"

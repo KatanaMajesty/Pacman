@@ -4,7 +4,6 @@
 #include "Entity.h"
 #include "Pathfinder.h"
 #include "../Utility/Math.h"
-#include "../Utility/Clock.h"
 #include "../Audio/AudioManager.h"
 #include "../Core/SpriteAnimation.h"
 

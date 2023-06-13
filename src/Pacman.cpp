@@ -1,54 +1,17 @@
 #include "pch.h"
-#include "Game/Level.h"
 
 int main()
 {
-	RandomGenerator::SetSeed(0);
-
-	Window window(800, 600, "Hello, Window");
-	window.Open();
-
-	Renderer renderer;
-	renderer.Init(&window);
-
-	if (!AudioManager::Init())
+	try
 	{
-		LOG("Failed to initialize Audio Manager");
-		return 1;
+		return App().Go();
 	}
-
-	FileSystem& fs = FileSystem::Get();
-	TextureAtlas& atlas = TextureAtlas::Get();
-	Level level(&renderer);
-	level.Init((fs.GetAssetsPath() / "Maze2.txt").string());
-	window.SetViewsize(level.GetMaze()->GetViewsize());
-
-	UI ui(&renderer);
-	ui.Init();
-
-	Clock clock;
-	while (!window.ShouldClose())
+	catch (const std::exception& e)
 	{
-		window.PollEvents();
-
-		float timestep = clock.Mark();
-
-		FrameDesc frameDesc;
-		frameDesc.clearcolor[0] = 0.0f;
-		frameDesc.clearcolor[1] = 0.0f;
-		frameDesc.clearcolor[2] = 0.0f;
-		frameDesc.clearcolor[3] = 1.0f;
-
-		renderer.BeginFrame(frameDesc);
-		renderer.SetViewport(Vec2(0.1f, 0.0f), Vec2(0.9f, 0.8f));
-		level.OnUpdate(timestep);
-
-		renderer.SetViewport(Vec2(0.1f, 0.8f), Vec2(0.9f, 1.0f));
-		ui.SetLevelInfo({ level.GetPlayer()->GetCollectedCoins(), level.GetOverallCoinsNumber(), level.GetPlayer()->GetHealth()});
-		ui.OnUpdate(timestep);
-
-		renderer.EndFrame();
+		LOG("Standard Exception: {}", e.what());
 	}
-
-	AudioManager::Deinit(); // Deinitialize the AudioManager
+	catch (...)
+	{
+		LOG("Unknown Exception: No details available");
+	}
 }

@@ -2,10 +2,10 @@
 
 #include <chrono>
 
-class Clock
+class Timer
 {
 public:
-	Clock() noexcept;
+	Timer() noexcept;
 	float Mark() noexcept;
 	float Peek() noexcept;
 
