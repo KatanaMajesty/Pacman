@@ -1,6 +1,4 @@
-#include "AnimationManager.h"
-
-#include "../Utility/Logger.h"
+#include "pch.h"
 
 AnimationManager& AnimationManager::Get()
 {

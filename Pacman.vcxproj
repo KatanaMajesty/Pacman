@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\Keyboard.h" />
+    <ClInclude Include="src\Core\App.h" />
+    <ClInclude Include="src\PCH\pch.h" />
     <ClInclude Include="src\Utility\RandomGenerator.h" />
     <ClInclude Include="src\Game\Pathfinder.h" />
     <ClInclude Include="src\UI\TextComponent.h" />
@@ -41,7 +44,7 @@
     <ClInclude Include="src\Game\PlayerController.h" />
     <ClInclude Include="src\Game\Tile.h" />
     <ClInclude Include="src\UI\TextManager.h" />
-    <ClInclude Include="src\Utility\Clock.h" />
+    <ClInclude Include="src\Utility\Timer.h" />
     <ClInclude Include="src\Utility\FileSystem.h" />
     <ClInclude Include="src\Utility\Logger.h" />
     <ClInclude Include="src\Utility\Math.h" />
@@ -143,6 +146,12 @@
     <None Include="vendor\SFML\include\SFML\System\Vector3.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\Keyboard.cpp" />
+    <ClCompile Include="src\Core\App.cpp" />
+    <ClCompile Include="src\PCH\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="src\Utility\RandomGenerator.cpp" />
     <ClCompile Include="src\Audio\AudioManager.cpp" />
     <ClCompile Include="src\Core\Renderer.cpp" />
@@ -165,8 +174,11 @@
     <ClCompile Include="src\Pacman.cpp" />
     <ClCompile Include="src\UI\TextComponent.cpp" />
     <ClCompile Include="src\UI\TextManager.cpp" />
-    <ClCompile Include="src\Utility\Clock.cpp" />
-    <ClCompile Include="src\Utility\FileSystem.cpp" />
+    <ClCompile Include="src\Utility\Timer.cpp" />
+    <ClCompile Include="src\Utility\FileSystem.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="src\Utility\Math.cpp" />
     <ClCompile Include="src\UI\UI.cpp" />
   </ItemGroup>
@@ -256,9 +268,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\vendor\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\vendor\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir);$(SolutionDir)\src\PCH</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -279,9 +291,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\vendor\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\vendor\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir);$(SolutionDir)\src\PCH</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>

@@ -5,7 +5,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 
-#include "../Utility/EventBus.h"
+#include "Keyboard.h"
 
 class Window
 {
@@ -16,6 +16,7 @@ public:
 	bool Open();
 	bool Close();
 	void PollEvents();
+	void PollInput();
 	bool ShouldClose() const;
 	void SetViewport(float left, float top, float bottom, float right);
 	void SetViewsize(float viewsize);
@@ -27,6 +28,8 @@ public:
 
 	void* GetHandle() { return m_window.get(); }
 
+public:
+	Keyboard m_keyboard;
 private:
 	float m_viewsize = 0.0f;	
 	uint32_t m_width;
@@ -34,16 +37,4 @@ private:
 	std::string m_title;
 	std::unique_ptr<sf::RenderWindow> m_window;
 	sf::View m_view;
-};
-
-struct WindowResizedEvent
-	: Event
-{
-	Window* window;
-	uint32_t width;
-	uint32_t height;
-	float viewsize;
-
-	WindowResizedEvent(Window* windowHandle, uint32_t uWidth, uint32_t uHeight, float fViewsize)
-		: window(windowHandle), width(uWidth), height(uHeight), viewsize(fViewsize) {}
 };

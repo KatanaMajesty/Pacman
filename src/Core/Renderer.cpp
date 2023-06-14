@@ -1,7 +1,5 @@
-#include "Renderer.h"
-
+#include "pch.h"
 #include <SFML/Graphics.hpp>
-#include "../Utility/Logger.h"
 
 bool Renderer::Init(Window* window)
 {

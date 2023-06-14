@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "Entity.h"
-
-#include <algorithm>
 
 Entity::Entity(const Vec2& pos, const BoundingBox& boundingBox)
     : m_boundingBox(boundingBox)
@@ -11,6 +10,11 @@ Entity::Entity(const Vec2& pos, const BoundingBox& boundingBox)
 bool Entity::Collide(const Entity* otherEntity) const
 {
     return m_boundingBox.Collide(otherEntity->GetAABB());
+}
+
+Direction Entity::GetCollisionDirection(const Entity* otherEntity) const
+{
+	return m_boundingBox.GetCollisionDirection(otherEntity->GetAABB());
 }
 
 EntityFactory::~EntityFactory()
@@ -26,7 +30,7 @@ EntityFactory::~EntityFactory()
 void EntityFactory::DestroyEntity(Entity* entity)
 {
 	EntityType type = entity->GetType();
-	if (type == ENTITY_UNKNOWN)
+	if (type == EntityType::ENTITY_UNKNOWN)
 		return;
 
 	auto& typeVec = m_entities[type];

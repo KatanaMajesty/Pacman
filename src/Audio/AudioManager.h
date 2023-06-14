@@ -7,7 +7,7 @@
 #include "../Utility/FileSystem.h"
 #include <SFML/Audio.hpp>
 
-enum AudioType // Changed to enum class for stronger typing
+enum class AudioType
 {
     AUDIO_AMBIENCE,
     AUDIO_COIN_COLLECT,

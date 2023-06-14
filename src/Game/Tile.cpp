@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "Tile.h"
-
-#include "TextureAtlas.h"
 
 Tile::Tile(const Vec2& pos, const BoundingBox& boundingBox, TextureType type, bool isCollider)
 	: Entity(pos, boundingBox)
@@ -14,7 +13,7 @@ Tile::Tile(const Vec2& pos, const BoundingBox& boundingBox, TextureType type, bo
 void Tile::OnEntityCollision(Entity* entity)
 {
 	EntityType type = entity->GetType();
-	if (type != ENTITY_PLAYER && type != ENTITY_ENEMY)
+	if (type != EntityType::ENTITY_PLAYER && type != EntityType::ENTITY_ENEMY)
 		return;
 
 	entity->CanMove() = false;

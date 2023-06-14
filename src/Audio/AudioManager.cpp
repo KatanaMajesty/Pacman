@@ -1,8 +1,4 @@
-#include "AudioManager.h"
-
-#include <mutex>
-#include "../Utility/FileSystem.h"
-#include "../Utility/Logger.h"
+#include "pch.h"
 
 std::mutex g_soundMutex;
 
@@ -38,14 +34,14 @@ bool AudioManager::Init()
         Deinit();
 
     s_instance = new AudioManager();
-    s_instance->LoadSound(AUDIO_AMBIENCE, "ambience.wav");
-    s_instance->LoadSound(AUDIO_COIN_COLLECT, "coin_collect.wav");
-    s_instance->LoadSound(AUDIO_ENEMY_DAMAGE, "enemy_death.wav");
-    s_instance->LoadSound(AUDIO_FIGHT, "fight.wav");
-    s_instance->LoadSound(AUDIO_LEVEL_COMPLATED, "level_complated.wav");
-    s_instance->LoadSound(AUDIO_LEVEL_FAILED, "level_failed.wav");
-    s_instance->LoadSound(AUDIO_PLAYER_DEATH, "player_death.wav");
-    s_instance->LoadSound(AUDIO_DUBSTEP, "far_cry_dubstep.wav");
+    s_instance->LoadSound(AudioType::AUDIO_AMBIENCE, "ambience.wav");
+    s_instance->LoadSound(AudioType::AUDIO_COIN_COLLECT, "coin_collect.wav");
+    s_instance->LoadSound(AudioType::AUDIO_ENEMY_DAMAGE, "enemy_death.wav");
+    s_instance->LoadSound(AudioType::AUDIO_FIGHT, "fight.wav");
+    s_instance->LoadSound(AudioType::AUDIO_LEVEL_COMPLATED, "level_complated.wav");
+    s_instance->LoadSound(AudioType::AUDIO_LEVEL_FAILED, "level_failed.wav");
+    s_instance->LoadSound(AudioType::AUDIO_PLAYER_DEATH, "player_death.wav");
+    s_instance->LoadSound(AudioType::AUDIO_DUBSTEP, "far_cry_dubstep.wav");
     return true;
 }
 

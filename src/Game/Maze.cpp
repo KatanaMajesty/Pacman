@@ -1,11 +1,5 @@
+#include "pch.h"
 #include "Maze.h"
-
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <cstdlib>
-#include "TextureAtlas.h"
-#include "../Utility/Logger.h"
 
 Maze::Maze(EntityFactory* entityFactory, Renderer* renderer)
     : m_entityFactory(entityFactory)
@@ -97,7 +91,7 @@ void Maze::ParseMazeImage(const std::string& filepath)
             Vec2 pos = this->GetPosition(x, y);
             size_t index = x + m_width * y;
             bool isWall = mazeString[index] == '0';
-            uint32_t i = std::rand() % 3;
+            uint32_t i = RandomGenerator::GenerateNumber(0, 2);
             TextureType type = isWall ? TextureType(TEXTURE_DUNGEON_WALL1 + i) : TextureType(TEXTURE_DUNGEON_TILE2 + i);
             Tile* tile = m_entityFactory->RegisterEntity<Tile>(pos, BoundingBox(pos, static_cast<float>(m_textureWidth), static_cast<float>(m_textureHeight)), type, isWall);
             m_grid[x][y] = tile;

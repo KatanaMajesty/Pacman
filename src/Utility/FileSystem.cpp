@@ -1,7 +1,8 @@
-#include "FileSystem.h"
+#include "pch.h"
 
-#include <filesystem>
-#include <Windows.h>	
+#define WIN32_LEAN_AND_MEAN
+#define	NOMINMAX
+#include <Windows.h>
 
 FileSystem::FileSystem()
 {

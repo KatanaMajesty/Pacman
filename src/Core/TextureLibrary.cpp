@@ -1,6 +1,4 @@
-#include "TextureLibrary.h"
-
-#include "../Utility/Logger.h"
+#include "pch.h"
 
 TextureLibrary& TextureLibrary::Get()
 {

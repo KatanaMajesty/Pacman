@@ -1,9 +1,4 @@
-#include "TextureAtlas.h"
-
-#include <array>
-#include "../Core/TextureLibrary.h"
-#include "../Utility/FileSystem.h"
-#include "../Utility/Logger.h"
+#include "pch.h"
 
 // Define a map to store the top and left positions of textures in the atlas
 static constexpr std::array g_atlasPositions = {

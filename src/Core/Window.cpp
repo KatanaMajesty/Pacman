@@ -1,6 +1,4 @@
-#include "Window.h"
-
-#include "../Utility/Logger.h"
+#include "pch.h"
 
 Window::Window(uint32_t width, uint32_t height, const std::string& title)
 	: m_width(width)
@@ -53,24 +51,48 @@ void Window::PollEvents()
 	sf::Event event;
 	while (m_window->pollEvent(event))
 	{
-		// "close requested" event: we close the window
-		if (event.type == sf::Event::Closed)
+		switch (event.type)
+		{
+		case sf::Event::Closed:
 			m_window->close();
-
-		// catch the resize events
-		if (event.type == sf::Event::Resized)
+			return;
+		case sf::Event::Resized:
 		{
 			m_width = static_cast<uint32_t>(event.size.width);
 			m_height = static_cast<uint32_t>(event.size.height);
-			EventBus::Get().Publish(WindowResizedEvent(this, m_width, m_height, m_viewsize));
 
 			float zoom = m_viewsize / std::min(m_width, m_height);
 			float scaledWidth = m_width * zoom;
 			float scaledHeight = m_height * zoom;
 			m_view.setSize(scaledWidth, scaledHeight);
 			m_window->setView(m_view);
+			break;
+		}
+		default:
+			break;
 		}
 	}
+}
+
+void Window::PollInput()
+{
+	if (!m_window)
+		return;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		m_keyboard.OnKeyPressed(sf::Keyboard::W);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		m_keyboard.OnKeyPressed(sf::Keyboard::A);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		m_keyboard.OnKeyPressed(sf::Keyboard::S);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		m_keyboard.OnKeyPressed(sf::Keyboard::D);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		m_keyboard.OnKeyPressed(sf::Keyboard::Escape);
 }
 
 bool Window::ShouldClose() const

@@ -18,20 +18,24 @@ public:
     virtual void OnUpdate(float timestep) override;
     
     virtual void OnEntityCollision(Entity* entity) override;
-    virtual EntityType GetType() const { return ENTITY_PLAYER; }
-    virtual Sprite* GetSprite() override { return m_activeSprite; }
     void OnCoinPickup();
     void OnWeaponPickup();
     void OnEnemyInteract();
     void OnTileCollision();
-    void SetHealth(uint32_t val) { m_health = val; }
-    void SetDirection(Direction direction);
+
+    inline void DealDamage() { if (GetHealth() > 0) --m_health; }
+    inline bool IsImmune() const { return m_timeSinceDamageDealt < 4.0f; }
+
+    inline void SetHealth(uint32_t val) { m_health = val; }
+    inline void SetDirection(Direction direction) { m_direction = direction; }
+    inline void SetCollisionDirection(Direction direction) { m_collisionDirection = direction; }
+
+    inline Direction GetDirection() const { return m_direction; }
+    virtual EntityType GetType() const { return EntityType::ENTITY_PLAYER; }
+    virtual Sprite* GetSprite() override { return m_activeSprite; }
     uint32_t GetCollectedCoins() const { return m_collectedCoins; }
     uint32_t GetHealth() const { return m_health; }
-    void DealDamage() { if (GetHealth() > 0) --m_health; }
-    bool IsImmune() const { return m_timeSinceDamageDealt < 4.0f; }
     const Vec2& GetCenterPos() const { return m_playerPos; }
-
 private:
     Vec2 m_playerPos;
     bool m_hasWeapon = false;
@@ -44,4 +48,5 @@ private:
     Sprite m_sprites[4]; // Sprite for each direction
     Sprite m_damageSprites[4];
     Direction m_direction;
+    Direction m_collisionDirection;
 };

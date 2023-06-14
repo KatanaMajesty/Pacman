@@ -1,4 +1,4 @@
-#include "TextComponent.h"
+#include "pch.h"
 
 bool TextComponent::Init(const std::string& str, uint32_t size, const Vec2& pos, sf::Font* font)
 {
