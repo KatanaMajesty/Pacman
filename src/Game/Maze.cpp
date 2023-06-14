@@ -92,7 +92,7 @@ void Maze::ParseMazeImage(const std::string& filepath)
             size_t index = x + m_width * y;
             bool isWall = mazeString[index] == '0';
             uint32_t i = RandomGenerator::GenerateNumber(0, 2);
-            TextureType type = isWall ? TextureType(TEXTURE_DUNGEON_WALL1 + i) : TEXTURE_DUNGEON_TILE;
+            TextureType type = isWall ? TextureType(TEXTURE_DUNGEON_WALL1 + i) : TextureType(TEXTURE_DUNGEON_TILE2 + i);
             Tile* tile = m_entityFactory->RegisterEntity<Tile>(pos, BoundingBox(pos, static_cast<float>(m_textureWidth), static_cast<float>(m_textureHeight)), type, isWall);
             m_grid[x][y] = tile;
         }
